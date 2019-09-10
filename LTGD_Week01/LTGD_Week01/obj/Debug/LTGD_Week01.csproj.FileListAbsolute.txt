@@ -1,0 +1,9 @@
+C:\Users\MiAn\Documents\GitHub\LTGiaoDien\LTGiaoDien\LTGD_Week01\LTGD_Week01\bin\Debug\LTGD_Week01.exe.config
+C:\Users\MiAn\Documents\GitHub\LTGiaoDien\LTGiaoDien\LTGD_Week01\LTGD_Week01\bin\Debug\LTGD_Week01.exe
+C:\Users\MiAn\Documents\GitHub\LTGiaoDien\LTGiaoDien\LTGD_Week01\LTGD_Week01\bin\Debug\LTGD_Week01.pdb
+C:\Users\MiAn\Documents\GitHub\LTGiaoDien\LTGiaoDien\LTGD_Week01\LTGD_Week01\obj\Debug\LTGD_Week01.Form1.resources
+C:\Users\MiAn\Documents\GitHub\LTGiaoDien\LTGiaoDien\LTGD_Week01\LTGD_Week01\obj\Debug\LTGD_Week01.Properties.Resources.resources
+C:\Users\MiAn\Documents\GitHub\LTGiaoDien\LTGiaoDien\LTGD_Week01\LTGD_Week01\obj\Debug\LTGD_Week01.csproj.GenerateResource.cache
+C:\Users\MiAn\Documents\GitHub\LTGiaoDien\LTGiaoDien\LTGD_Week01\LTGD_Week01\obj\Debug\LTGD_Week01.csproj.CoreCompileInputs.cache
+C:\Users\MiAn\Documents\GitHub\LTGiaoDien\LTGiaoDien\LTGD_Week01\LTGD_Week01\obj\Debug\LTGD_Week01.exe
+C:\Users\MiAn\Documents\GitHub\LTGiaoDien\LTGiaoDien\LTGD_Week01\LTGD_Week01\obj\Debug\LTGD_Week01.pdb
