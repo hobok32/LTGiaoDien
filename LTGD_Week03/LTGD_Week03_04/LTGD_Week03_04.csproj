@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{39AA94FC-9DB1-436A-9D39-FB2605D0F2F8}</ProjectGuid>
+    <ProjectGuid>{A315936F-0D75-4AFE-9260-61DE281EF990}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>LTGD_Week03_02</RootNamespace>
-    <AssemblyName>LTGD_Week03_02</AssemblyName>
+    <RootNamespace>LTGD_Week03_04</RootNamespace>
+    <AssemblyName>LTGD_Week03_04</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -80,10 +80,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Picture\italian.jpg" />
-    <Content Include="Picture\philip.jpg" />
-    <Content Include="Picture\usa.png" />
-    <Content Include="Picture\vn.png" />
+    <Content Include="cheese.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
