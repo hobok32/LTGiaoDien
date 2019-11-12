@@ -65,5 +65,26 @@ namespace LTGD_ThuyetTrinh
             List<ProductLocal> proslocal = FromDBToLocal(products);
             return proslocal;
         }
+
+        //Lấy tất cả sản phẩm
+        public List<Category> SelectAllCategory()
+        {
+            List<Category> cats = new List<Category>();
+            MySqlConnection con = new MySqlConnection(strCon);
+            con.Open();
+            string strCmd = "SELECT * FROM Category";
+            MySqlCommand cmd = new MySqlCommand(strCmd, con);
+            MySqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                Category cat = new Category();
+                cat.IdCat = (int)dr["idCat"];
+                cat.NameCat = (string)dr["nameCat"];
+                cat.ImgCat = (string)dr["imgCat"];
+                cats.Add(cat);
+            }
+            con.Close();
+            return cats;
+        }
     }
 }

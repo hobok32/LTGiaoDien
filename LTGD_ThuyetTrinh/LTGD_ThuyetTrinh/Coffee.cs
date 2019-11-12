@@ -30,4 +30,10 @@ namespace LTGD_ThuyetTrinh
         public string DescriptionProduct { set; get; }
         public string ImgProduct { set; get; }
     }
+    public class Category
+    {
+        public int IdCat { set; get; }
+        public string NameCat { set; get; }
+        public string ImgCat { set; get; }
+    }
 }

@@ -33,6 +33,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.idSpDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameSpDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chiTietDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.ten = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -67,15 +71,13 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.OK = new System.Windows.Forms.Button();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.idSpDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameSpDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chiTietDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -108,6 +110,28 @@
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(384, 221);
             this.dataGridView2.TabIndex = 1;
+            // 
+            // idSpDataGridViewTextBoxColumn
+            // 
+            this.idSpDataGridViewTextBoxColumn.DataPropertyName = "IdSp";
+            this.idSpDataGridViewTextBoxColumn.HeaderText = "ID";
+            this.idSpDataGridViewTextBoxColumn.Name = "idSpDataGridViewTextBoxColumn";
+            // 
+            // nameSpDataGridViewTextBoxColumn
+            // 
+            this.nameSpDataGridViewTextBoxColumn.DataPropertyName = "NameSp";
+            this.nameSpDataGridViewTextBoxColumn.HeaderText = "Tên";
+            this.nameSpDataGridViewTextBoxColumn.Name = "nameSpDataGridViewTextBoxColumn";
+            // 
+            // chiTietDataGridViewTextBoxColumn
+            // 
+            this.chiTietDataGridViewTextBoxColumn.DataPropertyName = "ChiTiet";
+            this.chiTietDataGridViewTextBoxColumn.HeaderText = "Mô tả";
+            this.chiTietDataGridViewTextBoxColumn.Name = "chiTietDataGridViewTextBoxColumn";
+            // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataSource = typeof(LTGD_ThuyetTrinh.SanPham);
             // 
             // label1
             // 
@@ -180,14 +204,14 @@
             this.bindingNavigatorAddNewItem,
             this.bindingNavigatorDeleteItem,
             this.save});
-            this.bindingNavigator1.Location = new System.Drawing.Point(0, 560);
+            this.bindingNavigator1.Location = new System.Drawing.Point(0, 669);
             this.bindingNavigator1.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
             this.bindingNavigator1.MoveLastItem = this.bindingNavigatorMoveLastItem;
             this.bindingNavigator1.MoveNextItem = this.bindingNavigatorMoveNextItem;
             this.bindingNavigator1.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.bindingNavigator1.Name = "bindingNavigator1";
             this.bindingNavigator1.PositionItem = this.bindingNavigatorPositionItem;
-            this.bindingNavigator1.Size = new System.Drawing.Size(910, 25);
+            this.bindingNavigator1.Size = new System.Drawing.Size(903, 25);
             this.bindingNavigator1.TabIndex = 8;
             this.bindingNavigator1.Text = "bindingNavigator1";
             // 
@@ -419,33 +443,20 @@
             this.OK.UseVisualStyleBackColor = true;
             this.OK.Click += new System.EventHandler(this.OK_Click);
             // 
-            // bindingSource1
+            // dataGridView3
             // 
-            this.bindingSource1.DataSource = typeof(LTGD_ThuyetTrinh.SanPham);
-            // 
-            // idSpDataGridViewTextBoxColumn
-            // 
-            this.idSpDataGridViewTextBoxColumn.DataPropertyName = "IdSp";
-            this.idSpDataGridViewTextBoxColumn.HeaderText = "ID";
-            this.idSpDataGridViewTextBoxColumn.Name = "idSpDataGridViewTextBoxColumn";
-            // 
-            // nameSpDataGridViewTextBoxColumn
-            // 
-            this.nameSpDataGridViewTextBoxColumn.DataPropertyName = "NameSp";
-            this.nameSpDataGridViewTextBoxColumn.HeaderText = "Tên";
-            this.nameSpDataGridViewTextBoxColumn.Name = "nameSpDataGridViewTextBoxColumn";
-            // 
-            // chiTietDataGridViewTextBoxColumn
-            // 
-            this.chiTietDataGridViewTextBoxColumn.DataPropertyName = "ChiTiet";
-            this.chiTietDataGridViewTextBoxColumn.HeaderText = "Mô tả";
-            this.chiTietDataGridViewTextBoxColumn.Name = "chiTietDataGridViewTextBoxColumn";
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Location = new System.Drawing.Point(402, 474);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.Size = new System.Drawing.Size(496, 192);
+            this.dataGridView3.TabIndex = 22;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(910, 585);
+            this.ClientSize = new System.Drawing.Size(903, 694);
+            this.Controls.Add(this.dataGridView3);
             this.Controls.Add(this.OK);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.comboBox1);
@@ -471,10 +482,11 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).EndInit();
             this.bindingNavigator1.ResumeLayout(false);
             this.bindingNavigator1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -522,6 +534,7 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button OK;
+        private System.Windows.Forms.DataGridView dataGridView3;
     }
 }
 

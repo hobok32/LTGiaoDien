@@ -14,8 +14,10 @@ namespace LTGD_ThuyetTrinh
     public partial class Form1 : Form
     {
         bool active = false;
+        List<ProductLocal> pros3 = new List<ProductLocal>();
         LTWdemo2Entities2 db = new LTWdemo2Entities2();
         List<ProductLocal> pros = new DAO().SelectAllProduct();
+        List<Category> cats = new DAO().SelectAllCategory();
         public Form1()
         {
             InitializeComponent();
@@ -31,7 +33,7 @@ namespace LTGD_ThuyetTrinh
             CreateImageList(imageList1, pros);
             LoadListView(pros);
             LoadTreeView(pros);
-            LoadComboBox();
+            LoadComboBox(cats);
         }
 
         void CreateImageList(ImageList imgList, List<ProductLocal> pros)
@@ -55,8 +57,29 @@ namespace LTGD_ThuyetTrinh
             else
             {
                 OK.Enabled = false;
+                dataGridView3.DataSource = null;
+                dataGridView3.DataSource = LoadGridView(pros, comboBox1.SelectedIndex);
                 LoadListBox(pros, comboBox1.SelectedIndex);
             }
+        }
+
+        List<ProductLocal> LoadGridView (List<ProductLocal> pros, int index)
+        {
+            pros3.Clear();
+            for (int i = 0; i < pros.Count(); i++)
+            {
+                if (pros[i].IdCat == index + 1)
+                {
+                    ProductLocal pro = new ProductLocal();
+                    pro.IdProduct = pros[i].IdProduct;
+                    pro.IdCat = pros[i].IdCat;
+                    pro.NameProduct = pros[i].NameProduct;
+                    pro.ImgProduct = pros[i].ImgProduct;
+                    pro.DescriptionProduct = pros[i].DescriptionProduct;
+                    pros3.Add(pro);
+                }
+            }
+            return pros3;
         }
 
         void LoadListBox(List<ProductLocal> pros, int index)
@@ -71,16 +94,12 @@ namespace LTGD_ThuyetTrinh
             OK.Enabled = true;
         }
 
-        void LoadComboBox()
+        void LoadComboBox(List<Category> cats)
         {
-            comboBox1.Items.Add("Cà phê");
-            comboBox1.Items.Add("Đá Xay");
-            comboBox1.Items.Add("Trà trái cây");
-            comboBox1.Items.Add("Sinh tố");
-            comboBox1.Items.Add("Macchiato");
-            comboBox1.Items.Add("Khác");
-            comboBox1.Items.Add("Topping");
-            comboBox1.Items.Add("Snack");
+            for (int i = 0; i < cats.Count(); i++)
+            {
+                comboBox1.Items.Add(cats[i].NameCat);
+            }
         }
 
         void LoadListView(List<ProductLocal> pros)
