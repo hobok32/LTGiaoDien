@@ -57,8 +57,6 @@ namespace LTGD_ThuyetTrinh
             else
             {
                 OK.Enabled = false;
-                dataGridView3.DataSource = null;
-                dataGridView3.DataSource = LoadGridView(pros, comboBox1.SelectedIndex);
                 LoadListBox(pros, comboBox1.SelectedIndex);
             }
         }
@@ -166,5 +164,17 @@ namespace LTGD_ThuyetTrinh
                 active = true;
             return;
         }
+
+        //private void dataGridView3_CellClick(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    if (dataGridView3.SelectedRows.Count > 0)
+        //    {
+        //        idPro.Text = dataGridView3.SelectedRows[0].Cells["IdProduct"].Value.ToString();
+        //        idCat.Text = dataGridView3.SelectedRows[0].Cells["IdCat"].Value.ToString();
+        //        namePro.Text = dataGridView3.SelectedRows[0].Cells["NameProduct"].Value.ToString();
+        //        desPro.Text = dataGridView3.SelectedRows[0].Cells["DescriptionProduct"].Value.ToString();
+        //        imgPro.Text = dataGridView3.SelectedRows[0].Cells["ImgProduct"].Value.ToString();
+        //    }
+        //}
     }
 }

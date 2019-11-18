@@ -1,0 +1,348 @@
+﻿namespace LTGD_Project
+{
+    partial class formTable
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.sảnPhẩmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tàiKhoảnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chiTiếtTàiKhoảnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.listViewBill = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.comboBoxSwitchTable = new System.Windows.Forms.ComboBox();
+            this.switchTableBtn = new System.Windows.Forms.Button();
+            this.discountCount = new System.Windows.Forms.NumericUpDown();
+            this.discountBtn = new System.Windows.Forms.Button();
+            this.chargeBtn = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.productCount = new System.Windows.Forms.NumericUpDown();
+            this.addBtn = new System.Windows.Forms.Button();
+            this.comboBoxProduct = new System.Windows.Forms.ComboBox();
+            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
+            this.flowLayoutPanelTable = new System.Windows.Forms.FlowLayoutPanel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.menuStrip1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.discountCount)).BeginInit();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.productCount)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sảnPhẩmToolStripMenuItem,
+            this.tàiKhoảnToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(908, 24);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // sảnPhẩmToolStripMenuItem
+            // 
+            this.sảnPhẩmToolStripMenuItem.Name = "sảnPhẩmToolStripMenuItem";
+            this.sảnPhẩmToolStripMenuItem.Size = new System.Drawing.Size(115, 20);
+            this.sảnPhẩmToolStripMenuItem.Text = "Quản lý sản phẩm";
+            this.sảnPhẩmToolStripMenuItem.Click += new System.EventHandler(this.sảnPhẩmToolStripMenuItem_Click);
+            // 
+            // tàiKhoảnToolStripMenuItem
+            // 
+            this.tàiKhoảnToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.chiTiếtTàiKhoảnToolStripMenuItem,
+            this.đăngXuấtToolStripMenuItem});
+            this.tàiKhoảnToolStripMenuItem.Name = "tàiKhoảnToolStripMenuItem";
+            this.tàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.tàiKhoảnToolStripMenuItem.Text = "Tài khoản";
+            // 
+            // chiTiếtTàiKhoảnToolStripMenuItem
+            // 
+            this.chiTiếtTàiKhoảnToolStripMenuItem.Name = "chiTiếtTàiKhoảnToolStripMenuItem";
+            this.chiTiếtTàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.chiTiếtTàiKhoảnToolStripMenuItem.Text = "Chi tiết tài khoản";
+            this.chiTiếtTàiKhoảnToolStripMenuItem.Click += new System.EventHandler(this.chiTiếtTàiKhoảnToolStripMenuItem_Click);
+            // 
+            // đăngXuấtToolStripMenuItem
+            // 
+            this.đăngXuấtToolStripMenuItem.Name = "đăngXuấtToolStripMenuItem";
+            this.đăngXuấtToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.đăngXuấtToolStripMenuItem.Text = "Đăng xuất";
+            this.đăngXuấtToolStripMenuItem.Click += new System.EventHandler(this.đăngXuấtToolStripMenuItem_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.listViewBill);
+            this.panel2.Location = new System.Drawing.Point(452, 84);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(444, 354);
+            this.panel2.TabIndex = 2;
+            // 
+            // listViewBill
+            // 
+            this.listViewBill.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
+            this.listViewBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.listViewBill.FullRowSelect = true;
+            this.listViewBill.GridLines = true;
+            this.listViewBill.HideSelection = false;
+            this.listViewBill.Location = new System.Drawing.Point(0, 3);
+            this.listViewBill.Name = "listViewBill";
+            this.listViewBill.Size = new System.Drawing.Size(438, 348);
+            this.listViewBill.TabIndex = 0;
+            this.listViewBill.UseCompatibleStateImageBehavior = false;
+            this.listViewBill.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Tên món";
+            this.columnHeader1.Width = 144;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Giá";
+            this.columnHeader2.Width = 102;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Số lượng";
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Tổng tiền";
+            this.columnHeader4.Width = 124;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.comboBoxSwitchTable);
+            this.panel3.Controls.Add(this.switchTableBtn);
+            this.panel3.Controls.Add(this.discountCount);
+            this.panel3.Controls.Add(this.discountBtn);
+            this.panel3.Controls.Add(this.chargeBtn);
+            this.panel3.Location = new System.Drawing.Point(452, 444);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(444, 130);
+            this.panel3.TabIndex = 3;
+            // 
+            // comboBoxSwitchTable
+            // 
+            this.comboBoxSwitchTable.FormattingEnabled = true;
+            this.comboBoxSwitchTable.Location = new System.Drawing.Point(150, 83);
+            this.comboBoxSwitchTable.Name = "comboBoxSwitchTable";
+            this.comboBoxSwitchTable.Size = new System.Drawing.Size(92, 21);
+            this.comboBoxSwitchTable.TabIndex = 5;
+            // 
+            // switchTableBtn
+            // 
+            this.switchTableBtn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.switchTableBtn.Location = new System.Drawing.Point(150, 29);
+            this.switchTableBtn.Name = "switchTableBtn";
+            this.switchTableBtn.Size = new System.Drawing.Size(92, 49);
+            this.switchTableBtn.TabIndex = 7;
+            this.switchTableBtn.Text = "CHUYỂN BÀN";
+            this.switchTableBtn.UseVisualStyleBackColor = true;
+            // 
+            // discountCount
+            // 
+            this.discountCount.Location = new System.Drawing.Point(248, 84);
+            this.discountCount.Name = "discountCount";
+            this.discountCount.Size = new System.Drawing.Size(92, 20);
+            this.discountCount.TabIndex = 6;
+            this.discountCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.discountCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // discountBtn
+            // 
+            this.discountBtn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.discountBtn.Location = new System.Drawing.Point(248, 29);
+            this.discountBtn.Name = "discountBtn";
+            this.discountBtn.Size = new System.Drawing.Size(92, 49);
+            this.discountBtn.TabIndex = 5;
+            this.discountBtn.Text = "GIẢM GIÁ";
+            this.discountBtn.UseVisualStyleBackColor = true;
+            // 
+            // chargeBtn
+            // 
+            this.chargeBtn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.chargeBtn.Location = new System.Drawing.Point(346, 29);
+            this.chargeBtn.Name = "chargeBtn";
+            this.chargeBtn.Size = new System.Drawing.Size(92, 75);
+            this.chargeBtn.TabIndex = 4;
+            this.chargeBtn.Text = "THANH TOÁN";
+            this.chargeBtn.UseVisualStyleBackColor = true;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.productCount);
+            this.panel4.Controls.Add(this.addBtn);
+            this.panel4.Controls.Add(this.comboBoxProduct);
+            this.panel4.Controls.Add(this.comboBoxCategory);
+            this.panel4.Location = new System.Drawing.Point(452, 27);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(444, 52);
+            this.panel4.TabIndex = 4;
+            // 
+            // productCount
+            // 
+            this.productCount.Location = new System.Drawing.Point(359, 19);
+            this.productCount.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.productCount.Name = "productCount";
+            this.productCount.Size = new System.Drawing.Size(63, 20);
+            this.productCount.TabIndex = 4;
+            this.productCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // addBtn
+            // 
+            this.addBtn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.addBtn.Location = new System.Drawing.Point(261, 3);
+            this.addBtn.Name = "addBtn";
+            this.addBtn.Size = new System.Drawing.Size(92, 49);
+            this.addBtn.TabIndex = 3;
+            this.addBtn.Text = "THÊM";
+            this.addBtn.UseVisualStyleBackColor = true;
+            this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
+            // 
+            // comboBoxProduct
+            // 
+            this.comboBoxProduct.FormattingEnabled = true;
+            this.comboBoxProduct.Location = new System.Drawing.Point(3, 30);
+            this.comboBoxProduct.Name = "comboBoxProduct";
+            this.comboBoxProduct.Size = new System.Drawing.Size(252, 21);
+            this.comboBoxProduct.TabIndex = 1;
+            // 
+            // comboBoxCategory
+            // 
+            this.comboBoxCategory.FormattingEnabled = true;
+            this.comboBoxCategory.Location = new System.Drawing.Point(3, 3);
+            this.comboBoxCategory.Name = "comboBoxCategory";
+            this.comboBoxCategory.Size = new System.Drawing.Size(252, 21);
+            this.comboBoxCategory.TabIndex = 0;
+            // 
+            // flowLayoutPanelTable
+            // 
+            this.flowLayoutPanelTable.Location = new System.Drawing.Point(12, 27);
+            this.flowLayoutPanelTable.Name = "flowLayoutPanelTable";
+            this.flowLayoutPanelTable.Size = new System.Drawing.Size(434, 547);
+            this.flowLayoutPanelTable.TabIndex = 5;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(248, 3);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(190, 20);
+            this.textBox1.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label1.Location = new System.Drawing.Point(162, 2);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 19);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Thành tiền";
+            // 
+            // formTable
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(908, 586);
+            this.Controls.Add(this.flowLayoutPanelTable);
+            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
+            this.Name = "formTable";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Quản lý cafe";
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.discountCount)).EndInit();
+            this.panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.productCount)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem sảnPhẩmToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tàiKhoảnToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem chiTiếtTàiKhoảnToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem đăngXuấtToolStripMenuItem;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ListView listViewBill;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Button addBtn;
+        private System.Windows.Forms.ComboBox comboBoxProduct;
+        private System.Windows.Forms.ComboBox comboBoxCategory;
+        private System.Windows.Forms.NumericUpDown productCount;
+        private System.Windows.Forms.ComboBox comboBoxSwitchTable;
+        private System.Windows.Forms.Button switchTableBtn;
+        private System.Windows.Forms.NumericUpDown discountCount;
+        private System.Windows.Forms.Button discountBtn;
+        private System.Windows.Forms.Button chargeBtn;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelTable;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox1;
+    }
+}
