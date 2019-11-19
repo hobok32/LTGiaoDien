@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formTable));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.sảnPhẩmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tàiKhoảnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,8 +40,10 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.totalPriceTxt = new System.Windows.Forms.TextBox();
             this.comboBoxSwitchTable = new System.Windows.Forms.ComboBox();
             this.switchTableBtn = new System.Windows.Forms.Button();
             this.discountCount = new System.Windows.Forms.NumericUpDown();
@@ -51,8 +55,8 @@
             this.comboBoxProduct = new System.Windows.Forms.ComboBox();
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanelTable = new System.Windows.Forms.FlowLayoutPanel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -116,7 +120,8 @@
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader5});
             this.listViewBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.listViewBill.FullRowSelect = true;
             this.listViewBill.GridLines = true;
@@ -131,26 +136,27 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Tên món";
-            this.columnHeader1.Width = 144;
+            this.columnHeader1.Width = 125;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Giá";
-            this.columnHeader2.Width = 102;
+            this.columnHeader2.Width = 58;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Số lượng";
+            this.columnHeader3.Width = 59;
             // 
-            // columnHeader4
+            // columnHeader5
             // 
-            this.columnHeader4.Text = "Tổng tiền";
-            this.columnHeader4.Width = 124;
+            this.columnHeader5.Text = "Tổng tiền";
+            this.columnHeader5.Width = 99;
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.label1);
-            this.panel3.Controls.Add(this.textBox1);
+            this.panel3.Controls.Add(this.totalPriceTxt);
             this.panel3.Controls.Add(this.comboBoxSwitchTable);
             this.panel3.Controls.Add(this.switchTableBtn);
             this.panel3.Controls.Add(this.discountCount);
@@ -160,6 +166,27 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(444, 130);
             this.panel3.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label1.Location = new System.Drawing.Point(162, 2);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 19);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Thành tiền";
+            // 
+            // totalPriceTxt
+            // 
+            this.totalPriceTxt.Location = new System.Drawing.Point(248, 3);
+            this.totalPriceTxt.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
+            this.totalPriceTxt.Name = "totalPriceTxt";
+            this.totalPriceTxt.ReadOnly = true;
+            this.totalPriceTxt.Size = new System.Drawing.Size(190, 20);
+            this.totalPriceTxt.TabIndex = 8;
+            this.totalPriceTxt.Text = "0.000 VNĐ";
+            this.totalPriceTxt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // comboBoxSwitchTable
             // 
@@ -266,6 +293,7 @@
             this.comboBoxCategory.Name = "comboBoxCategory";
             this.comboBoxCategory.Size = new System.Drawing.Size(252, 21);
             this.comboBoxCategory.TabIndex = 0;
+            this.comboBoxCategory.SelectedIndexChanged += new System.EventHandler(this.comboBoxCategory_SelectedIndexChanged);
             // 
             // flowLayoutPanelTable
             // 
@@ -274,22 +302,16 @@
             this.flowLayoutPanelTable.Size = new System.Drawing.Size(434, 547);
             this.flowLayoutPanelTable.TabIndex = 5;
             // 
-            // textBox1
+            // columnHeader4
             // 
-            this.textBox1.Location = new System.Drawing.Point(248, 3);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(190, 20);
-            this.textBox1.TabIndex = 8;
+            this.columnHeader4.Text = "Topping";
+            this.columnHeader4.Width = 92;
             // 
-            // label1
+            // imageList1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label1.Location = new System.Drawing.Point(162, 2);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 19);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Thành tiền";
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "county-cork-ireland-wallpapers.1440x900.jpg");
             // 
             // formTable
             // 
@@ -341,8 +363,10 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox totalPriceTxt;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
