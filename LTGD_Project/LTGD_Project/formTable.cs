@@ -15,10 +15,13 @@ namespace LTGD_Project
 {
     public partial class formTable : Form
     {
+        List<int> idTopping = new List<int>();
+
         public formTable()
         {
             InitializeComponent();
             LoadTable();
+            LoadCategory();
         }
 
         //Hiển thị danh sách bàn
@@ -101,13 +104,24 @@ namespace LTGD_Project
         private void Btn_Click(object sender, EventArgs e)
         {
             int idTable = ((sender as Button).Tag as Table).IdTable;
+            //Lưu bàn vừa chọn vào tag của listView
+            listViewBill.Tag = (sender as Button).Tag;
             ShowDetailBill(idTable);
         }
 
         //Event khi ấn nút THÊM
         private void addBtn_Click(object sender, EventArgs e)
         {
-
+            Table table = listViewBill.Tag as Table;
+            string idAccount = "an.nd";
+            int idBill = BillDAO.Instance.SelectIdBill(table.IdTable);
+            int idProduct = (comboBoxProduct.SelectedItem as Product).IdProduct;
+            int quantity = (int)productCount.Value;
+            if (idBill == -1)
+            {
+                BillDAO.Instance.AddBill(table.IdTable, idAccount);
+                DetailBillDAO.Instance.AddDetailBill(BillDAO.Instance.SelectIdBillLast(), idProduct, quantity, 10, 48, 10);
+            }
         }
 
         //Event đăng xuất
@@ -132,18 +146,129 @@ namespace LTGD_Project
 
         void LoadCategory()
         {
-
+            List<Category> cats = CategoryDAO.Instance.SelectAllCat();
+            comboBoxCategory.DataSource = cats;
+            comboBoxCategory.DisplayMember = "nameCat";
         }
 
-        void LoadFoodByCategory(int idCat)
+        void LoadProductByCategory(int idCat)
         {
+            List<Product> pros = ProductDAO.Instance.SelectProductByIdCat(idCat);
+            comboBoxProduct.DataSource = pros;
+            comboBoxProduct.DisplayMember = "nameProduct";
+        }
 
+        void LoadListBoxProductPrice(Product pro)
+        {
+            listBoxProductPrice.Items.Clear();
+            if (pro.PriceProduct == null)
+                pro.PriceProduct = 0;
+            else
+                listBoxProductPrice.Items.Add(pro.PriceProduct);
+
+            if (pro.PriceLargeProduct == null)
+                pro.PriceLargeProduct = 0;
+            else
+                listBoxProductPrice.Items.Add(pro.PriceLargeProduct);
+
+            if (pro.PriceMediumProduct == null)
+                pro.PriceMediumProduct = 0;
+            else
+                listBoxProductPrice.Items.Add(pro.PriceMediumProduct);
+
+            if (pro.PriceSmallProduct == null)
+                pro.PriceSmallProduct = 0;
+            else
+                listBoxProductPrice.Items.Add(pro.PriceSmallProduct);
+        }
+
+        void LoadToppingByIdProduct(int idProduct)
+        {
+            List<Topping> toppings = ToppingDAO.Instance.SelectToppingByIdProduct(idProduct);
+            listBoxTopping.DataSource = toppings;
+            listBoxToppingPrice.DataSource = toppings;
+            listBoxTopping.DisplayMember = "nameProduct";
+            listBoxToppingPrice.DisplayMember = "priceProduct";
         }
 
         private void comboBoxCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             int id = 0;
-            this.LoadFoodByCategory(id);
+            ComboBox combo = sender as ComboBox;
+            if (combo.SelectedItem == null)
+                return;
+            Category selected = combo.SelectedItem as Category;
+            id = selected.IdCat;
+            this.LoadProductByCategory(id);
+        }
+
+        private void comboBoxProduct_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int id = 0;
+            ComboBox combo = sender as ComboBox;
+            if (combo.SelectedItem == null)
+                return;
+            Product selected = combo.SelectedItem as Product;
+            id = selected.IdProduct;
+            idTopping.Clear();
+            toppingTxt.Text = "";
+            this.LoadToppingByIdProduct(id);
+            this.LoadListBoxProductPrice(selected);
+        }
+
+        private void listBoxTopping_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void listBoxTopping_MouseClick(object sender, MouseEventArgs e)
+        {
+            int ok = 0;
+            ListBox lb = sender as ListBox;
+            if (lb.SelectedItem == null)
+                return;
+            Topping selected = lb.SelectedItem as Topping;
+            if (idTopping.Count == 0)
+            {
+                idTopping.Add(selected.IdProduct);
+                toppingTxt.Text = selected.NameProduct;
+            }
+                
+            else
+                for (int i = 0; i < idTopping.Count(); i++)
+                {
+                    if (idTopping[i] == selected.IdProduct)
+                    {
+                        MessageBox.Show("Đã chọn topping này rùi!");
+                        ok = 0;
+                        break;
+                    }
+                    else
+                        ok = 1;
+                }
+            if (ok == 1)
+            {
+                idTopping.Add(selected.IdProduct);
+                toppingTxt.Text = toppingTxt.Text + ", " + selected.NameProduct;
+            }
+                
+        }
+
+        private void clearToppingBtn_Click(object sender, EventArgs e)
+        {
+            idTopping.Clear();
+            toppingTxt.Text = "";
+        }
+
+        private void listBoxProductPrice_MouseClick(object sender, MouseEventArgs e)
+        {
+            ListBox lb = sender as ListBox;
+            if (lb.SelectedItem == null)
+                return;
+            else
+            {
+                priceProductTxt.Text = lb.SelectedItem.ToString();
+            }
         }
     }
 }

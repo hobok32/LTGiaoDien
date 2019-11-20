@@ -36,5 +36,24 @@ namespace LTGD_Project.DAO
             else
                 return -1;
         }
+
+        public void AddBill(int idxTable, string idAccount)
+        {
+            string strCmd = "INSERT INTO bill VALIES (null,@idAccount, @idxTable, now(), 0);";
+            DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { idAccount, idxTable });
+        }
+
+        public int SelectIdBillLast()
+        {
+            string strCmd2 = "SELECT * FROM bill ORDER BY idBill DESC LIMIT 1;";
+            try
+            {
+                return (int)DataProvider.Instance.ExecuteScalar(strCmd2);
+            }
+            catch
+            {
+                return 1;
+            }
+        }
     }
 }

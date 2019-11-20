@@ -24,7 +24,7 @@ namespace LTGD_Project.DAO
         }
         private CategoryDAO() { }
 
-        public List<Category> LoadTableList()
+        public List<Category> SelectAllCat()
         {
             List<Category> cats = new List<Category>();
             DataTable data = DataProvider.Instance.ExecuteQuery("SELECT * FROM category");

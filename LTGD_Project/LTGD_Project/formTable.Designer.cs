@@ -40,6 +40,7 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -50,13 +51,18 @@
             this.discountBtn = new System.Windows.Forms.Button();
             this.chargeBtn = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.listBoxToppingPrice = new System.Windows.Forms.ListBox();
+            this.clearToppingBtn = new System.Windows.Forms.Button();
+            this.toppingTxt = new System.Windows.Forms.TextBox();
+            this.listBoxTopping = new System.Windows.Forms.ListBox();
             this.productCount = new System.Windows.Forms.NumericUpDown();
             this.addBtn = new System.Windows.Forms.Button();
             this.comboBoxProduct = new System.Windows.Forms.ComboBox();
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanelTable = new System.Windows.Forms.FlowLayoutPanel();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.listBoxProductPrice = new System.Windows.Forms.ListBox();
+            this.priceProductTxt = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -109,9 +115,9 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.listViewBill);
-            this.panel2.Location = new System.Drawing.Point(452, 84);
+            this.panel2.Location = new System.Drawing.Point(452, 151);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(444, 354);
+            this.panel2.Size = new System.Drawing.Size(444, 287);
             this.panel2.TabIndex = 2;
             // 
             // listViewBill
@@ -128,7 +134,7 @@
             this.listViewBill.HideSelection = false;
             this.listViewBill.Location = new System.Drawing.Point(0, 3);
             this.listViewBill.Name = "listViewBill";
-            this.listViewBill.Size = new System.Drawing.Size(438, 348);
+            this.listViewBill.Size = new System.Drawing.Size(438, 281);
             this.listViewBill.TabIndex = 0;
             this.listViewBill.UseCompatibleStateImageBehavior = false;
             this.listViewBill.View = System.Windows.Forms.View.Details;
@@ -147,6 +153,11 @@
             // 
             this.columnHeader3.Text = "Số lượng";
             this.columnHeader3.Width = 59;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Topping";
+            this.columnHeader4.Width = 92;
             // 
             // columnHeader5
             // 
@@ -241,18 +252,62 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.priceProductTxt);
+            this.panel4.Controls.Add(this.listBoxProductPrice);
+            this.panel4.Controls.Add(this.listBoxToppingPrice);
+            this.panel4.Controls.Add(this.clearToppingBtn);
+            this.panel4.Controls.Add(this.toppingTxt);
+            this.panel4.Controls.Add(this.listBoxTopping);
             this.panel4.Controls.Add(this.productCount);
             this.panel4.Controls.Add(this.addBtn);
             this.panel4.Controls.Add(this.comboBoxProduct);
             this.panel4.Controls.Add(this.comboBoxCategory);
             this.panel4.Location = new System.Drawing.Point(452, 27);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(444, 52);
+            this.panel4.Size = new System.Drawing.Size(444, 118);
             this.panel4.TabIndex = 4;
+            // 
+            // listBoxToppingPrice
+            // 
+            this.listBoxToppingPrice.Enabled = false;
+            this.listBoxToppingPrice.FormattingEnabled = true;
+            this.listBoxToppingPrice.Location = new System.Drawing.Point(374, 3);
+            this.listBoxToppingPrice.Name = "listBoxToppingPrice";
+            this.listBoxToppingPrice.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.listBoxToppingPrice.Size = new System.Drawing.Size(64, 82);
+            this.listBoxToppingPrice.TabIndex = 8;
+            // 
+            // clearToppingBtn
+            // 
+            this.clearToppingBtn.Location = new System.Drawing.Point(374, 91);
+            this.clearToppingBtn.Name = "clearToppingBtn";
+            this.clearToppingBtn.Size = new System.Drawing.Size(64, 20);
+            this.clearToppingBtn.TabIndex = 7;
+            this.clearToppingBtn.Text = "Clear";
+            this.clearToppingBtn.UseVisualStyleBackColor = true;
+            this.clearToppingBtn.Click += new System.EventHandler(this.clearToppingBtn_Click);
+            // 
+            // toppingTxt
+            // 
+            this.toppingTxt.Location = new System.Drawing.Point(222, 91);
+            this.toppingTxt.Name = "toppingTxt";
+            this.toppingTxt.ReadOnly = true;
+            this.toppingTxt.Size = new System.Drawing.Size(146, 20);
+            this.toppingTxt.TabIndex = 6;
+            // 
+            // listBoxTopping
+            // 
+            this.listBoxTopping.FormattingEnabled = true;
+            this.listBoxTopping.Location = new System.Drawing.Point(222, 3);
+            this.listBoxTopping.Name = "listBoxTopping";
+            this.listBoxTopping.Size = new System.Drawing.Size(146, 82);
+            this.listBoxTopping.TabIndex = 5;
+            this.listBoxTopping.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBoxTopping_MouseClick);
+            this.listBoxTopping.SelectedIndexChanged += new System.EventHandler(this.listBoxTopping_SelectedIndexChanged);
             // 
             // productCount
             // 
-            this.productCount.Location = new System.Drawing.Point(359, 19);
+            this.productCount.Location = new System.Drawing.Point(101, 77);
             this.productCount.Minimum = new decimal(new int[] {
             100,
             0,
@@ -270,9 +325,9 @@
             // addBtn
             // 
             this.addBtn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.addBtn.Location = new System.Drawing.Point(261, 3);
+            this.addBtn.Location = new System.Drawing.Point(0, 57);
             this.addBtn.Name = "addBtn";
-            this.addBtn.Size = new System.Drawing.Size(92, 49);
+            this.addBtn.Size = new System.Drawing.Size(95, 54);
             this.addBtn.TabIndex = 3;
             this.addBtn.Text = "THÊM";
             this.addBtn.UseVisualStyleBackColor = true;
@@ -281,17 +336,18 @@
             // comboBoxProduct
             // 
             this.comboBoxProduct.FormattingEnabled = true;
-            this.comboBoxProduct.Location = new System.Drawing.Point(3, 30);
+            this.comboBoxProduct.Location = new System.Drawing.Point(0, 30);
             this.comboBoxProduct.Name = "comboBoxProduct";
-            this.comboBoxProduct.Size = new System.Drawing.Size(252, 21);
+            this.comboBoxProduct.Size = new System.Drawing.Size(164, 21);
             this.comboBoxProduct.TabIndex = 1;
+            this.comboBoxProduct.SelectedIndexChanged += new System.EventHandler(this.comboBoxProduct_SelectedIndexChanged);
             // 
             // comboBoxCategory
             // 
             this.comboBoxCategory.FormattingEnabled = true;
-            this.comboBoxCategory.Location = new System.Drawing.Point(3, 3);
+            this.comboBoxCategory.Location = new System.Drawing.Point(0, 3);
             this.comboBoxCategory.Name = "comboBoxCategory";
-            this.comboBoxCategory.Size = new System.Drawing.Size(252, 21);
+            this.comboBoxCategory.Size = new System.Drawing.Size(164, 21);
             this.comboBoxCategory.TabIndex = 0;
             this.comboBoxCategory.SelectedIndexChanged += new System.EventHandler(this.comboBoxCategory_SelectedIndexChanged);
             // 
@@ -302,16 +358,28 @@
             this.flowLayoutPanelTable.Size = new System.Drawing.Size(434, 547);
             this.flowLayoutPanelTable.TabIndex = 5;
             // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Topping";
-            this.columnHeader4.Width = 92;
-            // 
             // imageList1
             // 
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "county-cork-ireland-wallpapers.1440x900.jpg");
+            // 
+            // listBoxProductPrice
+            // 
+            this.listBoxProductPrice.FormattingEnabled = true;
+            this.listBoxProductPrice.Location = new System.Drawing.Point(170, 3);
+            this.listBoxProductPrice.Name = "listBoxProductPrice";
+            this.listBoxProductPrice.Size = new System.Drawing.Size(46, 82);
+            this.listBoxProductPrice.TabIndex = 9;
+            this.listBoxProductPrice.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBoxProductPrice_MouseClick);
+            // 
+            // priceProductTxt
+            // 
+            this.priceProductTxt.Location = new System.Drawing.Point(170, 91);
+            this.priceProductTxt.Name = "priceProductTxt";
+            this.priceProductTxt.ReadOnly = true;
+            this.priceProductTxt.Size = new System.Drawing.Size(46, 20);
+            this.priceProductTxt.TabIndex = 10;
             // 
             // formTable
             // 
@@ -334,6 +402,7 @@
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.discountCount)).EndInit();
             this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -368,5 +437,11 @@
         private System.Windows.Forms.TextBox totalPriceTxt;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.ListBox listBoxTopping;
+        private System.Windows.Forms.TextBox toppingTxt;
+        private System.Windows.Forms.Button clearToppingBtn;
+        private System.Windows.Forms.ListBox listBoxToppingPrice;
+        private System.Windows.Forms.ListBox listBoxProductPrice;
+        private System.Windows.Forms.TextBox priceProductTxt;
     }
 }

@@ -27,7 +27,7 @@ namespace LTGD_Project.DAO
         public List<Product> SelectProductByIdCat(int idCat)
         {
             List<Product> pros = new List<Product>();
-            DataTable data = DataProvider.Instance.ExecuteQuery("SELECT * FROM product where ");
+            DataTable data = DataProvider.Instance.ExecuteQuery("SELECT * FROM product where idCat ="+idCat);
             foreach (DataRow item in data.Rows)
             {
                 Product pro = new Product(item);
