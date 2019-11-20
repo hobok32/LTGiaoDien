@@ -16,7 +16,7 @@ namespace LTGD_Project
     public partial class formTable : Form
     {
         List<int> idTopping = new List<int>();
-
+        List<Topping> toppings = new List<Topping>();
         public formTable()
         {
             InitializeComponent();
@@ -120,7 +120,7 @@ namespace LTGD_Project
             if (idBill == -1)
             {
                 BillDAO.Instance.AddBill(table.IdTable, idAccount);
-                DetailBillDAO.Instance.AddDetailBill(BillDAO.Instance.SelectIdBillLast(), idProduct, quantity, 10, 48, 10);
+                DetailBillDAO.Instance.AddDetailBill(BillDAO.Instance.SelectIdBillLast(), idProduct, quantity, int.Parse(priceProductTxt.Text), toppings);
             }
         }
 
@@ -144,6 +144,7 @@ namespace LTGD_Project
             f.ShowDialog();
         }
 
+        //Hiển thị category
         void LoadCategory()
         {
             List<Category> cats = CategoryDAO.Instance.SelectAllCat();
@@ -151,6 +152,7 @@ namespace LTGD_Project
             comboBoxCategory.DisplayMember = "nameCat";
         }
 
+        //Hiển thị sản phẩm theo category
         void LoadProductByCategory(int idCat)
         {
             List<Product> pros = ProductDAO.Instance.SelectProductByIdCat(idCat);
@@ -158,6 +160,7 @@ namespace LTGD_Project
             comboBoxProduct.DisplayMember = "nameProduct";
         }
 
+        //Hiển thị giá của sản phẩm
         void LoadListBoxProductPrice(Product pro)
         {
             listBoxProductPrice.Items.Clear();
@@ -182,6 +185,7 @@ namespace LTGD_Project
                 listBoxProductPrice.Items.Add(pro.PriceSmallProduct);
         }
 
+        //Hiển thị topping của sản phẩm
         void LoadToppingByIdProduct(int idProduct)
         {
             List<Topping> toppings = ToppingDAO.Instance.SelectToppingByIdProduct(idProduct);
@@ -191,6 +195,7 @@ namespace LTGD_Project
             listBoxToppingPrice.DisplayMember = "priceProduct";
         }
 
+        //Event khi comboBoxCategory được chọn
         private void comboBoxCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             int id = 0;
@@ -202,6 +207,7 @@ namespace LTGD_Project
             this.LoadProductByCategory(id);
         }
 
+        //Event khi comboBoxProduct được chọn
         private void comboBoxProduct_SelectedIndexChanged(object sender, EventArgs e)
         {
             int id = 0;
@@ -211,6 +217,7 @@ namespace LTGD_Project
             Product selected = combo.SelectedItem as Product;
             id = selected.IdProduct;
             idTopping.Clear();
+            toppings.Clear();
             toppingTxt.Text = "";
             this.LoadToppingByIdProduct(id);
             this.LoadListBoxProductPrice(selected);
@@ -221,6 +228,7 @@ namespace LTGD_Project
             
         }
 
+        //Event chọn topping
         private void listBoxTopping_MouseClick(object sender, MouseEventArgs e)
         {
             int ok = 0;
@@ -231,13 +239,14 @@ namespace LTGD_Project
             if (idTopping.Count == 0)
             {
                 idTopping.Add(selected.IdProduct);
+                toppings.Add(selected);
                 toppingTxt.Text = selected.NameProduct;
             }
                 
             else
                 for (int i = 0; i < idTopping.Count(); i++)
                 {
-                    if (idTopping[i] == selected.IdProduct)
+                    if (toppings[i].IdProduct == selected.IdProduct)
                     {
                         MessageBox.Show("Đã chọn topping này rùi!");
                         ok = 0;
@@ -249,17 +258,21 @@ namespace LTGD_Project
             if (ok == 1)
             {
                 idTopping.Add(selected.IdProduct);
+                toppings.Add(selected);
                 toppingTxt.Text = toppingTxt.Text + ", " + selected.NameProduct;
             }
                 
         }
 
+        //Event khi ấn nút Clear
         private void clearToppingBtn_Click(object sender, EventArgs e)
         {
             idTopping.Clear();
+            toppings.Clear();
             toppingTxt.Text = "";
         }
 
+        //Event chọn giá sản phẩm
         private void listBoxProductPrice_MouseClick(object sender, MouseEventArgs e)
         {
             ListBox lb = sender as ListBox;

@@ -38,10 +38,13 @@ namespace LTGD_Project.DAO
             return details;
         }
 
-        public void AddDetailBill(int idBill, int idProduct, int quantity, int price, int idTopping, int priceTopping)
+        public void AddDetailBill(int idBill, int idProduct, int quantity, int price, List<Topping> toppings)
         {
-            string strCmd = "INSERT INTO detailbill VALUES (null, @idBill, @idProduct, @quantity, @price, @idTopping, @priceTopping);";
-            DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { idBill, idProduct, quantity, price, idTopping, priceTopping });
+            string strCmd = "INSERT INTO detailbill VALUES (null, @idBill , @idProduct , @quantity , @price , @idTopping , @priceTopping );";
+            for (int i = 0; i < toppings.Count(); i++)
+            {
+                DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { idBill, idProduct, quantity, price, toppings[i].IdProduct, toppings[i].PriceProduct });
+            }
         }
     }
 }
