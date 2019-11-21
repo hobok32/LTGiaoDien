@@ -56,6 +56,7 @@ namespace LTGD_Project
             List<DTO.Menu> menu = MenuDAO.Instance.SelectMenu(idTable);
             int totalPrice = 0;
             int temp = 0;
+            int tempIdBillDetail = 0;
             int active = 0;
             int i = 0;
             foreach (DTO.Menu item in menu)
@@ -70,6 +71,7 @@ namespace LTGD_Project
                     totalPrice += item.Total;
                     listViewBill.Items.Add(listViewItem);
                     temp = item.IdProduct;
+                    tempIdBillDetail = item.IdBillDetail;
                     i++;
                     active = 1;
                 }
@@ -85,17 +87,32 @@ namespace LTGD_Project
                         totalPrice += item.Total;
                         listViewBill.Items.Add(listViewItem);
                         temp = item.IdProduct;
+                        tempIdBillDetail = item.IdBillDetail;
                         i++;
                     }
                     else
                     {
-                        listViewBill.Items[i - 1].SubItems[3].Text += ", \n" + (item.NameTopping.ToString()) + " (+" + (item.PriceTopping.ToString()) + ".000)";
-
-                        listViewBill.Items[i - 1].SubItems[4].Text = ((int.Parse(listViewBill.Items[i - 1].SubItems[4].Text.Remove(listViewBill.Items[i - 1].SubItems[4].Text.Length - 4))/item.Quantity + item.PriceTopping)*item.Quantity).ToString() + ".000";
-                        totalPrice += (int)(item.PriceTopping * item.Quantity);
+                        if (item.Unique == tempIdBillDetail)
+                        {
+                            listViewBill.Items[i - 1].SubItems[3].Text += ", \n" + (item.NameTopping.ToString()) + " (+" + (item.PriceTopping.ToString()) + ".000)";
+                            listViewBill.Items[i - 1].SubItems[4].Text = ((int.Parse(listViewBill.Items[i - 1].SubItems[4].Text.Remove(listViewBill.Items[i - 1].SubItems[4].Text.Length - 4)) / item.Quantity + item.PriceTopping) * item.Quantity).ToString() + ".000";
+                            totalPrice += (int)(item.PriceTopping * item.Quantity);
+                        }
+                        else
+                        {
+                            ListViewItem listViewItem = new ListViewItem(item.NameProduct.ToString());
+                            listViewItem.SubItems.Add(item.PriceProduct.ToString() + ".000");
+                            listViewItem.SubItems.Add(item.Quantity.ToString());
+                            listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000)");
+                            listViewItem.SubItems.Add(item.Total.ToString() + ".000");
+                            totalPrice += item.Total;
+                            listViewBill.Items.Add(listViewItem);
+                            temp = item.IdProduct;
+                            tempIdBillDetail = item.IdBillDetail;
+                            i++;
+                        }
                     }
                 }
-                
             }
             totalPriceTxt.Text = totalPrice.ToString() + ".000 VNĐ";
         }
@@ -120,6 +137,7 @@ namespace LTGD_Project
             if (idBill == -1)
             {
                 BillDAO.Instance.AddBill(table.IdTable, idAccount);
+                TableDAO.Instance.UpdateStatusTable(table.IdTable, "Có người");
                 DetailBillDAO.Instance.AddDetailBill(BillDAO.Instance.SelectIdBillLast(), idProduct, quantity, int.Parse(priceProductTxt.Text), toppings);
             }
         }

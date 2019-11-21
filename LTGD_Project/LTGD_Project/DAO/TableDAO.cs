@@ -39,5 +39,11 @@ namespace LTGD_Project.DAO
             }
             return tables;
         }
+
+        public void UpdateStatusTable(int idxTable, string status)
+        {
+            string strCmd = "update tablewinform set statusTable = @statusTable where idTable = @idTable ";
+            DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { status, idxTable });
+        }
     }
 }

@@ -18,6 +18,8 @@ namespace LTGD_Project.DTO
         public string NameTopping { set; get; }
         public int? PriceTopping { set; get; }
         public int Total { set; get; }
+        public int? Unique { set; get; }
+        public int IdBillDetail { set; get; }
 
         public Menu(DataRow row)
         {
@@ -25,6 +27,7 @@ namespace LTGD_Project.DTO
             this.NameProduct = (string)row["nameProduct"];
             this.PriceProduct = (int)row["price"];
             this.Quantity = (int)row["quantity"];
+            this.IdBillDetail = (int)row["idDetailBill"];
 
             var IdToppingTemp = row["idTopping"];
             if (IdToppingTemp.ToString() != "")
@@ -43,6 +46,12 @@ namespace LTGD_Project.DTO
                 this.PriceTopping = (int?)PriceToppingTemp;
             else
                 this.PriceTopping = 0;
+
+            var UniqueTemp = row["uniqueDetailBill"];
+            if (UniqueTemp.ToString() != "")
+                this.Unique = (int?)UniqueTemp;
+            else
+                this.Unique = 0;
 
             this.Total = ((int)(row["price"]) + (int)this.PriceTopping) * (int)row["quantity"];
         }
