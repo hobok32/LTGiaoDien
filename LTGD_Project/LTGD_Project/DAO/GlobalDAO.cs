@@ -9,9 +9,20 @@ using MySql.Data.MySqlClient;
 
 namespace LTGD_Project.DAO
 {
-    class GlobalDAO
+    public class DetailBillTopping
     {
-        
+        public int IdDetailBill { set; get; }
+        public int IdBill { set; get; }
+        public int IdProduct { set; get; }
+        public int Quantity { set; get; }
+        public int Price { set; get; }
+        public List<ToppingDetail> Topping = new List<ToppingDetail>();
+    }
+
+    public class ToppingDetail
+    {
+        public int IdProduct { set; get; }
+        public int PriceProduct { set; get; }
     }
 }
 

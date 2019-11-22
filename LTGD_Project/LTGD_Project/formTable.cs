@@ -28,7 +28,7 @@ namespace LTGD_Project
         void LoadTable()
         {
             List<Table> tables =  TableDAO.Instance.LoadTableList();
-
+            
             foreach(Table item in tables)
             {
                 Button btn = new Button() { Width = TableDAO.TableWidth, Height = TableDAO.TableWidth };
@@ -121,6 +121,7 @@ namespace LTGD_Project
         private void Btn_Click(object sender, EventArgs e)
         {
             int idTable = ((sender as Button).Tag as Table).IdTable;
+            tableTxt.Text = ((sender as Button).Tag as Table).NameTable.ToString();
             //Lưu bàn vừa chọn vào tag của listView
             listViewBill.Tag = (sender as Button).Tag;
             ShowDetailBill(idTable);
@@ -134,11 +135,48 @@ namespace LTGD_Project
             int idBill = BillDAO.Instance.SelectIdBill(table.IdTable);
             int idProduct = (comboBoxProduct.SelectedItem as Product).IdProduct;
             int quantity = (int)productCount.Value;
+            //Bill chưa tồn tại
             if (idBill == -1)
             {
                 BillDAO.Instance.AddBill(table.IdTable, idAccount);
                 TableDAO.Instance.UpdateStatusTable(table.IdTable, "Có người");
                 DetailBillDAO.Instance.AddDetailBill(BillDAO.Instance.SelectIdBillLast(), idProduct, quantity, int.Parse(priceProductTxt.Text), toppings);
+              
+            }
+            //Bill đã tồn tại
+            else
+            {
+                //Sản phẩm chưa tồn tại
+                if (DetailBillDAO.Instance.CheckIsProductExist(idProduct, idBill) == false)
+                {
+                    DetailBillDAO.Instance.AddDetailBill(idBill, idProduct, quantity, int.Parse(priceProductTxt.Text), toppings);
+                }
+                //Sản phẩm đã tồn tại
+                else
+                {
+                    //Sản phẩm mới bị trùng size
+                    if (DetailBillDAO.Instance.CheckIsPriceEqual(idProduct, int.Parse(priceProductTxt.Text), idBill) == true)
+                    {
+                        //Trùng Topping
+                        if(DetailBillDAO.Instance.CheckIsToppingEqual(toppings, idProduct, int.Parse(priceProductTxt.Text), idBill) == true)
+                        {
+                            //Update lại số lượng của sản phẩm đó
+                            DetailBillDAO.Instance.UpdateQuantityDetailBill(quantity, DetailBillDAO.Instance.SelectIdDetailBill(DetailBillDAO.Instance.SelectIdTopping(toppings, idProduct, int.Parse(priceProductTxt.Text), idBill), idProduct, int.Parse(priceProductTxt.Text), idBill));
+                        }
+                        //Khác Topping
+                        else
+                        {
+                            //Thêm sản phẩm mới
+                            DetailBillDAO.Instance.AddDetailBill(idBill, idProduct, quantity, int.Parse(priceProductTxt.Text), toppings);
+                        }
+                    }
+                    //Sản phẩm mới khác size 
+                    else
+                    {
+                        //Thêm sản phẩm mới
+                        DetailBillDAO.Instance.AddDetailBill(idBill, idProduct, quantity, int.Parse(priceProductTxt.Text), toppings);
+                    }
+                }
             }
         }
 
