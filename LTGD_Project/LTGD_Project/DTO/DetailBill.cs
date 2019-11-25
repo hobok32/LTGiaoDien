@@ -18,7 +18,7 @@ namespace LTGD_Project.DTO
 
         public DetailBill(DataRow row)
         {
-            this.IdDeTailBill = (int)row["idDeTailBill"];
+            this.IdDeTailBill = (int)row["idDetailBill"];
             this.IdBill = (int)row["idBill"];
             this.IdProduct = (int)row["idProduct"];
             this.Quantity = (int)row["quantity"];

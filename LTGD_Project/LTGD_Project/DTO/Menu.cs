@@ -12,22 +12,22 @@ namespace LTGD_Project.DTO
     {
         public int IdProduct { set; get; }
         public string NameProduct { set; get; }
-        public int PriceProduct { set; get; }
         public int Quantity { set; get; }
+        public int Price { set; get; }
+        public int IdDetailBill { set; get; }
+        public int? IdDetailTopping { set; get; }
         public int? IdTopping { set; get; }
-        public string NameTopping { set; get; }
+        public int? QuantityTopping { set; get; }
         public int? PriceTopping { set; get; }
-        public int Total { set; get; }
-        public int? Unique { set; get; }
-        public int IdBillDetail { set; get; }
+        public string NameTopping { set; get; }
 
         public Menu(DataRow row)
         {
             this.IdProduct = (int)row["idProduct"];
             this.NameProduct = (string)row["nameProduct"];
-            this.PriceProduct = (int)row["price"];
+            this.Price = (int)row["price"];
             this.Quantity = (int)row["quantity"];
-            this.IdBillDetail = (int)row["idDetailBill"];
+            this.IdDetailBill = (int)row["idDetailBill"];
 
             var IdToppingTemp = row["idTopping"];
             if (IdToppingTemp.ToString() != "")
@@ -47,13 +47,18 @@ namespace LTGD_Project.DTO
             else
                 this.PriceTopping = 0;
 
-            var UniqueTemp = row["uniqueDetailBill"];
-            if (UniqueTemp.ToString() != "")
-                this.Unique = (int?)UniqueTemp;
+            var QuantityToppingTemp = row["quantityTopping"];
+            if (QuantityToppingTemp.ToString() != "")
+                this.QuantityTopping = (int?)QuantityToppingTemp;
             else
-                this.Unique = 0;
+                this.QuantityTopping = 0;
 
-            this.Total = ((int)(row["price"]) + (int)this.PriceTopping) * (int)row["quantity"];
+            var IdDetailToppingTemp = row["idDetailTopping"];
+            if (IdDetailToppingTemp.ToString() != "")
+                this.IdDetailTopping = (int?)IdDetailToppingTemp;
+            else
+                this.IdDetailTopping = 0;
+
         }
     }
 }

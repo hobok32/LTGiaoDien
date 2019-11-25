@@ -16,19 +16,19 @@ namespace LTGD_Project
     public partial class formTable : Form
     {
         List<int> idTopping = new List<int>();
+        List<Table> tables = TableDAO.Instance.LoadTableList();
         List<Topping> toppings = new List<Topping>();
         public formTable()
         {
             InitializeComponent();
             LoadTable();
             LoadCategory();
+            toppingCount.Enabled = false;
         }
 
         //Hiển thị danh sách bàn
         void LoadTable()
         {
-            List<Table> tables =  TableDAO.Instance.LoadTableList();
-            
             foreach(Table item in tables)
             {
                 Button btn = new Button() { Width = TableDAO.TableWidth, Height = TableDAO.TableWidth };
@@ -61,55 +61,58 @@ namespace LTGD_Project
             int i = 0;
             foreach (DTO.Menu item in menu)
             {
-                if(active == 0)
+                if (item.Quantity > 0)
                 {
-                    ListViewItem listViewItem = new ListViewItem(item.NameProduct.ToString());
-                    listViewItem.SubItems.Add(item.PriceProduct.ToString() + ".000");
-                    listViewItem.SubItems.Add(item.Quantity.ToString());
-                    listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000)");
-                    listViewItem.SubItems.Add(item.Total.ToString() + ".000");
-                    totalPrice += item.Total;
-                    listViewBill.Items.Add(listViewItem);
-                    temp = item.IdProduct;
-                    tempIdBillDetail = item.IdBillDetail;
-                    i++;
-                    active = 1;
-                }
-                else
-                {
-                    if (temp != item.IdProduct)
+                    if (active == 0)
                     {
                         ListViewItem listViewItem = new ListViewItem(item.NameProduct.ToString());
-                        listViewItem.SubItems.Add(item.PriceProduct.ToString() + ".000");
+                        listViewItem.SubItems.Add(item.Price.ToString() + ".000");
                         listViewItem.SubItems.Add(item.Quantity.ToString());
-                        listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000)");
-                        listViewItem.SubItems.Add(item.Total.ToString() + ".000");
-                        totalPrice += item.Total;
+                        listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000) x" + item.QuantityTopping);
+                        listViewItem.SubItems.Add(((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity).ToString() + ".000");
+                        totalPrice += (int)((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity);
                         listViewBill.Items.Add(listViewItem);
-                        temp = item.IdProduct;
-                        tempIdBillDetail = item.IdBillDetail;
+                        tempIdBillDetail = (int)item.IdDetailBill;
+                        temp = (int)item.Price;
                         i++;
+                        active = 1;
                     }
                     else
                     {
-                        if (item.Unique == tempIdBillDetail)
+                        if (tempIdBillDetail != item.IdDetailBill)
                         {
-                            listViewBill.Items[i - 1].SubItems[3].Text += ", \n" + (item.NameTopping.ToString()) + " (+" + (item.PriceTopping.ToString()) + ".000)";
-                            listViewBill.Items[i - 1].SubItems[4].Text = ((int.Parse(listViewBill.Items[i - 1].SubItems[4].Text.Remove(listViewBill.Items[i - 1].SubItems[4].Text.Length - 4)) / item.Quantity + item.PriceTopping) * item.Quantity).ToString() + ".000";
-                            totalPrice += (int)(item.PriceTopping * item.Quantity);
+                            ListViewItem listViewItem = new ListViewItem(item.NameProduct.ToString());
+                            listViewItem.SubItems.Add(item.Price.ToString() + ".000");
+                            listViewItem.SubItems.Add(item.Quantity.ToString());
+                            listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000) x" + item.QuantityTopping);
+                            listViewItem.SubItems.Add(((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity).ToString() + ".000");
+                            totalPrice += (int)((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity);
+                            listViewBill.Items.Add(listViewItem);
+                            tempIdBillDetail = (int)item.IdDetailBill;
+                            temp = (int)item.Price;
+                            i++;
                         }
                         else
                         {
-                            ListViewItem listViewItem = new ListViewItem(item.NameProduct.ToString());
-                            listViewItem.SubItems.Add(item.PriceProduct.ToString() + ".000");
-                            listViewItem.SubItems.Add(item.Quantity.ToString());
-                            listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000)");
-                            listViewItem.SubItems.Add(item.Total.ToString() + ".000");
-                            totalPrice += item.Total;
-                            listViewBill.Items.Add(listViewItem);
-                            temp = item.IdProduct;
-                            tempIdBillDetail = item.IdBillDetail;
-                            i++;
+                            if (item.Price == temp)
+                            {
+                                listViewBill.Items[i - 1].SubItems[3].Text += ", \n" + (item.NameTopping.ToString()) + " (+" + (item.PriceTopping.ToString()) + ".000) x" + (item.QuantityTopping).ToString();
+                                listViewBill.Items[i - 1].SubItems[4].Text = ((int.Parse(listViewBill.Items[i - 1].SubItems[4].Text.Remove(listViewBill.Items[i - 1].SubItems[4].Text.Length - 4)) / item.Quantity + item.PriceTopping * item.QuantityTopping) * item.Quantity).ToString() + ".000";
+                                totalPrice += (int)((item.PriceTopping * item.QuantityTopping) * item.Quantity);
+                            }
+                            else
+                            {
+                                ListViewItem listViewItem = new ListViewItem(item.NameProduct.ToString());
+                                listViewItem.SubItems.Add(item.Price.ToString() + ".000");
+                                listViewItem.SubItems.Add(item.Quantity.ToString());
+                                listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000) x" + item.QuantityTopping);
+                                listViewItem.SubItems.Add(((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity).ToString() + ".000");
+                                totalPrice += (int)((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity);
+                                listViewBill.Items.Add(listViewItem);
+                                tempIdBillDetail = (int)item.IdDetailBill;
+                                temp = (int)item.Price;
+                                i++;
+                            }
                         }
                     }
                 }
@@ -130,51 +133,67 @@ namespace LTGD_Project
         //Event khi ấn nút THÊM
         private void addBtn_Click(object sender, EventArgs e)
         {
-            Table table = listViewBill.Tag as Table;
-            string idAccount = "an.nd";
-            int idBill = BillDAO.Instance.SelectIdBill(table.IdTable);
-            int idProduct = (comboBoxProduct.SelectedItem as Product).IdProduct;
-            int quantity = (int)productCount.Value;
-            //Bill chưa tồn tại
-            if (idBill == -1)
+            if (tableTxt.Text.Trim() == "")
             {
-                BillDAO.Instance.AddBill(table.IdTable, idAccount);
-                TableDAO.Instance.UpdateStatusTable(table.IdTable, "Có người");
-                DetailBillDAO.Instance.AddDetailBill(BillDAO.Instance.SelectIdBillLast(), idProduct, quantity, int.Parse(priceProductTxt.Text), toppings);
-              
+                MessageBox.Show("Xin mời chọn bàn", "Thông báo");
             }
-            //Bill đã tồn tại
             else
             {
-                //Sản phẩm chưa tồn tại
-                if (DetailBillDAO.Instance.CheckIsProductExist(idProduct, idBill) == false)
+                if (priceProductTxt.Text.Trim() == "")
                 {
-                    DetailBillDAO.Instance.AddDetailBill(idBill, idProduct, quantity, int.Parse(priceProductTxt.Text), toppings);
+                    MessageBox.Show("Xin mời chọn giá", "Thông báo");
                 }
-                //Sản phẩm đã tồn tại
                 else
                 {
-                    //Sản phẩm mới bị trùng size
-                    if (DetailBillDAO.Instance.CheckIsPriceEqual(idProduct, int.Parse(priceProductTxt.Text), idBill) == true)
+                    Table table = listViewBill.Tag as Table;
+                    string idAccount = "an.nd";
+                    int idBill = BillDAO.Instance.SelectIdBill(table.IdTable);
+                    int idProduct = (comboBoxProduct.SelectedItem as Product).IdProduct;
+                    int quantity = (int)productCount.Value;
+                    int quantityTopping = (int)toppingCount.Value;
+                    //Bill chưa tồn tại
+                    if (idBill == -1)
                     {
-                        //Trùng Topping
-                        if(DetailBillDAO.Instance.CheckIsToppingEqual(toppings, idProduct, int.Parse(priceProductTxt.Text), idBill) == true)
-                        {
-                            //Update lại số lượng của sản phẩm đó
-                            DetailBillDAO.Instance.UpdateQuantityDetailBill(quantity, DetailBillDAO.Instance.SelectIdDetailBill(DetailBillDAO.Instance.SelectIdTopping(toppings, idProduct, int.Parse(priceProductTxt.Text), idBill), idProduct, int.Parse(priceProductTxt.Text), idBill));
-                        }
-                        //Khác Topping
-                        else
-                        {
-                            //Thêm sản phẩm mới
-                            DetailBillDAO.Instance.AddDetailBill(idBill, idProduct, quantity, int.Parse(priceProductTxt.Text), toppings);
-                        }
+                        BillDAO.Instance.AddBill(table.IdTable, idAccount);
+                        TableDAO.Instance.UpdateStatusTable(table.IdTable, "Có người");
+                        DetailBillDAO.Instance.AddDetailBill(BillDAO.Instance.SelectIdBillLast(), idProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping);
+
                     }
-                    //Sản phẩm mới khác size 
+                    //Bill đã tồn tại
                     else
                     {
-                        //Thêm sản phẩm mới
-                        DetailBillDAO.Instance.AddDetailBill(idBill, idProduct, quantity, int.Parse(priceProductTxt.Text), toppings);
+                        //Sản phẩm chưa tồn tại
+                        if (DetailBillDAO.Instance.CheckIsProductExist(idProduct, idBill) == false)
+                        {
+                            DetailBillDAO.Instance.AddDetailBill(idBill, idProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping);
+                        }
+                        //Sản phẩm đã tồn tại
+                        else
+                        {
+                            //Sản phẩm mới bị trùng size
+                            if (DetailBillDAO.Instance.CheckIsPriceEqual(idProduct, int.Parse(priceProductTxt.Text), idBill) == true)
+                            {
+                                //Trùng Topping
+                                if (DetailBillDAO.Instance.CheckIsToppingEqual(toppings, idProduct, int.Parse(priceProductTxt.Text), idBill) != 0)
+                                {
+                                    //Update lại số lượng của sản phẩm đó
+                                    int idDetailBill = DetailBillDAO.Instance.CheckIsToppingEqual(toppings, idProduct, int.Parse(priceProductTxt.Text), idBill);
+                                    DetailBillDAO.Instance.UpdateQuantityDetailBill(quantity, idDetailBill, quantityTopping);
+                                }
+                                //Khác Topping
+                                else
+                                {
+                                    //Thêm sản phẩm mới
+                                    DetailBillDAO.Instance.AddDetailBill(idBill, idProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping);
+                                }
+                            }
+                            //Sản phẩm mới khác size 
+                            else
+                            {
+                                //Thêm sản phẩm mới
+                                DetailBillDAO.Instance.AddDetailBill(idBill, idProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping);
+                            }
+                        }
                     }
                 }
             }
@@ -297,6 +316,7 @@ namespace LTGD_Project
                 idTopping.Add(selected.IdProduct);
                 toppings.Add(selected);
                 toppingTxt.Text = selected.NameProduct;
+                toppingCount.Enabled = true;
             }
                 
             else
@@ -316,6 +336,7 @@ namespace LTGD_Project
                 idTopping.Add(selected.IdProduct);
                 toppings.Add(selected);
                 toppingTxt.Text = toppingTxt.Text + ", " + selected.NameProduct;
+                toppingCount.Enabled = true;
             }
                 
         }

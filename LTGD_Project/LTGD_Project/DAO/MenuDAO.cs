@@ -29,11 +29,13 @@ namespace LTGD_Project.DAO
         {
             List<Menu> menus = new List<Menu>();
 
-            string query = "SELECT c.uniqueDetailBill as uniqueDetailBill, c.idDetailBill as idDetailBill, a.idProduct, a.nameProduct,c.price, c.quantity, d.idProduct as idTopping,d.nameProduct as nameTopping, d.priceProduct as priceTopping FROM product a, bill b, detailbill c, (select idProduct, nameProduct, priceProduct from product where idProduct in (select c.idTopping from product a, bill b, detailbill c where b.idBill = (select idBill from bill where idxTable = '" + idTable+"' and statusBill = 0) and b.idBill = c.idBill and c.idProduct = a.idProduct)) d WHERE b.idBill = (select idBill from bill where idxTable = '"+idTable+ "' and statusBill = 0) and b.idBill = c.idBill and c.idProduct = a.idProduct and d.idProduct = c.idTopping ORDER BY a.idProduct, c.idDetailBill ASC";
+            string query = "select a.idProduct, a.nameProduct, b.quantity, b.price, b.iddetailbill, null as idDetailTopping, null as idTopping, null as quantityTopping, null as priceTopping, null as nameTopping from product a, (select * from detailbill where idBill = (select idBill from bill a, tablewinform b where a.idxTable = b.idTable and b.idTable = " + idTable + " and a.statusBill = 0)) b where a.idProduct = b.idProduct; ";
 
-            string queryElse = "SELECT c.uniqueDetailBill as uniqueDetailBill, c.idDetailBill as idDetailBill,a.idProduct, a.nameProduct,c.price, c.quantity, null as idTopping,null as nameTopping, null as priceTopping FROM product a, bill b, detailbill c WHERE b.idBill = (select idBill from bill where idxTable = '" + idTable+"' and statusBill = 0) and b.idBill = c.idBill and c.idProduct = a.idProduct ORDER BY a.idProduct ASC";
+            string queryTopping = "select b.*, a.nameProduct as nameTopping from product a, (select a.idProduct, a.nameProduct, b.quantity, b.price, b.iddetailbill, c.idDetailTopping, c.idTopping, c.quantityTopping, c.priceTopping from product a, (select * from detailbill where idBill = (select idBill from bill a, tablewinform b where a.idxTable = b.idTable and b.idTable = " + idTable + " and a.statusBill = 0)) b, detailtopping c where a.idProduct = b.idProduct and b.idDetailBill = c.idDetailBill) b where a.idProduct = b.idTopping";
 
             DataTable data = DataProvider.Instance.ExecuteQuery(query);
+
+            DataTable dataTopping = DataProvider.Instance.ExecuteQuery(queryTopping);
 
             foreach (DataRow item in data.Rows)
             {
@@ -41,36 +43,25 @@ namespace LTGD_Project.DAO
                 menus.Add(menu);
             }
 
-            if (menus.Count > 0)
+            foreach (DataRow item in dataTopping.Rows)
             {
-                int exist = 0;
-                DataTable dataElse = DataProvider.Instance.ExecuteQuery(queryElse);
-                foreach (DataRow item in dataElse.Rows)
+                Menu menu = new Menu(item);
+                for (int i = 0; i < menus.Count(); i++)
                 {
-                    Menu menu = new Menu(item);
-                    for(int i = 0; i < menus.Count(); i++)
+                    if (menu.IdDetailBill == menus[i].IdDetailBill && menu.IdDetailTopping != menus[i].IdDetailTopping && menus[i].IdDetailTopping == 0)
                     {
-                        if (menus[i].IdProduct == menu.IdProduct)
-                        {
-                            exist = 1;
-                            break;
-                        }
+                        menus[i].IdDetailTopping = menu.IdDetailTopping;
+                        menus[i].IdTopping = menu.IdTopping;
+                        menus[i].QuantityTopping = menu.QuantityTopping;
+                        menus[i].PriceTopping = menu.PriceTopping;
+                        menus[i].NameTopping = menu.NameTopping;
                     }
-                    if (exist == 0)
+                    else if (menu.IdDetailBill == menus[i].IdDetailBill && menu.IdDetailTopping != menus[i].IdDetailTopping && menus[i].IdDetailTopping != 0)
                         menus.Add(menu);
                 }
-                return menus;
             }
-            else
-            {
-                DataTable dataElse = DataProvider.Instance.ExecuteQuery(queryElse);
-                foreach (DataRow item in dataElse.Rows)
-                {
-                    Menu menu = new Menu(item);
-                    menus.Add(menu);
-                }
-                return menus;
-            }
+            List<Menu> sortMenus = menus.OrderBy(o => o.IdDetailBill).ToList();
+            return sortMenus;
         }
     }
 }

@@ -170,34 +170,35 @@ namespace LTGD_Project.DAO
             return true;
         }
 
-        public bool CheckIsToppingEqual(List<Topping> toppings, int idProduct, int price, int idBill)
+        public int CheckIsToppingEqual(List<Topping> toppings, int idProduct, int price, int idBill)
         {
-            List<DetailBillTopping> detailBillToppings = SelectDetailBillByIdBill(idBill);
-            List<int> topping1 = new List<int>();
-            List<int> topping2 = new List<int>();
-            if (toppings.Count() == 0)
+            //Có price, idProduct -> lấy được idDetailBill của sản phẩm trùng giá + trùng size -> lấy số phần tử (s)
+            List<int> idDetailBills = DetailToppingDAO.Instance.SelectIdDetailBillTrungSize(price, idProduct, idBill);
+            List<int> checkTopping = new List<int>();
+            List<int> topping = new List<int>();
+            for (int z = 0; z < toppings.Count; z++)
             {
-                return true;
+                topping.Add(toppings[z].IdProduct);
             }
-            else
-                for (int i = 0; i < detailBillToppings.Count(); i++)
+            //Có idDetailBill -> Kiểm tra trong bảng detailtopping -> list[{idDetailBills}](s)
+            for (int i = 0; i < idDetailBills.Count(); i++)
+            {
+                List<DetailTopping> detailToppings = DetailToppingDAO.Instance.SelectListDetailToppingById(idDetailBills[i]);
+                if (detailToppings.Count == toppings.Count())
                 {
-                    if (detailBillToppings[i].IdProduct == idProduct && detailBillToppings[i].Price == price)
+                    for (int j = 0; j < detailToppings.Count(); j++)
+                        checkTopping.Add(detailToppings[j].IdTopping);
+                    List<int> newCheckTopping = Sort(checkTopping);
+                    List<int> newTopping = Sort(topping);
+                    if (CheckIsToppingListEqual(newCheckTopping, newTopping) == true)
                     {
-                        if (detailBillToppings[i].Topping.Count() == toppings.Count())
-                        {
-                            for (int j = 0; j < toppings.Count(); j++)
-                            {
-                                topping1.Add(detailBillToppings[i].Topping[j].IdProduct);
-                                topping2.Add(toppings[j].IdProduct);
-                            }
-                            List<int> newTopping1 = Sort(topping1);
-                            List<int> newTopping2 = Sort(topping2);
-                            return CheckIsToppingListEqual(topping1, topping2);
-                        }
+                        return idDetailBills[i];
                     }
                 }
-            return false;
+            }
+            return 0;
+            //Check toppings.Count == list[i].idDetailBills.Count()
+            //true -> sort 2 mảng -> check các phần tử trùng nhau -> kết quả
         }
 
         public List<int> SelectIdTopping(List<Topping> toppings, int idProduct, int price, int idBill)
@@ -247,32 +248,17 @@ namespace LTGD_Project.DAO
                 return false;
         }
 
-        public void AddDetailBill(int idBill, int idProduct, int quantity, int price, List<Topping> toppings)
+        public void AddDetailBill(int idBill, int idProduct, int quantity, int price, List<Topping> toppings, int quantityTopping)
         {
-            int uniqueInt = 0;
-            string strCmd = "INSERT INTO detailbill VALUES (null, @idBill , @idProduct , @quantity , @price , @idTopping , @priceTopping , @uniqueDetailBill );";
-            string strCmd2 = "INSERT INTO detailbill VALUES (null, @idBill , @idProduct , @quantity , @price , @idTopping , @priceTopping , null );";
-            string strCmd3 = "INSERT INTO detailbill VALUES (null, @idBill , @idProduct , @quantity , @price , @idTopping , @priceTopping , 9999 );";
-            string strCmd4 = "INSERT INTO detailbill VALUES (null, @idBill , @idProduct , @quantity , @price , null , null , 9999 );";
-            if (toppings.Count() == 1)
+            string strCmd = "INSERT INTO detailbill VALUES (null, @idBill , @idProduct , @quantity , @price );";
+            string strCmdTopping = "INSERT INTO detailtopping VALUES (null, @idDetailBill , @idTopping , @quantityTopping , @priceTopping );";
+            DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { idBill, idProduct, quantity, price });
+            int idDetailBill = SelectIdDetailBillLast();
+            
+            for(int i = 0; i < toppings.Count(); i++)
             {
-                DataProvider.Instance.ExecuteNonQuery(strCmd3, new object[] { idBill, idProduct, quantity, price, toppings[0].IdProduct, toppings[0].PriceProduct });
+                DataProvider.Instance.ExecuteNonQuery(strCmdTopping, new object[] { idDetailBill, toppings[i].IdProduct, quantityTopping, toppings[i].PriceProduct });
             }
-            else if (toppings.Count() == 0)
-                DataProvider.Instance.ExecuteNonQuery(strCmd4, new object[] { idBill, idProduct, quantity, price });
-            else
-                for (int i = 0; i < toppings.Count(); i++)
-                {
-                    if (i == 0)
-                    {
-                        DataProvider.Instance.ExecuteNonQuery(strCmd2, new object[] { idBill, idProduct, quantity, price, toppings[i].IdProduct, toppings[i].PriceProduct });
-                        uniqueInt = DetailBillDAO.instance.SelectIdDetailBillLast();
-                    }
-                    else
-                    {
-                        DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { idBill, idProduct, quantity, price, toppings[i].IdProduct, toppings[i].PriceProduct, uniqueInt });
-                    }
-                }
         }
 
         public List<int> SelectIdDetailBill(List<int> toppings, int idProduct, int price, int idBill)
@@ -358,25 +344,10 @@ namespace LTGD_Project.DAO
             }
         }
 
-        public void UpdateQuantityDetailBill(int quantity, List<int> idDetailBill)
+        public void UpdateQuantityDetailBill(int quantity,int idDetailBill, int quantityTopping)
         {
-            MySqlConnection con = new MySqlConnection(strCon);
-            con.Open();
-            string strCmd = "update detailbill set quantity = quantity + @quantity where idDetailBill in ({0})";
-
-            string[] paramNames = idDetailBill.Select((s, i) => "@tag" + i.ToString()).ToArray();
-
-            string inClause = string.Join(",", paramNames);
-            using (var cmd = new MySqlCommand(string.Format(strCmd, inClause), con))
-            {
-                for (int i = 0; i < paramNames.Length; i++)
-                {
-                    cmd.Parameters.AddWithValue(paramNames[i], idDetailBill[i]);
-                }
-                cmd.Parameters.Add(new MySqlParameter("@quantity", quantity));
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
+            DataProvider.Instance.ExecuteNonQuery("update detailbill set quantity = quantity +" + quantity + " where idDetailBill = " + idDetailBill);
+            DataProvider.Instance.ExecuteNonQuery("update detailtopping set quantityTopping = quantityTopping + " + quantityTopping + " where idDetailBill = " + idDetailBill);
         }
     }
 }

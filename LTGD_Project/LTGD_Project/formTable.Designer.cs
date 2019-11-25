@@ -51,6 +51,7 @@
             this.discountBtn = new System.Windows.Forms.Button();
             this.chargeBtn = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.tableTxt = new System.Windows.Forms.TextBox();
             this.priceProductTxt = new System.Windows.Forms.TextBox();
             this.listBoxProductPrice = new System.Windows.Forms.ListBox();
             this.listBoxToppingPrice = new System.Windows.Forms.ListBox();
@@ -63,13 +64,14 @@
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanelTable = new System.Windows.Forms.FlowLayoutPanel();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.tableTxt = new System.Windows.Forms.TextBox();
+            this.toppingCount = new System.Windows.Forms.NumericUpDown();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.discountCount)).BeginInit();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toppingCount)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -253,6 +255,7 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.toppingCount);
             this.panel4.Controls.Add(this.tableTxt);
             this.panel4.Controls.Add(this.priceProductTxt);
             this.panel4.Controls.Add(this.listBoxProductPrice);
@@ -269,9 +272,17 @@
             this.panel4.Size = new System.Drawing.Size(444, 118);
             this.panel4.TabIndex = 4;
             // 
+            // tableTxt
+            // 
+            this.tableTxt.Location = new System.Drawing.Point(101, 65);
+            this.tableTxt.Name = "tableTxt";
+            this.tableTxt.ReadOnly = true;
+            this.tableTxt.Size = new System.Drawing.Size(63, 20);
+            this.tableTxt.TabIndex = 11;
+            // 
             // priceProductTxt
             // 
-            this.priceProductTxt.Location = new System.Drawing.Point(170, 91);
+            this.priceProductTxt.Location = new System.Drawing.Point(170, 65);
             this.priceProductTxt.Name = "priceProductTxt";
             this.priceProductTxt.ReadOnly = true;
             this.priceProductTxt.Size = new System.Drawing.Size(46, 20);
@@ -282,7 +293,7 @@
             this.listBoxProductPrice.FormattingEnabled = true;
             this.listBoxProductPrice.Location = new System.Drawing.Point(170, 3);
             this.listBoxProductPrice.Name = "listBoxProductPrice";
-            this.listBoxProductPrice.Size = new System.Drawing.Size(46, 82);
+            this.listBoxProductPrice.Size = new System.Drawing.Size(46, 56);
             this.listBoxProductPrice.TabIndex = 9;
             this.listBoxProductPrice.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBoxProductPrice_MouseClick);
             // 
@@ -326,12 +337,12 @@
             // 
             // productCount
             // 
-            this.productCount.Location = new System.Drawing.Point(101, 65);
+            this.productCount.Location = new System.Drawing.Point(101, 91);
             this.productCount.Minimum = new decimal(new int[] {
-            1,
+            100,
             0,
             0,
-            0});
+            -2147483648});
             this.productCount.Name = "productCount";
             this.productCount.Size = new System.Drawing.Size(63, 20);
             this.productCount.TabIndex = 4;
@@ -383,13 +394,17 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "county-cork-ireland-wallpapers.1440x900.jpg");
             // 
-            // tableTxt
+            // toppingCount
             // 
-            this.tableTxt.Location = new System.Drawing.Point(101, 91);
-            this.tableTxt.Name = "tableTxt";
-            this.tableTxt.ReadOnly = true;
-            this.tableTxt.Size = new System.Drawing.Size(63, 20);
-            this.tableTxt.TabIndex = 11;
+            this.toppingCount.Location = new System.Drawing.Point(170, 91);
+            this.toppingCount.Name = "toppingCount";
+            this.toppingCount.Size = new System.Drawing.Size(46, 20);
+            this.toppingCount.TabIndex = 12;
+            this.toppingCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // formTable
             // 
@@ -414,6 +429,7 @@
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toppingCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -454,5 +470,6 @@
         private System.Windows.Forms.ListBox listBoxProductPrice;
         private System.Windows.Forms.TextBox priceProductTxt;
         private System.Windows.Forms.TextBox tableTxt;
+        private System.Windows.Forms.NumericUpDown toppingCount;
     }
 }
