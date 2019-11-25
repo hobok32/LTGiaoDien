@@ -8,16 +8,24 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System.Globalization;
 using LTGD_Project.DAO;
 using LTGD_Project.DTO;
+using System.Threading;
 //Testgithub
 namespace LTGD_Project
 {
     public partial class formTable : Form
     {
+        string usernameLogin;
         List<int> idTopping = new List<int>();
         List<Table> tables = TableDAO.Instance.LoadTableList();
         List<Topping> toppings = new List<Topping>();
+        public formTable(string username) : this()
+        {
+            usernameLogin = username;
+            Text += " (" + usernameLogin.ToUpper() + " :3)";
+        }
         public formTable()
         {
             InitializeComponent();
@@ -25,7 +33,6 @@ namespace LTGD_Project
             LoadCategory();
             toppingCount.Enabled = false;
         }
-
         //Hiển thị danh sách bàn
         void LoadTable()
         {
@@ -68,7 +75,10 @@ namespace LTGD_Project
                         ListViewItem listViewItem = new ListViewItem(item.NameProduct.ToString());
                         listViewItem.SubItems.Add(item.Price.ToString() + ".000");
                         listViewItem.SubItems.Add(item.Quantity.ToString());
-                        listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000) x" + item.QuantityTopping);
+                        if (item.NameTopping.ToString() == "Không có Topping")
+                            listViewItem.SubItems.Add(item.NameTopping.ToString());
+                        else
+                            listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000) x" + item.QuantityTopping);
                         listViewItem.SubItems.Add(((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity).ToString() + ".000");
                         totalPrice += (int)((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity);
                         listViewBill.Items.Add(listViewItem);
@@ -84,7 +94,10 @@ namespace LTGD_Project
                             ListViewItem listViewItem = new ListViewItem(item.NameProduct.ToString());
                             listViewItem.SubItems.Add(item.Price.ToString() + ".000");
                             listViewItem.SubItems.Add(item.Quantity.ToString());
-                            listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000) x" + item.QuantityTopping);
+                            if (item.NameTopping.ToString() == "Không có Topping")
+                                listViewItem.SubItems.Add(item.NameTopping.ToString());
+                            else
+                                listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000) x" + item.QuantityTopping);
                             listViewItem.SubItems.Add(((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity).ToString() + ".000");
                             totalPrice += (int)((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity);
                             listViewBill.Items.Add(listViewItem);
@@ -105,7 +118,10 @@ namespace LTGD_Project
                                 ListViewItem listViewItem = new ListViewItem(item.NameProduct.ToString());
                                 listViewItem.SubItems.Add(item.Price.ToString() + ".000");
                                 listViewItem.SubItems.Add(item.Quantity.ToString());
-                                listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000) x" + item.QuantityTopping);
+                                if (item.NameTopping.ToString() == "Không có Topping")
+                                    listViewItem.SubItems.Add(item.NameTopping.ToString());
+                                else
+                                    listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000) x" + item.QuantityTopping);
                                 listViewItem.SubItems.Add(((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity).ToString() + ".000");
                                 totalPrice += (int)((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity);
                                 listViewBill.Items.Add(listViewItem);
@@ -117,7 +133,8 @@ namespace LTGD_Project
                     }
                 }
             }
-            totalPriceTxt.Text = totalPrice.ToString() + ".000 VNĐ";
+            CultureInfo culture = new CultureInfo("vi-VN");
+            totalPriceTxt.Text = (totalPrice * 1000).ToString("c", culture);
         }
 
         //Event khi ấn vào từng bàn

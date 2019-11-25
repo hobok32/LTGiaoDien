@@ -51,6 +51,7 @@
             this.discountBtn = new System.Windows.Forms.Button();
             this.chargeBtn = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.toppingCount = new System.Windows.Forms.NumericUpDown();
             this.tableTxt = new System.Windows.Forms.TextBox();
             this.priceProductTxt = new System.Windows.Forms.TextBox();
             this.listBoxProductPrice = new System.Windows.Forms.ListBox();
@@ -64,14 +65,13 @@
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanelTable = new System.Windows.Forms.FlowLayoutPanel();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.toppingCount = new System.Windows.Forms.NumericUpDown();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.discountCount)).BeginInit();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.productCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toppingCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productCount)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -98,7 +98,7 @@
             this.chiTiếtTàiKhoảnToolStripMenuItem,
             this.đăngXuấtToolStripMenuItem});
             this.tàiKhoảnToolStripMenuItem.Name = "tàiKhoảnToolStripMenuItem";
-            this.tàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.tàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.tàiKhoảnToolStripMenuItem.Text = "Tài khoản";
             // 
             // chiTiếtTàiKhoảnToolStripMenuItem
@@ -272,6 +272,18 @@
             this.panel4.Size = new System.Drawing.Size(444, 118);
             this.panel4.TabIndex = 4;
             // 
+            // toppingCount
+            // 
+            this.toppingCount.Location = new System.Drawing.Point(170, 91);
+            this.toppingCount.Name = "toppingCount";
+            this.toppingCount.Size = new System.Drawing.Size(46, 20);
+            this.toppingCount.TabIndex = 12;
+            this.toppingCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // tableTxt
             // 
             this.tableTxt.Location = new System.Drawing.Point(101, 65);
@@ -394,18 +406,6 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "county-cork-ireland-wallpapers.1440x900.jpg");
             // 
-            // toppingCount
-            // 
-            this.toppingCount.Location = new System.Drawing.Point(170, 91);
-            this.toppingCount.Name = "toppingCount";
-            this.toppingCount.Size = new System.Drawing.Size(46, 20);
-            this.toppingCount.TabIndex = 12;
-            this.toppingCount.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // formTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -417,6 +417,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "formTable";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý cafe";
@@ -428,8 +429,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.discountCount)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.productCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toppingCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

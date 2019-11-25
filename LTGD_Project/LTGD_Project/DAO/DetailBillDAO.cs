@@ -30,7 +30,7 @@ namespace LTGD_Project.DAO
         public List<DetailBill> SelectDetailBill(int idBill)
         {
             List<DetailBill> details = new List<DetailBill>();
-            DataTable data = DataProvider.Instance.ExecuteQuery("SELECT * FROM detailbill WHERE idBill ='"+idBill+"'");
+            DataTable data = DataProvider.Instance.ExecuteQuery("SELECT * FROM detailbill WHERE idBill ='" + idBill + "'");
 
             foreach (DataRow item in data.Rows)
             {

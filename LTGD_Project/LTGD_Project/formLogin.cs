@@ -34,7 +34,7 @@ namespace LTGD_Project
             string password = passTxt.Text.Trim();
             if (Login(username, password))
             {
-                formTable f = new formTable();
+                formTable f = new formTable(username);
                 this.Hide();
                 f.ShowDialog();
                 this.Show();
