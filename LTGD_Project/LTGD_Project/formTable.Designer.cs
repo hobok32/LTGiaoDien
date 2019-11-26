@@ -178,14 +178,14 @@
             this.panel3.Controls.Add(this.chargeBtn);
             this.panel3.Location = new System.Drawing.Point(452, 444);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(444, 130);
+            this.panel3.Size = new System.Drawing.Size(444, 109);
             this.panel3.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label1.Location = new System.Drawing.Point(162, 2);
+            this.label1.Location = new System.Drawing.Point(162, 4);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 19);
             this.label1.TabIndex = 9;
@@ -252,6 +252,7 @@
             this.chargeBtn.TabIndex = 4;
             this.chargeBtn.Text = "THANH TOÁN";
             this.chargeBtn.UseVisualStyleBackColor = true;
+            this.chargeBtn.Click += new System.EventHandler(this.chargeBtn_Click);
             // 
             // panel4
             // 
@@ -397,7 +398,7 @@
             // 
             this.flowLayoutPanelTable.Location = new System.Drawing.Point(12, 27);
             this.flowLayoutPanelTable.Name = "flowLayoutPanelTable";
-            this.flowLayoutPanelTable.Size = new System.Drawing.Size(434, 547);
+            this.flowLayoutPanelTable.Size = new System.Drawing.Size(434, 526);
             this.flowLayoutPanelTable.TabIndex = 5;
             // 
             // imageList1
@@ -410,7 +411,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(908, 586);
+            this.ClientSize = new System.Drawing.Size(908, 561);
             this.Controls.Add(this.flowLayoutPanelTable);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);

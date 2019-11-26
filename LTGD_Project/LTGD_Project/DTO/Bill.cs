@@ -15,6 +15,7 @@ namespace LTGD_Project.DTO
         public DateTime? DateBill { set; get; }
         public bool StatusBill { set; get; }
 
+        public int Discount { set; get; }
         public Bill(DataRow row)
         {
             this.IdBill = (int)row["idBill"];
@@ -25,6 +26,7 @@ namespace LTGD_Project.DTO
                 this.DateBill = (DateTime?)DateBillTemp;
            
             this.StatusBill = (bool)row["statusBill"];
+            this.Discount = (int)row["discount"];
         }
     }
 }

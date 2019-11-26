@@ -18,8 +18,8 @@ namespace LTGD_Project
     public partial class formTable : Form
     {
         string usernameLogin;
+        float totalPrice = 0;
         List<int> idTopping = new List<int>();
-        List<Table> tables = TableDAO.Instance.LoadTableList();
         List<Topping> toppings = new List<Topping>();
         public formTable(string username) : this()
         {
@@ -36,7 +36,9 @@ namespace LTGD_Project
         //Hiển thị danh sách bàn
         void LoadTable()
         {
-            foreach(Table item in tables)
+            flowLayoutPanelTable.Controls.Clear();
+            List<Table> tables = TableDAO.Instance.LoadTableList();
+            foreach (Table item in tables)
             {
                 Button btn = new Button() { Width = TableDAO.TableWidth, Height = TableDAO.TableWidth };
                 btn.Text = item.NameTable + Environment.NewLine + item.StatusTable;
@@ -57,11 +59,10 @@ namespace LTGD_Project
         }
 
         //Hiển thị hóa đơn theo bàn tương ứng
-        void ShowDetailBill(int idTable)
+        private void ShowDetailBill(int idTable)
         {
             listViewBill.Items.Clear();
             List<DTO.Menu> menu = MenuDAO.Instance.SelectMenu(idTable);
-            int totalPrice = 0;
             int temp = 0;
             int tempIdBillDetail = 0;
             int active = 0;
@@ -212,6 +213,8 @@ namespace LTGD_Project
                             }
                         }
                     }
+                    ShowDetailBill(table.IdTable);
+                    LoadTable();
                 }
             }
         }
@@ -375,6 +378,25 @@ namespace LTGD_Project
             else
             {
                 priceProductTxt.Text = lb.SelectedItem.ToString();
+            }
+        }
+
+        private void chargeBtn_Click(object sender, EventArgs e)
+        {
+            Table table = listViewBill.Tag as Table;
+            int discount = (int)discountCount.Value;
+            int idBill = BillDAO.Instance.SelectIdBill(table.IdTable);
+            float priceDiscount = (totalPrice - totalPrice * discount / 100) * 1000;
+            CultureInfo culture = new CultureInfo("vi-VN");
+            if (idBill != -1)
+            {
+                if (MessageBox.Show(string.Format("Bạn đã chắc chắn thanh toán {0} chưa?\n\nGiảm giá: {1}%\n\nTổng tiền: {2}", table.NameTable, discount, priceDiscount.ToString("c", culture)), "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    BillDAO.Instance.ThanhToanBill(idBill, discount);
+                    TableDAO.Instance.UpdateStatusTable(table.IdTable, "Trống");
+                    ShowDetailBill(table.IdTable);
+                    LoadTable();
+                }
             }
         }
     }

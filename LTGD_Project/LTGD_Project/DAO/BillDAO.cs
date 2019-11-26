@@ -39,7 +39,7 @@ namespace LTGD_Project.DAO
 
         public void AddBill(int idxTable, string idAccount)
         {
-            string strCmd = "INSERT INTO bill VALUES (null, @idAccount , @idxTable , now(), 0);";
+            string strCmd = "INSERT INTO bill VALUES (null, @idAccount , @idxTable , now(), 0, 0);";
             DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { idAccount, idxTable });
         }
 
@@ -54,6 +54,12 @@ namespace LTGD_Project.DAO
             {
                 return 1;
             }
+        }
+
+        public void ThanhToanBill(int idBill, int discount)
+        {
+            string strCmd = "update bill set statusBill = 1, discount = " + discount + " where idBill = " + idBill;
+            DataProvider.Instance.ExecuteNonQuery(strCmd);
         }
     }
 }
