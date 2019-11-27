@@ -461,39 +461,63 @@ namespace LTGD_Project
                                 if (DetailBillDAO.Instance.CheckIsPriceEqual(detailBills[i].IdProduct, detailBills[i].Price, idBillSwitch) == true)
                                 {
                                     List<DetailTopping> detailToppings = DetailToppingDAO.Instance.SelectListDetailToppingById(detailBills[i].IdDeTailBill);
-                                    List<Topping> tempTopping = new List<Topping>();
-                                    for (int j = 0; j < detailToppings.Count(); j++)
+                                    //Có Topping
+                                    if (detailToppings.Count() > 0)
                                     {
-                                        Topping toppping = new Topping();
-                                        toppping.IdProduct = detailToppings[j].IdTopping;
-                                        toppping.NameProduct = detailToppings[j].IdDetailTopping.ToString();
-                                        toppping.PriceProduct = detailToppings[j].PriceTopping;
-                                        toppping.ImgProduct = detailToppings[j].QuantityTopping.ToString();
-                                        tempTopping.Add(toppping);
-                                    }
-                                    //Trùng Topping
-                                    if (DetailBillDAO.Instance.CheckIsToppingEqual(tempTopping, detailBills[i].IdProduct, detailBills[i].Price, idBillSwitch) != 0)
-                                    {
-                                        //Update lại số lượng của sản phẩm đó
-                                        int idDetailBill = DetailBillDAO.Instance.CheckIsToppingEqual(tempTopping, detailBills[i].IdProduct, detailBills[i].Price, idBillSwitch);
-                                        DetailBillDAO.Instance.UpdateQuantityDetailBill(detailBills[i].Quantity, idDetailBill, int.Parse(tempTopping[i].ImgProduct));
-                                        //Xóa detailtopping cũ
-                                        List<int> delTopping = new List<int>();
-                                        for (int z = 0; z < tempTopping.Count(); z++)
+                                        List<Topping> tempTopping = new List<Topping>();
+                                        for (int j = 0; j < detailToppings.Count(); j++)
                                         {
-                                            delTopping.Add(int.Parse(tempTopping[z].NameProduct));
+                                            Topping toppping = new Topping();
+                                            toppping.IdProduct = detailToppings[j].IdTopping;
+                                            toppping.NameProduct = detailToppings[j].IdDetailTopping.ToString();
+                                            toppping.PriceProduct = detailToppings[j].PriceTopping;
+                                            toppping.ImgProduct = detailToppings[j].QuantityTopping.ToString();
+                                            tempTopping.Add(toppping);
                                         }
-                                        DetailToppingDAO.Instance.DeleteDetailTopping(delTopping);
-                                        //Xóa detailbill cũ
-                                        DetailBillDAO.Instance.DeleteDetailBill(detailBills[i].IdDeTailBill);
+
+                                        //Trùng Topping
+                                        if (DetailBillDAO.Instance.CheckIsToppingEqual(tempTopping, detailBills[i].IdProduct, detailBills[i].Price, idBillSwitch) != 0)
+                                        {
+                                            //Update lại số lượng của sản phẩm đó
+                                            int idDetailBill = DetailBillDAO.Instance.CheckIsToppingEqual(tempTopping, detailBills[i].IdProduct, detailBills[i].Price, idBillSwitch);
+                                            DetailBillDAO.Instance.UpdateQuantityDetailBill(detailBills[i].Quantity, idDetailBill, int.Parse(tempTopping[i].ImgProduct));
+                                            //Xóa detailtopping cũ
+                                            List<int> delTopping = new List<int>();
+                                            for (int z = 0; z < tempTopping.Count(); z++)
+                                            {
+                                                delTopping.Add(int.Parse(tempTopping[z].NameProduct));
+                                            }
+                                            DetailToppingDAO.Instance.DeleteDetailTopping(delTopping);
+                                            //Xóa detailbill cũ
+                                            DetailBillDAO.Instance.DeleteDetailBill(detailBills[i].IdDeTailBill);
+                                        }
+                                        //Khác Topping
+                                        else
+                                        {
+                                            //Thêm sản phẩm mới
+                                            List<int> temp = new List<int>();
+                                            temp.Add(detailBills[i].IdDeTailBill);
+                                            TableDAO.Instance.SwitchTable(idBillSwitch, temp);
+                                        }
                                     }
-                                    //Khác Topping
+                                    //Không có Topping
                                     else
                                     {
-                                        //Thêm sản phẩm mới
-                                        List<int> temp = new List<int>();
-                                        temp.Add(detailBills[i].IdDeTailBill);
-                                        TableDAO.Instance.SwitchTable(idBillSwitch, temp);
+                                        //Trùng => Update số lượng
+                                        if (DetailToppingDAO.Instance.CheckHaveTopping(detailBills[i].Price, detailBills[i].IdProduct, idBillSwitch) != 0)
+                                        {
+                                            int idDetailBill = DetailToppingDAO.Instance.CheckHaveTopping(detailBills[i].Price, detailBills[i].IdProduct, idBillSwitch);
+                                            DetailBillDAO.Instance.UpdateQuantityDetailBill(detailBills[i].Quantity, idDetailBill, -9999);
+                                            //Xóa detailbill cũ
+                                            DetailBillDAO.Instance.DeleteDetailBill(detailBills[i].IdDeTailBill);
+                                        }
+                                        //Không trùng => Thêm mới
+                                        else
+                                        {
+                                            List<int> temp = new List<int>();
+                                            temp.Add(detailBills[i].IdDeTailBill);
+                                            TableDAO.Instance.SwitchTable(idBillSwitch, temp);
+                                        }
                                     }
                                 }
                                 //Sản phẩm mới khác size 

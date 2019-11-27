@@ -365,7 +365,8 @@ namespace LTGD_Project.DAO
         public void UpdateQuantityDetailBill(int quantity,int idDetailBill, int quantityTopping)
         {
             DataProvider.Instance.ExecuteNonQuery("update detailbill set quantity = quantity +" + quantity + " where idDetailBill = " + idDetailBill);
-            DataProvider.Instance.ExecuteNonQuery("update detailtopping set quantityTopping = quantityTopping + " + quantityTopping + " where idDetailBill = " + idDetailBill);
+            if (quantityTopping != -9999)
+                DataProvider.Instance.ExecuteNonQuery("update detailtopping set quantityTopping = quantityTopping + " + quantityTopping + " where idDetailBill = " + idDetailBill);
         }
     }
 }

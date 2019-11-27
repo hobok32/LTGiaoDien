@@ -56,5 +56,17 @@ namespace LTGD_Project.DAO
                 DataProvider.Instance.ExecuteNonQuery(strCmd);
             }
         }
+
+        public int CheckHaveTopping(int price, int idProduct, int idBill)
+        {
+            List<int> idDetailBills = DetailToppingDAO.Instance.SelectIdDetailBillTrungSize(price, idProduct, idBill);
+            for (int i = 0; i < idDetailBills.Count(); i++)
+            {
+                DataTable data = DataProvider.Instance.ExecuteQuery("SELECT * FROM detailtopping WHERE idDetailBill = " + idDetailBills[i]);
+                if (data.Rows.Count == 0)
+                    return idDetailBills[i];
+            }
+            return 0;
+        }
     }
 }
