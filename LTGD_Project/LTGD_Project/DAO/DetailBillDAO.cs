@@ -364,9 +364,38 @@ namespace LTGD_Project.DAO
 
         public void UpdateQuantityDetailBill(int quantity,int idDetailBill, int quantityTopping)
         {
-            DataProvider.Instance.ExecuteNonQuery("update detailbill set quantity = quantity +" + quantity + " where idDetailBill = " + idDetailBill);
-            if (quantityTopping != -9999)
-                DataProvider.Instance.ExecuteNonQuery("update detailtopping set quantityTopping = quantityTopping + " + quantityTopping + " where idDetailBill = " + idDetailBill);
+            string strCmd = "select quantity from detailbill where idDetailBill = " + idDetailBill;
+            int quantityCheck = 0;
+            quantityCheck = (int)DataProvider.Instance.ExecuteScalar(strCmd);
+            if (quantity != 0)
+            {
+                if (quantityCheck < 0 && quantity > 0)
+                {
+                    DataProvider.Instance.ExecuteNonQuery("update detailbill set quantity = 0 where idDetailBill = " + idDetailBill);
+                    DataProvider.Instance.ExecuteNonQuery("update detailbill set quantity = quantity +" + quantity + " where idDetailBill = " + idDetailBill);
+                    if (quantityTopping != -9999)
+                    {
+                        DataProvider.Instance.ExecuteNonQuery("update detailtopping set quantityTopping = 0 where idDetailBill = " + idDetailBill);
+                        DataProvider.Instance.ExecuteNonQuery("update detailtopping set quantityTopping = quantityTopping + " + quantityTopping + " where idDetailBill = " + idDetailBill);
+                    }
+                }
+                else if (quantityCheck < 0 && quantity < 0)
+                {
+
+                }
+                else if (quantityCheck == quantity * -1)
+                {
+                    DataProvider.Instance.ExecuteNonQuery("update detailbill set quantity = -1 where idDetailBill = " + idDetailBill);
+                    if (quantityTopping != -9999)
+                        DataProvider.Instance.ExecuteNonQuery("update detailtopping set quantityTopping = 0 where idDetailBill = " + idDetailBill);
+                }
+                else 
+                {
+                    DataProvider.Instance.ExecuteNonQuery("update detailbill set quantity = quantity +" + quantity + " where idDetailBill = " + idDetailBill);
+                    if (quantityTopping != -9999)
+                        DataProvider.Instance.ExecuteNonQuery("update detailtopping set quantityTopping = quantityTopping + " + quantityTopping + " where idDetailBill = " + idDetailBill);
+                }
+            }
         }
     }
 }

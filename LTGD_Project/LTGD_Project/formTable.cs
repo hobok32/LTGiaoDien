@@ -411,7 +411,7 @@ namespace LTGD_Project
         private void switchTableBtn_Click(object sender, EventArgs e)
         {
             //Bàn hiện tại có bill
-            if ((listViewBill.Tag as Table).StatusTable != "Trống")
+            if ((listViewBill.Tag as Table).StatusTable != "Trống" && (listViewBill.Tag as Table).IdTable != (comboBoxSwitchTable.SelectedItem as Table).IdTable)
             {
                 //Bàn hiện tại
                 int idTableCurrent = (listViewBill.Tag as Table).IdTable;
