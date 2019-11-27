@@ -47,5 +47,14 @@ namespace LTGD_Project.DAO
             }
             return detailToppings;
         }
+
+        public void DeleteDetailTopping(List<int> del)
+        {
+            for(int i = 0; i < del.Count(); i++)
+            {
+                string strCmd = "DELETE FROM detailtopping WHERE idDetailTopping = " + del[i];
+                DataProvider.Instance.ExecuteNonQuery(strCmd);
+            }
+        }
     }
 }

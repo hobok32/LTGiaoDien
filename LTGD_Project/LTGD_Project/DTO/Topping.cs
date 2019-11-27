@@ -22,5 +22,6 @@ namespace LTGD_Project.DTO
             this.PriceProduct = (int)row["priceProduct"];
             this.ImgProduct = (string)row["imgProduct"];
         }
+        public Topping() { }
     }
 }

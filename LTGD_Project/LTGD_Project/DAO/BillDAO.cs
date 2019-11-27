@@ -61,5 +61,10 @@ namespace LTGD_Project.DAO
             string strCmd = "update bill set statusBill = 1, discount = " + discount + " where idBill = " + idBill;
             DataProvider.Instance.ExecuteNonQuery(strCmd);
         }
+        public void XoaBill(int idBill)
+        {
+            string strCmd = "DELETE FROM bill WHERE idBill = " + idBill;
+            DataProvider.Instance.ExecuteNonQuery(strCmd);
+        }
     }
 }

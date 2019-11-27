@@ -344,6 +344,24 @@ namespace LTGD_Project.DAO
             }
         }
 
+        public List<int> SelectIdDetailBill(int idBill)
+        {
+            List<int> idDetailBill = new List<int>();
+            DataTable data = DataProvider.Instance.ExecuteQuery("SELECT * FROM detailbill WHERE idBill = " + idBill);
+            foreach (DataRow item in data.Rows)
+            {
+                DetailBill detail = new DetailBill(item);
+                idDetailBill.Add(detail.IdDeTailBill);
+            }
+            return idDetailBill;
+        }
+
+        public void DeleteDetailBill(int del)
+        {
+            string strCmd = "DELETE FROM detailbill WHERE idDetailBill = " + del;
+            DataProvider.Instance.ExecuteNonQuery(strCmd);
+        }
+
         public void UpdateQuantityDetailBill(int quantity,int idDetailBill, int quantityTopping)
         {
             DataProvider.Instance.ExecuteNonQuery("update detailbill set quantity = quantity +" + quantity + " where idDetailBill = " + idDetailBill);

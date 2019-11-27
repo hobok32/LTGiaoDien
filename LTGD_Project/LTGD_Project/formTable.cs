@@ -31,6 +31,7 @@ namespace LTGD_Project
             InitializeComponent();
             LoadTable();
             LoadCategory();
+            LoadComboBoxSwitchTable();
             toppingCount.Enabled = false;
         }
         //Hiển thị danh sách bàn
@@ -58,9 +59,16 @@ namespace LTGD_Project
             }
         }
 
+        void LoadComboBoxSwitchTable()
+        {
+            comboBoxSwitchTable.DataSource = TableDAO.Instance.LoadTableList();
+            comboBoxSwitchTable.DisplayMember = "nameTable";
+        }
+
         //Hiển thị hóa đơn theo bàn tương ứng
         private void ShowDetailBill(int idTable)
         {
+            totalPrice = 0;
             listViewBill.Items.Clear();
             List<DTO.Menu> menu = MenuDAO.Instance.SelectMenu(idTable);
             int temp = 0;
@@ -163,8 +171,7 @@ namespace LTGD_Project
                 }
                 else
                 {
-                    Table table = listViewBill.Tag as Table;
-                    string idAccount = "an.nd";
+                    Table table = listViewBill.Tag as Table; 
                     int idBill = BillDAO.Instance.SelectIdBill(table.IdTable);
                     int idProduct = (comboBoxProduct.SelectedItem as Product).IdProduct;
                     int quantity = (int)productCount.Value;
@@ -172,7 +179,7 @@ namespace LTGD_Project
                     //Bill chưa tồn tại
                     if (idBill == -1)
                     {
-                        BillDAO.Instance.AddBill(table.IdTable, idAccount);
+                        BillDAO.Instance.AddBill(table.IdTable, usernameLogin);
                         TableDAO.Instance.UpdateStatusTable(table.IdTable, "Có người");
                         DetailBillDAO.Instance.AddDetailBill(BillDAO.Instance.SelectIdBillLast(), idProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping);
 
@@ -396,6 +403,116 @@ namespace LTGD_Project
                     TableDAO.Instance.UpdateStatusTable(table.IdTable, "Trống");
                     ShowDetailBill(table.IdTable);
                     LoadTable();
+                }
+            }
+        }
+
+        //Event ấn vào nút chuyển bàn
+        private void switchTableBtn_Click(object sender, EventArgs e)
+        {
+            //Bàn hiện tại có bill
+            if ((listViewBill.Tag as Table).StatusTable != "Trống")
+            {
+                //Bàn hiện tại
+                int idTableCurrent = (listViewBill.Tag as Table).IdTable;
+                //Bàn chuyển tới
+                int idTableSwitch = (comboBoxSwitchTable.SelectedItem as Table).IdTable;
+                //Bill của bàn hiện tại
+                int idBillCurrent = BillDAO.Instance.SelectIdBill(idTableCurrent);
+                //Bill của bàn chuyển tới
+                int idBillSwitch = BillDAO.Instance.SelectIdBill(idTableSwitch);
+                //Bàn chuyển tới trống (CHUYỂN BÀN)
+                if (idBillSwitch == -1)
+                {
+                    if (MessageBox.Show("Bạn đã chắc chắn muốn chuyển " + (listViewBill.Tag as Table).NameTable + " sang " + (comboBoxSwitchTable.SelectedItem as Table).NameTable + " chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    {
+                        BillDAO.Instance.AddBill(idTableSwitch, usernameLogin);
+                        TableDAO.Instance.UpdateStatusTable(idTableSwitch, "Có người");
+                        List<int> idDetailBills = DetailBillDAO.Instance.SelectIdDetailBill(idBillCurrent);
+                        TableDAO.Instance.SwitchTable(BillDAO.Instance.SelectIdBillLast(), idDetailBills);
+                        BillDAO.Instance.XoaBill(idBillCurrent);
+                        TableDAO.Instance.UpdateStatusTable(idTableCurrent, "Trống");
+                        ShowDetailBill(idTableCurrent);
+                        LoadTable();
+                    }
+                }
+                //Bàn chuyển tới có bill (GỘP BÀN)
+                else
+                {
+                    if (MessageBox.Show("Bạn đã chắc chắn muốn gộp " + (listViewBill.Tag as Table).NameTable + " sang " + (comboBoxSwitchTable.SelectedItem as Table).NameTable + " chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    {
+                        List<int> idDetailBills = DetailBillDAO.Instance.SelectIdDetailBill(idBillCurrent);
+                        List<DetailBill> detailBills = DetailBillDAO.Instance.SelectDetailBill(idBillCurrent);
+
+                        //TableDAO.Instance.SwitchTable(idBillSwitch, idDetailBills);
+                        for (int i = 0; i < detailBills.Count(); i++)
+                        {
+                            //Sản phẩm chưa tồn tại
+                            if (DetailBillDAO.Instance.CheckIsProductExist(detailBills[i].IdProduct, idBillSwitch) == false)
+                            {
+                                List<int> temp = new List<int>();
+                                temp.Add(detailBills[i].IdDeTailBill);
+                                TableDAO.Instance.SwitchTable(idBillSwitch, temp);
+                            }
+                            //Sản phẩm đã tồn tại
+                            else
+                            {
+                                //Sản phẩm mới bị trùng size
+                                if (DetailBillDAO.Instance.CheckIsPriceEqual(detailBills[i].IdProduct, detailBills[i].Price, idBillSwitch) == true)
+                                {
+                                    List<DetailTopping> detailToppings = DetailToppingDAO.Instance.SelectListDetailToppingById(detailBills[i].IdDeTailBill);
+                                    List<Topping> tempTopping = new List<Topping>();
+                                    for (int j = 0; j < detailToppings.Count(); j++)
+                                    {
+                                        Topping toppping = new Topping();
+                                        toppping.IdProduct = detailToppings[j].IdTopping;
+                                        toppping.NameProduct = detailToppings[j].IdDetailTopping.ToString();
+                                        toppping.PriceProduct = detailToppings[j].PriceTopping;
+                                        toppping.ImgProduct = detailToppings[j].QuantityTopping.ToString();
+                                        tempTopping.Add(toppping);
+                                    }
+                                    //Trùng Topping
+                                    if (DetailBillDAO.Instance.CheckIsToppingEqual(tempTopping, detailBills[i].IdProduct, detailBills[i].Price, idBillSwitch) != 0)
+                                    {
+                                        //Update lại số lượng của sản phẩm đó
+                                        int idDetailBill = DetailBillDAO.Instance.CheckIsToppingEqual(tempTopping, detailBills[i].IdProduct, detailBills[i].Price, idBillSwitch);
+                                        DetailBillDAO.Instance.UpdateQuantityDetailBill(detailBills[i].Quantity, idDetailBill, int.Parse(tempTopping[i].ImgProduct));
+                                        //Xóa detailtopping cũ
+                                        List<int> delTopping = new List<int>();
+                                        for (int z = 0; z < tempTopping.Count(); z++)
+                                        {
+                                            delTopping.Add(int.Parse(tempTopping[z].NameProduct));
+                                        }
+                                        DetailToppingDAO.Instance.DeleteDetailTopping(delTopping);
+                                        //Xóa detailbill cũ
+                                        DetailBillDAO.Instance.DeleteDetailBill(detailBills[i].IdDeTailBill);
+                                    }
+                                    //Khác Topping
+                                    else
+                                    {
+                                        //Thêm sản phẩm mới
+                                        List<int> temp = new List<int>();
+                                        temp.Add(detailBills[i].IdDeTailBill);
+                                        TableDAO.Instance.SwitchTable(idBillSwitch, temp);
+                                    }
+                                }
+                                //Sản phẩm mới khác size 
+                                else
+                                {
+                                    //Thêm sản phẩm mới
+                                    List<int> temp = new List<int>();
+                                    temp.Add(detailBills[i].IdDeTailBill);
+                                    TableDAO.Instance.SwitchTable(idBillSwitch, temp);
+                                }
+                            }
+                        }
+
+
+                        BillDAO.Instance.XoaBill(idBillCurrent);
+                        TableDAO.Instance.UpdateStatusTable(idTableCurrent, "Trống");
+                        ShowDetailBill(idTableCurrent);
+                        LoadTable();
+                    }
                 }
             }
         }

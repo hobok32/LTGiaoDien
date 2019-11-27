@@ -219,6 +219,7 @@
             this.switchTableBtn.TabIndex = 7;
             this.switchTableBtn.Text = "CHUYỂN BÀN";
             this.switchTableBtn.UseVisualStyleBackColor = true;
+            this.switchTableBtn.Click += new System.EventHandler(this.switchTableBtn_Click);
             // 
             // discountCount
             // 
