@@ -16,7 +16,8 @@ namespace LTGD_Project
 {
     public partial class formProduct : Form
     {
-        CatProductTopping catProductToppingg;
+        List<ProductTopping> productToppings;
+        int Id = 0;
         public formProduct()
         {
             InitializeComponent();
@@ -36,20 +37,25 @@ namespace LTGD_Project
         {
             int id = 0;
             ComboBox combo = sender as ComboBox;
+            
             if (combo.SelectedItem == null)
                 return;
             Category selected = combo.SelectedItem as Category;
             id = selected.IdCat;
-            //GetCatProToppingByIdCat
-            CatProductTopping catProductTopping = new CatProToppingBUS().SelectCatProductToppingByIdCat(id);
-            catProductToppingg = catProductTopping;
-            bindingSource1.DataSource = catProductTopping.data;
-            LoadListProduct(bindingSource1);
+            if (id != Id)
+            {
+                //GetCatProToppingByIdCat
+                List<ProductTopping> ProductToppings = new CatProToppingBUS().SelectProductTopping(id);
+                productToppings = ProductToppings;
+                bindingSource1.DataSource = productToppings;
+                LoadListProduct();
+                Id = id;
+            }
         }
 
-        void LoadListProduct(BindingSource bindingSource)
+        void LoadListProduct()
         {
-            dataGridViewProduct.DataSource = bindingSource.DataSource;
+            dataGridViewProduct.DataSource = bindingSource1.DataSource;
             dataGridViewProduct.Columns[0].HeaderText = "ID";
             dataGridViewProduct.Columns[1].Visible = false;
             dataGridViewProduct.Columns[2].HeaderText = "Tên sản phẩm";
@@ -62,16 +68,15 @@ namespace LTGD_Project
             dataGridViewProduct.Columns[9].HeaderText = "Đã bán";
             dataGridViewProduct.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             BindingProduct();
-            
         }
 
         void LoadListTopping(int id)
         {
-            for(int i = 0; i < catProductToppingg.data.Count(); i++)
+            for(int i = 0; i < productToppings.Count(); i++)
             {
-                if (catProductToppingg.data[i].IdProduct == id)
+                if (productToppings[i].IdProduct == id)
                 {
-                    dataGridViewTopping.DataSource = catProductToppingg.data[i].Topping;
+                    dataGridViewTopping.DataSource = productToppings[i].Topping;
                 }
             }
             return;

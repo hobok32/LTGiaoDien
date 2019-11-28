@@ -18,5 +18,10 @@ namespace LTGD_Project.BUS
             CatProductTopping catProduct = new CatProductTopping(products, cat);
             return catProduct;
         }
+        public List<ProductTopping> SelectProductTopping(int idCat)
+        {
+            List<ProductTopping> products = new GlobalDAO().SelectAllProductToppingByIdCat(idCat);
+            return products;
+        }
     }
 }
