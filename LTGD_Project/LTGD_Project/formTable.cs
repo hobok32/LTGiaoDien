@@ -19,12 +19,14 @@ namespace LTGD_Project
     {
         string usernameLogin;
         float totalPrice = 0;
+        Account account;
         List<int> idTopping = new List<int>();
         List<Topping> toppings = new List<Topping>();
         public formTable(string username) : this()
         {
             usernameLogin = username;
             Text += " (" + usernameLogin.ToUpper() + " :3)";
+            account = LoadAccount(usernameLogin);
         }
         public formTable()
         {
@@ -33,6 +35,11 @@ namespace LTGD_Project
             LoadCategory();
             LoadComboBoxSwitchTable();
             toppingCount.Enabled = false;
+        }
+        //Load Account
+        Account LoadAccount(string username)
+        {
+            return AccountDAO.Instance.SelectAccount(username);
         }
         //Hiển thị danh sách bàn
         void LoadTable()
@@ -235,7 +242,7 @@ namespace LTGD_Project
         //Event khi ấn vào Chi tiết tài khoản => hiện form chi tiết tk
         private void chiTiếtTàiKhoảnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            formProfile f = new formProfile();
+            formProfile f = new formProfile(usernameLogin);
             f.ShowDialog();
         }
 
