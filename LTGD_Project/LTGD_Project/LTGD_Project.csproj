@@ -80,6 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BUS\CatProToppingBUS.cs" />
     <Compile Include="DAO\AccountDAO.cs" />
     <Compile Include="DAO\BillDAO.cs" />
     <Compile Include="DAO\CategoryDAO.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="DTO\Category.cs" />
     <Compile Include="DTO\DetailBill.cs" />
     <Compile Include="DTO\DetailTopping.cs" />
+    <Compile Include="DTO\Global.cs" />
     <Compile Include="DTO\Menu.cs" />
     <Compile Include="DTO\Product.cs" />
     <Compile Include="DTO\Table.cs" />

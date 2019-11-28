@@ -20,5 +20,6 @@ namespace LTGD_Project.DTO
             this.NameCat = (string)row["nameCat"];
             this.ImgCat = (string)row["imgCat"];
         }
+        public Category() { }
     }
 }

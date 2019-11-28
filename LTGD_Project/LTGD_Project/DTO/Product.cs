@@ -19,6 +19,7 @@ namespace LTGD_Project.DTO
         public int? PriceProduct { set; get; }
         public string DescriptionProduct { set; get; }
         public string ImgProduct { set; get; }
+        public int Rate { set; get; }
 
         public Product(DataRow row)
         {
@@ -50,8 +51,14 @@ namespace LTGD_Project.DTO
             else
                 this.PriceProduct = 0;
 
-            this.DescriptionProduct = (string)row["descriptionProduct"];
+            var DescriptionProductTemp = row["descriptionProduct"];
+            if (DescriptionProductTemp.ToString() != "")
+                this.DescriptionProduct = (string)row["descriptionProduct"];
+            else
+                this.DescriptionProduct = "Không có mô tả";
             this.ImgProduct = (string)row["imgProduct"];
+            this.Rate = (int)row["rate"];
         }
+        public Product() { }
     }
 }

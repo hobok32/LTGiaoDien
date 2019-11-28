@@ -35,6 +35,18 @@ namespace LTGD_Project.DAO
             }
             return pros;
         }
+
+        public List<Product> SelectAllProduct()
+        {
+            List<Product> pros = new List<Product>();
+            DataTable data = DataProvider.Instance.ExecuteQuery("SELECT * FROM product ");
+            foreach (DataRow item in data.Rows)
+            {
+                Product pro = new Product(item);
+                pros.Add(pro);
+            }
+            return pros;
+        }
     }
 }
 
