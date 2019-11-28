@@ -105,6 +105,12 @@
     <Compile Include="formLogin.Designer.cs">
       <DependentUpon>formLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="formMoney.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formMoney.Designer.cs">
+      <DependentUpon>formMoney.cs</DependentUpon>
+    </Compile>
     <Compile Include="formProduct.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +133,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="formLogin.resx">
       <DependentUpon>formLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formMoney.resx">
+      <DependentUpon>formMoney.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formProduct.resx">
       <DependentUpon>formProduct.cs</DependentUpon>

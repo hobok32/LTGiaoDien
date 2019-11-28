@@ -39,7 +39,7 @@ namespace LTGD_Project.DAO
 
         public void AddBill(int idxTable, string idAccount)
         {
-            string strCmd = "INSERT INTO bill VALUES (null, @idAccount , @idxTable , now(), 0, 0);";
+            string strCmd = "INSERT INTO bill VALUES (null, @idAccount , @idxTable , now(), 0, 0, 0);";
             DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { idAccount, idxTable });
         }
 
@@ -56,15 +56,20 @@ namespace LTGD_Project.DAO
             }
         }
 
-        public void ThanhToanBill(int idBill, int discount)
+        public void ThanhToanBill(int idBill, int discount, float total)
         {
-            string strCmd = "update bill set statusBill = 1, discount = " + discount + " where idBill = " + idBill;
+            string strCmd = "update bill set statusBill = 1, total = " + total + " , discount = " + discount + " where idBill = " + idBill;
             DataProvider.Instance.ExecuteNonQuery(strCmd);
         }
         public void XoaBill(int idBill)
         {
             string strCmd = "DELETE FROM bill WHERE idBill = " + idBill;
             DataProvider.Instance.ExecuteNonQuery(strCmd);
+        }
+
+        public DataTable SelectBillByDate(string date)
+        {
+            return DataProvider.Instance.ExecuteQuery("select b.idbill as 'ID', a.nameTable as 'Tên bàn', b.idAccount as 'Tài khoản', b.discount as 'Giảm giá %', b.total as 'Tổng tiền x1000 đ' from tablewinform a, (select * from bill where statusBill = 1 and dateBill =  " + date + " ) b where a.idTable = b.idxTable; ");
         }
     }
 }

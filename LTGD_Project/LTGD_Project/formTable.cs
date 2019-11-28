@@ -391,7 +391,7 @@ namespace LTGD_Project
             {
                 if (MessageBox.Show(string.Format("Bạn đã chắc chắn thanh toán {0} chưa?\n\nGiảm giá: {1}%\n\nTổng tiền: {2}", table.NameTable, discount, priceDiscount.ToString("c", culture)), "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
-                    BillDAO.Instance.ThanhToanBill(idBill, discount);
+                    BillDAO.Instance.ThanhToanBill(idBill, discount, totalPrice);
                     TableDAO.Instance.UpdateStatusTable(table.IdTable, "Trống");
                     ShowDetailBill(table.IdTable);
                     LoadTable();
@@ -531,6 +531,12 @@ namespace LTGD_Project
                     }
                 }
             }
+        }
+
+        private void doanhThuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            formMoney f = new formMoney();
+            f.ShowDialog();
         }
     }
 }

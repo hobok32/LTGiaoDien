@@ -65,6 +65,8 @@
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanelTable = new System.Windows.Forms.FlowLayoutPanel();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.quảnLýBànToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.doanhThuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -78,6 +80,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sảnPhẩmToolStripMenuItem,
+            this.quảnLýBànToolStripMenuItem,
+            this.doanhThuToolStripMenuItem,
             this.tàiKhoảnToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -104,14 +108,14 @@
             // chiTiếtTàiKhoảnToolStripMenuItem
             // 
             this.chiTiếtTàiKhoảnToolStripMenuItem.Name = "chiTiếtTàiKhoảnToolStripMenuItem";
-            this.chiTiếtTàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.chiTiếtTàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.chiTiếtTàiKhoảnToolStripMenuItem.Text = "Chi tiết tài khoản";
             this.chiTiếtTàiKhoảnToolStripMenuItem.Click += new System.EventHandler(this.chiTiếtTàiKhoảnToolStripMenuItem_Click);
             // 
             // đăngXuấtToolStripMenuItem
             // 
             this.đăngXuấtToolStripMenuItem.Name = "đăngXuấtToolStripMenuItem";
-            this.đăngXuấtToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.đăngXuấtToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.đăngXuấtToolStripMenuItem.Text = "Đăng xuất";
             this.đăngXuấtToolStripMenuItem.Click += new System.EventHandler(this.đăngXuấtToolStripMenuItem_Click);
             // 
@@ -408,6 +412,19 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "county-cork-ireland-wallpapers.1440x900.jpg");
             // 
+            // quảnLýBànToolStripMenuItem
+            // 
+            this.quảnLýBànToolStripMenuItem.Name = "quảnLýBànToolStripMenuItem";
+            this.quảnLýBànToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.quảnLýBànToolStripMenuItem.Text = "Quản lý bàn";
+            // 
+            // doanhThuToolStripMenuItem
+            // 
+            this.doanhThuToolStripMenuItem.Name = "doanhThuToolStripMenuItem";
+            this.doanhThuToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.doanhThuToolStripMenuItem.Text = "Doanh thu";
+            this.doanhThuToolStripMenuItem.Click += new System.EventHandler(this.doanhThuToolStripMenuItem_Click);
+            // 
             // formTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -474,5 +491,7 @@
         private System.Windows.Forms.TextBox priceProductTxt;
         private System.Windows.Forms.TextBox tableTxt;
         private System.Windows.Forms.NumericUpDown toppingCount;
+        private System.Windows.Forms.ToolStripMenuItem quảnLýBànToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem doanhThuToolStripMenuItem;
     }
 }
