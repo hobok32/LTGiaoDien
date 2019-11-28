@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridViewBill = new System.Windows.Forms.DataGridView();
-            this.dateTimePickerBill = new System.Windows.Forms.DateTimePicker();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.okBtn = new System.Windows.Forms.Button();
+            this.dateTimePickerBill = new System.Windows.Forms.DateTimePicker();
+            this.totalTxt = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBill)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -45,15 +46,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(465, 251);
             this.panel1.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.okBtn);
-            this.panel2.Controls.Add(this.dateTimePickerBill);
-            this.panel2.Location = new System.Drawing.Point(12, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(465, 36);
-            this.panel2.TabIndex = 1;
             // 
             // dataGridViewBill
             // 
@@ -68,12 +60,15 @@
             this.dataGridViewBill.Size = new System.Drawing.Size(459, 245);
             this.dataGridViewBill.TabIndex = 0;
             // 
-            // dateTimePickerBill
+            // panel2
             // 
-            this.dateTimePickerBill.Location = new System.Drawing.Point(3, 9);
-            this.dateTimePickerBill.Name = "dateTimePickerBill";
-            this.dateTimePickerBill.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePickerBill.TabIndex = 0;
+            this.panel2.Controls.Add(this.totalTxt);
+            this.panel2.Controls.Add(this.okBtn);
+            this.panel2.Controls.Add(this.dateTimePickerBill);
+            this.panel2.Location = new System.Drawing.Point(12, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(465, 36);
+            this.panel2.TabIndex = 1;
             // 
             // okBtn
             // 
@@ -84,6 +79,22 @@
             this.okBtn.Text = "OK";
             this.okBtn.UseVisualStyleBackColor = true;
             this.okBtn.Click += new System.EventHandler(this.okBtn_Click);
+            // 
+            // dateTimePickerBill
+            // 
+            this.dateTimePickerBill.Location = new System.Drawing.Point(3, 9);
+            this.dateTimePickerBill.Name = "dateTimePickerBill";
+            this.dateTimePickerBill.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerBill.TabIndex = 0;
+            // 
+            // totalTxt
+            // 
+            this.totalTxt.Location = new System.Drawing.Point(290, 9);
+            this.totalTxt.Name = "totalTxt";
+            this.totalTxt.ReadOnly = true;
+            this.totalTxt.Size = new System.Drawing.Size(172, 20);
+            this.totalTxt.TabIndex = 2;
+            this.totalTxt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // formMoney
             // 
@@ -97,8 +108,9 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Doanh thu";
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBill)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -110,5 +122,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button okBtn;
         private System.Windows.Forms.DateTimePicker dateTimePickerBill;
+        private System.Windows.Forms.TextBox totalTxt;
     }
 }

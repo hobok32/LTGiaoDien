@@ -10,11 +10,13 @@ using System.Windows.Forms;
 
 using System.Data;
 using LTGD_Project.DAO;
+using System.Globalization;
 
 namespace LTGD_Project
 {
     public partial class formMoney : Form
     {
+        float total = 0;
         public formMoney()
         {
             InitializeComponent();
@@ -23,7 +25,16 @@ namespace LTGD_Project
         }
         void LoadBillByDate(string date)
         {
-            dataGridViewBill.DataSource = BillDAO.Instance.SelectBillByDate(date);
+            totalTxt.Text = "";
+            total = 0;
+            DataTable data = BillDAO.Instance.SelectBillByDate(date);
+            dataGridViewBill.DataSource = data;
+            foreach (DataRow item in data.Rows)
+            {
+                total += (float)item["Tổng tiền x1000 đ"];
+            }
+            CultureInfo culture = new CultureInfo("vi-VN");
+            totalTxt.Text = (total * 1000).ToString("c", culture);
         }
 
         private void okBtn_Click(object sender, EventArgs e)
