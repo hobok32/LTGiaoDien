@@ -27,20 +27,28 @@ namespace LTGD_Project.DTO
             this.NameProduct = (string)row["nameProduct"];
 
             var PriceSmallProductTemp = row["priceSmallProduct"];
-            if (PriceSmallProduct.ToString() != "")
+            if (PriceSmallProductTemp.ToString() != "")
                 this.PriceSmallProduct = (int?)PriceSmallProductTemp;
+            else
+                this.PriceSmallProduct = 0;
 
             var PriceMediumProductTemp = row["priceMediumProduct"];
             if (PriceMediumProductTemp.ToString() != "")
                 this.PriceMediumProduct = (int?)PriceMediumProductTemp;
+            else
+                this.PriceMediumProduct = 0;
 
             var PriceLargeProductTemp = row["priceLargeProduct"];
             if (PriceLargeProductTemp.ToString() != "")
                 this.PriceLargeProduct = (int?)PriceLargeProductTemp;
+            else
+                this.PriceLargeProduct = 0;
 
             var PriceProductTemp = row["priceProduct"];
             if (PriceProductTemp.ToString() != "")
                 this.PriceProduct = (int?)PriceProductTemp;
+            else
+                this.PriceProduct = 0;
 
             this.DescriptionProduct = (string)row["descriptionProduct"];
             this.ImgProduct = (string)row["imgProduct"];

@@ -266,24 +266,16 @@ namespace LTGD_Project
         void LoadListBoxProductPrice(Product pro)
         {
             listBoxProductPrice.Items.Clear();
-            if (pro.PriceProduct == null)
-                pro.PriceProduct = 0;
-            else
+            if (pro.PriceProduct != 0)
                 listBoxProductPrice.Items.Add(pro.PriceProduct);
 
-            if (pro.PriceLargeProduct == null)
-                pro.PriceLargeProduct = 0;
-            else
+            if (pro.PriceLargeProduct != 0)
                 listBoxProductPrice.Items.Add(pro.PriceLargeProduct);
 
-            if (pro.PriceMediumProduct == null)
-                pro.PriceMediumProduct = 0;
-            else
+            if (pro.PriceMediumProduct != 0)
                 listBoxProductPrice.Items.Add(pro.PriceMediumProduct);
 
-            if (pro.PriceSmallProduct == null)
-                pro.PriceSmallProduct = 0;
-            else
+            if (pro.PriceSmallProduct != 0)
                 listBoxProductPrice.Items.Add(pro.PriceSmallProduct);
         }
 
