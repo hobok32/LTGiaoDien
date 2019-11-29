@@ -112,6 +112,8 @@ namespace LTGD_Project.DAO
                 pro.Topping = top;
 
                 products.Add(pro);
+                if (products.Count() == 8)
+                    break;
 
             }
             con.Close();
@@ -145,7 +147,6 @@ namespace LTGD_Project.DAO
                 pro.Topping = top;
 
                 products.Add(pro);
-
             }
             con.Close();
             return products;

@@ -60,16 +60,28 @@ namespace LTGD_Project
                 List<Category> cats = CategoryDAO.Instance.SelectAllCat();
                 comboBoxCat.DataSource = cats;
                 comboBoxCat.DisplayMember = "nameCat";
-
-
                 check = 1;
             }
         }
-        void LoadCategoryUpdate()
+
+        void LoadCategoryGrid()
         {
             List<Category> cats = CategoryDAO.Instance.SelectAllCat();
-            comboBoxCatUpdate.DataSource = cats;
-            comboBoxCatUpdate.DisplayMember = "nameCat";
+            dataGridViewCat.DataSource = cats;
+            dataGridViewCat.Columns[0].HeaderText = "ID";
+            dataGridViewCat.Columns[1].HeaderText = "Tên Category";
+            dataGridViewCat.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCat.Columns[2].Visible = false;
+
+            nameCatTxt.DataBindings.Clear();
+            nameCatTxt.DataBindings.Add(new Binding("Text", dataGridViewCat.DataSource, "nameCat"));
+        }
+
+        void LoadCategoryUpdate()
+        {
+            //List<Category> cats = CategoryDAO.Instance.SelectAllCat();
+            //comboBoxCatUpdate.DataSource = cats;
+            //comboBoxCatUpdate.DisplayMember = "nameCat";
         }
 
         //Event khi comboBoxCategory được chọn
@@ -399,6 +411,27 @@ namespace LTGD_Project
             bindingSource1.DataSource = pros;
             LoadListProduct();
             BindingProduct();
+        }
+
+        private void productTab_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage2_Enter(object sender, EventArgs e)
+        {
+            LoadCategoryGrid();
+        }
+
+        private void dataGridViewCat_SelectionChanged(object sender, EventArgs e)
+        {
+            string img = dataGridViewCat.CurrentRow.Cells[2].Value.ToString();
+            var request = WebRequest.Create(img);
+            using (var response = request.GetResponse())
+            using (var stream = response.GetResponseStream())
+            {
+                pictureBoxCat.Image = Bitmap.FromStream(stream);
+            }
         }
     }
 }
