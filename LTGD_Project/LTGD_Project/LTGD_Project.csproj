@@ -103,51 +103,51 @@
     <Compile Include="DTO\Product.cs" />
     <Compile Include="DTO\Table.cs" />
     <Compile Include="DTO\Topping.cs" />
-    <Compile Include="formLogin.cs">
+    <Compile Include="Form\formLogin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formLogin.Designer.cs">
+    <Compile Include="Form\formLogin.Designer.cs">
       <DependentUpon>formLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="formMoney.cs">
+    <Compile Include="Form\formMoney.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formMoney.Designer.cs">
+    <Compile Include="Form\formMoney.Designer.cs">
       <DependentUpon>formMoney.cs</DependentUpon>
     </Compile>
-    <Compile Include="formProduct.cs">
+    <Compile Include="Form\formProduct.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formProduct.Designer.cs">
+    <Compile Include="Form\formProduct.Designer.cs">
       <DependentUpon>formProduct.cs</DependentUpon>
     </Compile>
-    <Compile Include="formProfile.cs">
+    <Compile Include="Form\formProfile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formProfile.Designer.cs">
+    <Compile Include="Form\formProfile.Designer.cs">
       <DependentUpon>formProfile.cs</DependentUpon>
     </Compile>
-    <Compile Include="formTable.cs">
+    <Compile Include="Form\formTable.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formTable.Designer.cs">
+    <Compile Include="Form\formTable.Designer.cs">
       <DependentUpon>formTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="formLogin.resx">
+    <EmbeddedResource Include="Form\formLogin.resx">
       <DependentUpon>formLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formMoney.resx">
+    <EmbeddedResource Include="Form\formMoney.resx">
       <DependentUpon>formMoney.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formProduct.resx">
+    <EmbeddedResource Include="Form\formProduct.resx">
       <DependentUpon>formProduct.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formProfile.resx">
+    <EmbeddedResource Include="Form\formProfile.resx">
       <DependentUpon>formProfile.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="formTable.resx">
+    <EmbeddedResource Include="Form\formTable.resx">
       <DependentUpon>formTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
