@@ -118,6 +118,39 @@ namespace LTGD_Project.DAO
             return products;
         }
 
+        public List<ProductTopping> SelectProductToppingByIdCatAndName(int idCat, string keyword)
+        {
+            List<ProductTopping> products = new List<ProductTopping>();
+            MySqlConnection con = new MySqlConnection(strCon);
+            con.Open();
+            string strCmd = "SELECT * FROM Product WHERE idCat=@idCat AND nameProduct LIKE '%" + keyword + "%'";
+            MySqlCommand cmd = new MySqlCommand(strCmd, con);
+            cmd.Parameters.Add(new MySqlParameter("@idCat", idCat));
+            MySqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                ProductTopping pro = new ProductTopping();
+                pro.IdProduct = (int)dr["idProduct"];
+                pro.IdCat = (int)dr["idCat"];
+                pro.NameProduct = (string)dr["nameProduct"];
+                pro.PriceLargeProduct = (dr.IsDBNull(dr.GetOrdinal("priceLargeProduct"))) ? 0 : (int?)dr["priceLargeProduct"];
+                pro.PriceMediumProduct = (dr.IsDBNull(dr.GetOrdinal("priceMediumProduct"))) ? 0 : (int?)dr["priceMediumProduct"];
+                pro.PriceSmallProduct = (dr.IsDBNull(dr.GetOrdinal("priceSmallProduct"))) ? 0 : (int?)dr["priceSmallProduct"];
+                pro.PriceProduct = (dr.IsDBNull(dr.GetOrdinal("priceProduct"))) ? 0 : (int?)dr["priceProduct"];
+                pro.DescriptionProduct = (dr.IsDBNull(dr.GetOrdinal("descriptionProduct"))) ? "Không có mô tả" : (string)dr["descriptionProduct"];
+                pro.imgProduct = (dr.IsDBNull(dr.GetOrdinal("imgProduct"))) ? "Không có hình" : (string)dr["imgProduct"];
+                pro.rating = (int)dr["rate"];
+
+                List<Topping> top = SelectToppingByIdProduct((int)dr["idProduct"]);
+                pro.Topping = top;
+
+                products.Add(pro);
+
+            }
+            con.Close();
+            return products;
+        }
+
         public List<Product> SelectAllTopping()
         {
             List<Product> products = new List<Product>();

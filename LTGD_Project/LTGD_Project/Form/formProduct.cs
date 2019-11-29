@@ -18,17 +18,21 @@ namespace LTGD_Project
     public partial class formProduct : Form
     {
         List<ProductTopping> productToppings;
+        string img = "https://www.cohindia.com/wp-content/uploads/2018/06/Worship-Mumbai.jpeg";
         int Id = 0;
         int check = 0;
         int idCat = 0;
+        int idCatUpdate = 0;
         int idTopping = 0;
         int idProduct = 0;
         string name = "";
+        string namePro = "";
         public formProduct()
         {
             InitializeComponent();
             LoadCategory();
             LoadAllTopping();
+            LoadCategoryUpdate();
         }
 
         //Hiển thị tất cả topping
@@ -56,8 +60,16 @@ namespace LTGD_Project
                 List<Category> cats = CategoryDAO.Instance.SelectAllCat();
                 comboBoxCat.DataSource = cats;
                 comboBoxCat.DisplayMember = "nameCat";
+
+
                 check = 1;
             }
+        }
+        void LoadCategoryUpdate()
+        {
+            List<Category> cats = CategoryDAO.Instance.SelectAllCat();
+            comboBoxCatUpdate.DataSource = cats;
+            comboBoxCatUpdate.DisplayMember = "nameCat";
         }
 
         //Event khi comboBoxCategory được chọn
@@ -156,6 +168,7 @@ namespace LTGD_Project
         private void dataGridViewProduct_SelectionChanged(object sender, EventArgs e)
         {
             int id = (int)dataGridViewProduct.CurrentRow.Cells[0].Value;
+            namePro = dataGridViewProduct.CurrentRow.Cells[2].Value.ToString();
             idProduct = id;
             string img = dataGridViewProduct.CurrentRow.Cells[8].Value.ToString();
             var request = WebRequest.Create(img);
@@ -182,11 +195,10 @@ namespace LTGD_Project
 
         private void addBtn_Click(object sender, EventArgs e)
         {
-            string img = "https://www.cohindia.com/wp-content/uploads/2018/06/Worship-Mumbai.jpeg";
-            AddNewProduct(nameTxt.Text.Trim(), (int)smallSizeTxt.Value, (int)mediumSizeTxt.Value, (int)largeSizeTxt.Value, (int)freeSizeTxt.Value, desTxt.Text.Trim(), img, idCat);
+            AddNewProduct(nameTxt.Text.Trim(), (int)smallSizeTxt.Value, (int)mediumSizeTxt.Value, (int)largeSizeTxt.Value, (int)freeSizeTxt.Value, desTxt.Text.Trim(), img, idCat, idCatUpdate);
         }
 
-        void AddNewProduct(string name, int priceSmall, int priceMedium, int priceLarge, int price, string description, string img, int idCat)
+        void AddNewProduct(string name, int priceSmall, int priceMedium, int priceLarge, int price, string description, string img, int idCat, int idCatUpdate)
         {
             if (name == "" || (priceSmall == 0 && priceMedium == 0 && priceLarge == 0 && price == 0) || description == "")
             {
@@ -198,9 +210,9 @@ namespace LTGD_Project
                 {
                     if (MessageBox.Show("Bạn đã chắc chắn muốn thêm "+ name +" chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
-                        if (ProductDAO.Instance.AddProduct(idCat, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img))
+                        if (ProductDAO.Instance.AddProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img))
                         {
-                            GetCatProToppingByIdCat(idCat);
+                            GetCatProToppingByIdCat(idCatUpdate);
                             if (idCat == 7)
                                 LoadAllTopping();
                             MessageBox.Show("Thêm sản phẩm thành công", "Thông báo");
@@ -213,9 +225,9 @@ namespace LTGD_Project
                 {
                     if (MessageBox.Show("Bạn đã chắc chắn muốn thêm " + name + " chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
-                        if (ProductDAO.Instance.AddProduct(idCat, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img))
+                        if (ProductDAO.Instance.AddProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img))
                         {
-                            GetCatProToppingByIdCat(idCat);
+                            GetCatProToppingByIdCat(idCatUpdate);
                             if (idCat == 7)
                                 LoadAllTopping();
                             MessageBox.Show("Thêm sản phẩm thành công", "Thông báo");
@@ -236,7 +248,7 @@ namespace LTGD_Project
             if (idProduct != 0)
             {
                 if (idTopping != 0)
-                    AddNewTopping(idProduct,idTopping, idCat, name);
+                    AddNewTopping(idProduct, idTopping, idCat, name);
                 else
                     MessageBox.Show("Xin mời chọn topping để thêm", "Thông báo");
             }
@@ -295,6 +307,98 @@ namespace LTGD_Project
                 else
                     MessageBox.Show("Tại sao dòng này lại xuất hiện?!? :3", "Thông báo");
             }
+        }
+
+        private void delBtn_Click(object sender, EventArgs e)
+        {
+            if (idProduct != 0)
+            {
+                DelProduct(idProduct, namePro, idCat);
+            }
+            else
+                MessageBox.Show("Xin mời chọn sản phẩm", "Thông báo");
+        }
+
+        void DelProduct(int idProduct, string name, int idCat)
+        {
+            if (MessageBox.Show("Bạn đã chắc chắn muốn xóa " + name + " chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                if (ProductDAO.Instance.DelProduct(idProduct))
+                {
+                    GetCatProToppingByIdCat(idCat);
+                    namePro = "";
+                    MessageBox.Show("Xóa thành công :3", "Thông báo");
+                }
+                else
+                    MessageBox.Show("Xóa thất bại :(", "Thông báo");
+            }
+        }
+
+        private void comboBoxCatUpdate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox combo = sender as ComboBox;
+            if (combo.SelectedItem == null)
+                return;
+            Category selected = combo.SelectedItem as Category;
+            idCatUpdate = selected.IdCat;
+        }
+
+        private void editBtn_Click(object sender, EventArgs e)
+        {
+            UpdateProduct(nameTxt.Text.Trim(), (int)smallSizeTxt.Value, (int)mediumSizeTxt.Value, (int)largeSizeTxt.Value, (int)freeSizeTxt.Value, desTxt.Text.Trim(), img, idCat, idCatUpdate, idProduct);
+        }
+
+        void UpdateProduct(string name, int priceSmall, int priceMedium, int priceLarge, int price, string description, string img, int idCat, int idCatUpdate, int idProduct)
+        {
+            if (name == "" || (priceSmall == 0 && priceMedium == 0 && priceLarge == 0 && price == 0) || description == "")
+            {
+                MessageBox.Show("Xin mời nhập đủ thông tin", "Thông báo");
+            }
+            else
+            {
+                if (price != 0 && (priceSmall == 0 && priceMedium == 0 && priceLarge == 0))
+                {
+                    if (MessageBox.Show("Bạn đã chắc chắn muốn sửa "+namePro+" chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    {
+                        if (ProductDAO.Instance.UpdateProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img, idProduct))
+                        {
+                            GetCatProToppingByIdCat(idCatUpdate);
+                            if (idCat == 7)
+                                LoadAllTopping();
+                            MessageBox.Show("Sửa sản phẩm thành công", "Thông báo");
+                        }
+                        else
+                            MessageBox.Show("Thất bại rùi :(", "Thông báo");
+                    }
+                }
+                else if (price == 0 && (priceSmall != 0 || priceMedium != 0 || priceLarge != 0))
+                {
+                    if (MessageBox.Show("Bạn đã chắc chắn muốn sửa "+namePro+" chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    {
+                        if (ProductDAO.Instance.UpdateProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img, idProduct))
+                        {
+                            GetCatProToppingByIdCat(idCatUpdate);
+                            if (idCat == 7)
+                                LoadAllTopping();
+                            MessageBox.Show("Sửa sản phẩm thành công", "Thông báo");
+                        }
+                        else
+                            MessageBox.Show("Thất bại rùi :(", "Thông báo");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Sản phẩm FreeSize sẽ không có 3 size còn lại", "Thông báo");
+                }
+            }
+        }
+
+        private void searchBtn_Click(object sender, EventArgs e)
+        {
+            List<ProductTopping> pros = new GlobalDAO().SelectProductToppingByIdCatAndName(idCat, searchTxt.Text.Trim());
+            bindingSource1.DataSource = pros;
+            LoadListProduct();
+            BindingProduct();
         }
     }
 }

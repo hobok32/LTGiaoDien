@@ -31,12 +31,15 @@
             this.components = new System.ComponentModel.Container();
             this.productTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.delToppingBtn = new System.Windows.Forms.Button();
+            this.smallSizeTxt = new System.Windows.Forms.NumericUpDown();
+            this.mediumSizeTxt = new System.Windows.Forms.NumericUpDown();
+            this.largeSizeTxt = new System.Windows.Forms.NumericUpDown();
+            this.freeSizeTxt = new System.Windows.Forms.NumericUpDown();
             this.nameTxt = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.pictureBoxTopping = new System.Windows.Forms.PictureBox();
             this.addToppingBtn = new System.Windows.Forms.Button();
-            this.searchToppingBtn = new System.Windows.Forms.Button();
-            this.searchToppingTxt = new System.Windows.Forms.TextBox();
             this.editBtn = new System.Windows.Forms.Button();
             this.delBtn = new System.Windows.Forms.Button();
             this.addBtn = new System.Windows.Forms.Button();
@@ -61,23 +64,20 @@
             this.dataGridViewProduct = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.freeSizeTxt = new System.Windows.Forms.NumericUpDown();
-            this.largeSizeTxt = new System.Windows.Forms.NumericUpDown();
-            this.mediumSizeTxt = new System.Windows.Forms.NumericUpDown();
-            this.smallSizeTxt = new System.Windows.Forms.NumericUpDown();
-            this.delToppingBtn = new System.Windows.Forms.Button();
+            this.comboBoxCatUpdate = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.productTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.smallSizeTxt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mediumSizeTxt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.largeSizeTxt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.freeSizeTxt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTopping)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllTopping)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduct)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTopping)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.freeSizeTxt)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.largeSizeTxt)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mediumSizeTxt)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.smallSizeTxt)).BeginInit();
             this.SuspendLayout();
             // 
             // productTab
@@ -93,6 +93,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label12);
+            this.tabPage1.Controls.Add(this.comboBoxCatUpdate);
             this.tabPage1.Controls.Add(this.delToppingBtn);
             this.tabPage1.Controls.Add(this.smallSizeTxt);
             this.tabPage1.Controls.Add(this.mediumSizeTxt);
@@ -102,8 +104,6 @@
             this.tabPage1.Controls.Add(this.label11);
             this.tabPage1.Controls.Add(this.pictureBoxTopping);
             this.tabPage1.Controls.Add(this.addToppingBtn);
-            this.tabPage1.Controls.Add(this.searchToppingBtn);
-            this.tabPage1.Controls.Add(this.searchToppingTxt);
             this.tabPage1.Controls.Add(this.editBtn);
             this.tabPage1.Controls.Add(this.delBtn);
             this.tabPage1.Controls.Add(this.addBtn);
@@ -135,12 +135,50 @@
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
+            // delToppingBtn
+            // 
+            this.delToppingBtn.Location = new System.Drawing.Point(570, 361);
+            this.delToppingBtn.Name = "delToppingBtn";
+            this.delToppingBtn.Size = new System.Drawing.Size(192, 63);
+            this.delToppingBtn.TabIndex = 18;
+            this.delToppingBtn.Text = "XÓA TOPPING";
+            this.delToppingBtn.UseVisualStyleBackColor = true;
+            this.delToppingBtn.Click += new System.EventHandler(this.delToppingBtn_Click);
+            // 
+            // smallSizeTxt
+            // 
+            this.smallSizeTxt.Location = new System.Drawing.Point(408, 58);
+            this.smallSizeTxt.Name = "smallSizeTxt";
+            this.smallSizeTxt.Size = new System.Drawing.Size(87, 20);
+            this.smallSizeTxt.TabIndex = 5;
+            // 
+            // mediumSizeTxt
+            // 
+            this.mediumSizeTxt.Location = new System.Drawing.Point(408, 84);
+            this.mediumSizeTxt.Name = "mediumSizeTxt";
+            this.mediumSizeTxt.Size = new System.Drawing.Size(87, 20);
+            this.mediumSizeTxt.TabIndex = 6;
+            // 
+            // largeSizeTxt
+            // 
+            this.largeSizeTxt.Location = new System.Drawing.Point(408, 110);
+            this.largeSizeTxt.Name = "largeSizeTxt";
+            this.largeSizeTxt.Size = new System.Drawing.Size(87, 20);
+            this.largeSizeTxt.TabIndex = 7;
+            // 
+            // freeSizeTxt
+            // 
+            this.freeSizeTxt.Location = new System.Drawing.Point(408, 136);
+            this.freeSizeTxt.Name = "freeSizeTxt";
+            this.freeSizeTxt.Size = new System.Drawing.Size(87, 20);
+            this.freeSizeTxt.TabIndex = 8;
+            // 
             // nameTxt
             // 
             this.nameTxt.Location = new System.Drawing.Point(407, 32);
             this.nameTxt.Name = "nameTxt";
             this.nameTxt.Size = new System.Drawing.Size(140, 20);
-            this.nameTxt.TabIndex = 34;
+            this.nameTxt.TabIndex = 4;
             // 
             // label11
             // 
@@ -163,54 +201,40 @@
             // 
             // addToppingBtn
             // 
-            this.addToppingBtn.Location = new System.Drawing.Point(570, 322);
+            this.addToppingBtn.Location = new System.Drawing.Point(570, 296);
             this.addToppingBtn.Name = "addToppingBtn";
-            this.addToppingBtn.Size = new System.Drawing.Size(192, 50);
-            this.addToppingBtn.TabIndex = 31;
+            this.addToppingBtn.Size = new System.Drawing.Size(192, 59);
+            this.addToppingBtn.TabIndex = 17;
             this.addToppingBtn.Text = "THÊM TOPPING";
             this.addToppingBtn.UseVisualStyleBackColor = true;
             this.addToppingBtn.Click += new System.EventHandler(this.addToppingBtn_Click);
-            // 
-            // searchToppingBtn
-            // 
-            this.searchToppingBtn.Location = new System.Drawing.Point(687, 296);
-            this.searchToppingBtn.Name = "searchToppingBtn";
-            this.searchToppingBtn.Size = new System.Drawing.Size(75, 20);
-            this.searchToppingBtn.TabIndex = 30;
-            this.searchToppingBtn.Text = "Search";
-            this.searchToppingBtn.UseVisualStyleBackColor = true;
-            // 
-            // searchToppingTxt
-            // 
-            this.searchToppingTxt.Location = new System.Drawing.Point(570, 296);
-            this.searchToppingTxt.Name = "searchToppingTxt";
-            this.searchToppingTxt.Size = new System.Drawing.Size(111, 20);
-            this.searchToppingTxt.TabIndex = 29;
             // 
             // editBtn
             // 
             this.editBtn.Location = new System.Drawing.Point(687, 267);
             this.editBtn.Name = "editBtn";
             this.editBtn.Size = new System.Drawing.Size(75, 23);
-            this.editBtn.TabIndex = 28;
+            this.editBtn.TabIndex = 14;
             this.editBtn.Text = "SỬA";
             this.editBtn.UseVisualStyleBackColor = true;
+            this.editBtn.Click += new System.EventHandler(this.editBtn_Click);
             // 
             // delBtn
             // 
             this.delBtn.Location = new System.Drawing.Point(606, 267);
             this.delBtn.Name = "delBtn";
             this.delBtn.Size = new System.Drawing.Size(75, 23);
-            this.delBtn.TabIndex = 27;
+            this.delBtn.TabIndex = 13;
             this.delBtn.Text = "XÓA";
             this.delBtn.UseVisualStyleBackColor = true;
+            this.delBtn.Click += new System.EventHandler(this.delBtn_Click);
             // 
             // addBtn
             // 
             this.addBtn.Location = new System.Drawing.Point(525, 267);
             this.addBtn.Name = "addBtn";
             this.addBtn.Size = new System.Drawing.Size(75, 23);
-            this.addBtn.TabIndex = 26;
+            this.addBtn.TabIndex = 12;
             this.addBtn.Text = "THÊM";
             this.addBtn.UseVisualStyleBackColor = true;
             this.addBtn.Click += new System.EventHandler(this.addBtn_Click);
@@ -288,7 +312,7 @@
             this.rateTxt.Name = "rateTxt";
             this.rateTxt.ReadOnly = true;
             this.rateTxt.Size = new System.Drawing.Size(140, 20);
-            this.rateTxt.TabIndex = 15;
+            this.rateTxt.TabIndex = 9;
             // 
             // desTxt
             // 
@@ -296,7 +320,7 @@
             this.desTxt.Multiline = true;
             this.desTxt.Name = "desTxt";
             this.desTxt.Size = new System.Drawing.Size(355, 73);
-            this.desTxt.TabIndex = 14;
+            this.desTxt.TabIndex = 10;
             // 
             // label5
             // 
@@ -360,7 +384,7 @@
             this.comboBoxCat.Location = new System.Drawing.Point(6, 5);
             this.comboBoxCat.Name = "comboBoxCat";
             this.comboBoxCat.Size = new System.Drawing.Size(120, 21);
-            this.comboBoxCat.TabIndex = 3;
+            this.comboBoxCat.TabIndex = 1;
             this.comboBoxCat.SelectedIndexChanged += new System.EventHandler(this.comboBoxCat_SelectedIndexChanged);
             // 
             // searchBtn
@@ -368,16 +392,17 @@
             this.searchBtn.Location = new System.Drawing.Point(272, 6);
             this.searchBtn.Name = "searchBtn";
             this.searchBtn.Size = new System.Drawing.Size(75, 20);
-            this.searchBtn.TabIndex = 2;
+            this.searchBtn.TabIndex = 3;
             this.searchBtn.Text = "SEARCH";
             this.searchBtn.UseVisualStyleBackColor = true;
+            this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
             // 
             // searchTxt
             // 
             this.searchTxt.Location = new System.Drawing.Point(132, 6);
             this.searchTxt.Name = "searchTxt";
             this.searchTxt.Size = new System.Drawing.Size(134, 20);
-            this.searchTxt.TabIndex = 1;
+            this.searchTxt.TabIndex = 2;
             // 
             // dataGridViewProduct
             // 
@@ -401,43 +426,23 @@
             this.tabPage2.Text = "Danh mục";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // freeSizeTxt
+            // comboBoxCatUpdate
             // 
-            this.freeSizeTxt.Location = new System.Drawing.Point(408, 136);
-            this.freeSizeTxt.Name = "freeSizeTxt";
-            this.freeSizeTxt.Size = new System.Drawing.Size(87, 20);
-            this.freeSizeTxt.TabIndex = 36;
+            this.comboBoxCatUpdate.FormattingEnabled = true;
+            this.comboBoxCatUpdate.Location = new System.Drawing.Point(408, 267);
+            this.comboBoxCatUpdate.Name = "comboBoxCatUpdate";
+            this.comboBoxCatUpdate.Size = new System.Drawing.Size(111, 21);
+            this.comboBoxCatUpdate.TabIndex = 11;
+            this.comboBoxCatUpdate.SelectedIndexChanged += new System.EventHandler(this.comboBoxCatUpdate_SelectedIndexChanged);
             // 
-            // largeSizeTxt
+            // label12
             // 
-            this.largeSizeTxt.Location = new System.Drawing.Point(408, 110);
-            this.largeSizeTxt.Name = "largeSizeTxt";
-            this.largeSizeTxt.Size = new System.Drawing.Size(87, 20);
-            this.largeSizeTxt.TabIndex = 37;
-            // 
-            // mediumSizeTxt
-            // 
-            this.mediumSizeTxt.Location = new System.Drawing.Point(408, 84);
-            this.mediumSizeTxt.Name = "mediumSizeTxt";
-            this.mediumSizeTxt.Size = new System.Drawing.Size(87, 20);
-            this.mediumSizeTxt.TabIndex = 38;
-            // 
-            // smallSizeTxt
-            // 
-            this.smallSizeTxt.Location = new System.Drawing.Point(408, 58);
-            this.smallSizeTxt.Name = "smallSizeTxt";
-            this.smallSizeTxt.Size = new System.Drawing.Size(87, 20);
-            this.smallSizeTxt.TabIndex = 39;
-            // 
-            // delToppingBtn
-            // 
-            this.delToppingBtn.Location = new System.Drawing.Point(570, 374);
-            this.delToppingBtn.Name = "delToppingBtn";
-            this.delToppingBtn.Size = new System.Drawing.Size(192, 50);
-            this.delToppingBtn.TabIndex = 40;
-            this.delToppingBtn.Text = "XÓA TOPPING";
-            this.delToppingBtn.UseVisualStyleBackColor = true;
-            this.delToppingBtn.Click += new System.EventHandler(this.delToppingBtn_Click);
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(353, 272);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(27, 13);
+            this.label12.TabIndex = 42;
+            this.label12.Text = "Loại";
             // 
             // formProduct
             // 
@@ -452,16 +457,16 @@
             this.productTab.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.smallSizeTxt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mediumSizeTxt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.largeSizeTxt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.freeSizeTxt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTopping)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllTopping)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProduct)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTopping)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.freeSizeTxt)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.largeSizeTxt)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mediumSizeTxt)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.smallSizeTxt)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -491,8 +496,6 @@
         private System.Windows.Forms.Button searchBtn;
         private System.Windows.Forms.TextBox searchTxt;
         private System.Windows.Forms.DataGridView dataGridViewProduct;
-        private System.Windows.Forms.Button searchToppingBtn;
-        private System.Windows.Forms.TextBox searchToppingTxt;
         private System.Windows.Forms.Button editBtn;
         private System.Windows.Forms.Button delBtn;
         private System.Windows.Forms.Button addToppingBtn;
@@ -505,5 +508,7 @@
         private System.Windows.Forms.NumericUpDown largeSizeTxt;
         private System.Windows.Forms.NumericUpDown freeSizeTxt;
         private System.Windows.Forms.Button delToppingBtn;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox comboBoxCatUpdate;
     }
 }

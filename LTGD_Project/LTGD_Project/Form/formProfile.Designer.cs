@@ -30,7 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formProfile));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBoxAccount = new System.Windows.Forms.PictureBox();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.confirmPass = new System.Windows.Forms.TextBox();
+            this.newPassConfirmTxt = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.pass = new System.Windows.Forms.TextBox();
+            this.newPassTxt = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.phoneTxt = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -40,21 +45,16 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.usernameTxt = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.pictureBoxAccount = new System.Windows.Forms.PictureBox();
             this.exitBtn = new System.Windows.Forms.Button();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.pass = new System.Windows.Forms.TextBox();
-            this.newPassTxt = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.confirmPass = new System.Windows.Forms.TextBox();
-            this.newPassConfirmTxt = new System.Windows.Forms.Label();
             this.changeBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAccount)).BeginInit();
+            this.panel6.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAccount)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -69,15 +69,59 @@
             this.panel1.Size = new System.Drawing.Size(235, 323);
             this.panel1.TabIndex = 0;
             // 
-            // pictureBoxAccount
+            // panel6
             // 
-            this.pictureBoxAccount.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxAccount.Image")));
-            this.pictureBoxAccount.Location = new System.Drawing.Point(262, 12);
-            this.pictureBoxAccount.Name = "pictureBoxAccount";
-            this.pictureBoxAccount.Size = new System.Drawing.Size(227, 179);
-            this.pictureBoxAccount.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxAccount.TabIndex = 4;
-            this.pictureBoxAccount.TabStop = false;
+            this.panel6.Controls.Add(this.confirmPass);
+            this.panel6.Controls.Add(this.newPassConfirmTxt);
+            this.panel6.Location = new System.Drawing.Point(3, 187);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(399, 40);
+            this.panel6.TabIndex = 4;
+            // 
+            // confirmPass
+            // 
+            this.confirmPass.Location = new System.Drawing.Point(86, 12);
+            this.confirmPass.Name = "confirmPass";
+            this.confirmPass.Size = new System.Drawing.Size(141, 20);
+            this.confirmPass.TabIndex = 2;
+            this.confirmPass.UseSystemPasswordChar = true;
+            // 
+            // newPassConfirmTxt
+            // 
+            this.newPassConfirmTxt.AutoSize = true;
+            this.newPassConfirmTxt.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.newPassConfirmTxt.Location = new System.Drawing.Point(3, 11);
+            this.newPassConfirmTxt.Name = "newPassConfirmTxt";
+            this.newPassConfirmTxt.Size = new System.Drawing.Size(63, 19);
+            this.newPassConfirmTxt.TabIndex = 0;
+            this.newPassConfirmTxt.Text = "Confirm";
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.pass);
+            this.panel5.Controls.Add(this.newPassTxt);
+            this.panel5.Location = new System.Drawing.Point(3, 141);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(399, 40);
+            this.panel5.TabIndex = 4;
+            // 
+            // pass
+            // 
+            this.pass.Location = new System.Drawing.Point(86, 12);
+            this.pass.Name = "pass";
+            this.pass.Size = new System.Drawing.Size(141, 20);
+            this.pass.TabIndex = 1;
+            this.pass.UseSystemPasswordChar = true;
+            // 
+            // newPassTxt
+            // 
+            this.newPassTxt.AutoSize = true;
+            this.newPassTxt.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.newPassTxt.Location = new System.Drawing.Point(3, 11);
+            this.newPassTxt.Name = "newPassTxt";
+            this.newPassTxt.Size = new System.Drawing.Size(74, 19);
+            this.newPassTxt.TabIndex = 0;
+            this.newPassTxt.Text = "New Pass";
             // 
             // panel4
             // 
@@ -158,6 +202,17 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Username";
             // 
+            // pictureBoxAccount
+            // 
+            this.pictureBoxAccount.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxAccount.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxAccount.Image")));
+            this.pictureBoxAccount.Location = new System.Drawing.Point(262, 12);
+            this.pictureBoxAccount.Name = "pictureBoxAccount";
+            this.pictureBoxAccount.Size = new System.Drawing.Size(227, 179);
+            this.pictureBoxAccount.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxAccount.TabIndex = 4;
+            this.pictureBoxAccount.TabStop = false;
+            // 
             // exitBtn
             // 
             this.exitBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
@@ -170,60 +225,6 @@
             this.exitBtn.Text = "EXIT";
             this.exitBtn.UseVisualStyleBackColor = true;
             this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.pass);
-            this.panel5.Controls.Add(this.newPassTxt);
-            this.panel5.Location = new System.Drawing.Point(3, 141);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(399, 40);
-            this.panel5.TabIndex = 4;
-            // 
-            // pass
-            // 
-            this.pass.Location = new System.Drawing.Point(86, 12);
-            this.pass.Name = "pass";
-            this.pass.Size = new System.Drawing.Size(141, 20);
-            this.pass.TabIndex = 1;
-            this.pass.UseSystemPasswordChar = true;
-            // 
-            // newPassTxt
-            // 
-            this.newPassTxt.AutoSize = true;
-            this.newPassTxt.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.newPassTxt.Location = new System.Drawing.Point(3, 11);
-            this.newPassTxt.Name = "newPassTxt";
-            this.newPassTxt.Size = new System.Drawing.Size(74, 19);
-            this.newPassTxt.TabIndex = 0;
-            this.newPassTxt.Text = "New Pass";
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.confirmPass);
-            this.panel6.Controls.Add(this.newPassConfirmTxt);
-            this.panel6.Location = new System.Drawing.Point(3, 187);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(399, 40);
-            this.panel6.TabIndex = 4;
-            // 
-            // confirmPass
-            // 
-            this.confirmPass.Location = new System.Drawing.Point(86, 12);
-            this.confirmPass.Name = "confirmPass";
-            this.confirmPass.Size = new System.Drawing.Size(141, 20);
-            this.confirmPass.TabIndex = 2;
-            this.confirmPass.UseSystemPasswordChar = true;
-            // 
-            // newPassConfirmTxt
-            // 
-            this.newPassConfirmTxt.AutoSize = true;
-            this.newPassConfirmTxt.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.newPassConfirmTxt.Location = new System.Drawing.Point(3, 11);
-            this.newPassConfirmTxt.Name = "newPassConfirmTxt";
-            this.newPassConfirmTxt.Size = new System.Drawing.Size(63, 19);
-            this.newPassConfirmTxt.TabIndex = 0;
-            this.newPassConfirmTxt.Text = "Confirm";
             // 
             // changeBtn
             // 
@@ -253,17 +254,17 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Chi tiết tài khoản";
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAccount)).EndInit();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAccount)).EndInit();
             this.ResumeLayout(false);
 
         }
