@@ -18,6 +18,7 @@ namespace LTGD_Project
     {
         List<ProductTopping> productToppings;
         int Id = 0;
+        int check = 0;
         public formProduct()
         {
             InitializeComponent();
@@ -27,9 +28,13 @@ namespace LTGD_Project
         //Hiển thị category
         void LoadCategory()
         {
-            List<Category> cats = CategoryDAO.Instance.SelectAllCat();
-            comboBoxCat.DataSource = cats;
-            comboBoxCat.DisplayMember = "nameCat";
+            if (check == 0)
+            {
+                List<Category> cats = CategoryDAO.Instance.SelectAllCat();
+                comboBoxCat.DataSource = cats;
+                comboBoxCat.DisplayMember = "nameCat";
+                check = 1;
+            }
         }
 
         //Event khi comboBoxCategory được chọn
@@ -37,7 +42,7 @@ namespace LTGD_Project
         {
             int id = 0;
             ComboBox combo = sender as ComboBox;
-            
+
             if (combo.SelectedItem == null)
                 return;
             Category selected = combo.SelectedItem as Category;
@@ -114,5 +119,7 @@ namespace LTGD_Project
             int id = (int)dataGridViewProduct.CurrentRow.Cells[0].Value;
             LoadListTopping(id);
         }
+
+
     }
 }

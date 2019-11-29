@@ -479,7 +479,7 @@ namespace LTGD_Project
                                         {
                                             //Update lại số lượng của sản phẩm đó
                                             int idDetailBill = DetailBillDAO.Instance.CheckIsToppingEqual(tempTopping, detailBills[i].IdProduct, detailBills[i].Price, idBillSwitch);
-                                            DetailBillDAO.Instance.UpdateQuantityDetailBill(detailBills[i].Quantity, idDetailBill, int.Parse(tempTopping[i].ImgProduct));
+                                            DetailBillDAO.Instance.UpdateQuantityDetailBill(detailBills[i].Quantity, idDetailBill, int.Parse(tempTopping[0].ImgProduct));
                                             //Xóa detailtopping cũ
                                             List<int> delTopping = new List<int>();
                                             for (int z = 0; z < tempTopping.Count(); z++)
