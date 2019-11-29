@@ -100,10 +100,10 @@ namespace LTGD_Project.DAO
                 pro.IdProduct = (int)dr["idProduct"];
                 pro.IdCat = (int)dr["idCat"];
                 pro.NameProduct = (string)dr["nameProduct"];
-                pro.PriceLargeProduct = (dr.IsDBNull(dr.GetOrdinal("priceLargeProduct"))) ? null : (int?)dr["priceLargeProduct"];
-                pro.PriceMediumProduct = (dr.IsDBNull(dr.GetOrdinal("priceMediumProduct"))) ? null : (int?)dr["priceMediumProduct"];
-                pro.PriceSmallProduct = (dr.IsDBNull(dr.GetOrdinal("priceSmallProduct"))) ? null : (int?)dr["priceSmallProduct"];
-                pro.PriceProduct = (dr.IsDBNull(dr.GetOrdinal("priceProduct"))) ? null : (int?)dr["priceProduct"];
+                pro.PriceLargeProduct = (dr.IsDBNull(dr.GetOrdinal("priceLargeProduct"))) ? 0 : (int?)dr["priceLargeProduct"];
+                pro.PriceMediumProduct = (dr.IsDBNull(dr.GetOrdinal("priceMediumProduct"))) ? 0 : (int?)dr["priceMediumProduct"];
+                pro.PriceSmallProduct = (dr.IsDBNull(dr.GetOrdinal("priceSmallProduct"))) ? 0 : (int?)dr["priceSmallProduct"];
+                pro.PriceProduct = (dr.IsDBNull(dr.GetOrdinal("priceProduct"))) ? 0 : (int?)dr["priceProduct"];
                 pro.DescriptionProduct = (dr.IsDBNull(dr.GetOrdinal("descriptionProduct"))) ? "Không có mô tả" : (string)dr["descriptionProduct"];
                 pro.imgProduct = (dr.IsDBNull(dr.GetOrdinal("imgProduct"))) ? "Không có hình" : (string)dr["imgProduct"];
                 pro.rating = (int)dr["rate"];
@@ -118,17 +118,17 @@ namespace LTGD_Project.DAO
             return products;
         }
 
-        public List<ProductTopping> SelectAllProductTopping()
+        public List<Product> SelectAllTopping()
         {
-            List<ProductTopping> products = new List<ProductTopping>();
+            List<Product> products = new List<Product>();
             MySqlConnection con = new MySqlConnection(strCon);
             con.Open();
-            string strCmd = "SELECT * FROM Product";
+            string strCmd = "SELECT * FROM Product WHERE idCat = 7";
             MySqlCommand cmd = new MySqlCommand(strCmd, con);
             MySqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                ProductTopping pro = new ProductTopping();
+                Product pro = new Product();
                 pro.IdProduct = (int)dr["idProduct"];
                 pro.IdCat = (int)dr["idCat"];
                 pro.NameProduct = (string)dr["nameProduct"];
@@ -137,18 +137,29 @@ namespace LTGD_Project.DAO
                 pro.PriceSmallProduct = (dr.IsDBNull(dr.GetOrdinal("priceSmallProduct"))) ? null : (int?)dr["priceSmallProduct"];
                 pro.PriceProduct = (dr.IsDBNull(dr.GetOrdinal("priceProduct"))) ? null : (int?)dr["priceProduct"];
                 pro.DescriptionProduct = (dr.IsDBNull(dr.GetOrdinal("descriptionProduct"))) ? "Không có mô tả" : (string)dr["descriptionProduct"];
-                pro.imgProduct = (dr.IsDBNull(dr.GetOrdinal("imgProduct"))) ? "Không có hình" : (string)dr["imgProduct"];
-                pro.rating = (int)dr["rate"];
-
-                List<Topping> top = SelectToppingByIdProduct((int)dr["idProduct"]);
-                pro.Topping = top;
-
+                pro.ImgProduct = (dr.IsDBNull(dr.GetOrdinal("imgProduct"))) ? "Không có hình" : (string)dr["imgProduct"];
+                pro.Rate = (int)dr["rate"];
+                
                 products.Add(pro);
 
             }
             con.Close();
             return products;
         }
+
+        public bool AddNewTopping(int idProduct, int idTopping)
+        {
+            string strCmd = "INSERT INTO producttopping VALUES (null, @idProduct , @idTopping )";
+            return DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { idProduct, idTopping }) > 0;
+        }
+
+        public bool DelTopping(int idProduct, int idTopping)
+        {
+            string strCmd = "DELETE FROM producttopping WHERE idProduct = @idProduct AND idTopping = @idTopping ";
+            return DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { idProduct, idTopping }) > 0;
+        }
     }
+
+
 }
 

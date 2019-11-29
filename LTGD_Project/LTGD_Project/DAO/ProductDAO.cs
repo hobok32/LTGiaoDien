@@ -47,6 +47,20 @@ namespace LTGD_Project.DAO
             }
             return pros;
         }
+
+        public bool AddProduct(int idCat, string name, int? small, int? medium, int? large, int? free, string des, string img)
+        {
+            if (small == 0)
+                small = null;
+            else if (medium == 0)
+                medium = null;
+            else if (large == 0)
+                large = null;
+            else if (free == 0)
+                free = null;
+            string strCmd = "INSERT INTO Product VALUES (null, @idCat , @nameProduct , @priceSmallProduct , @priceMediumProduct , @priceLargeProduct , @priceProduct , @descriptionProduct , @imgProduct , 1)";
+            return DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { idCat, name, small, medium, large, free, des, img }) > 0;    
+        }
     }
 }
 

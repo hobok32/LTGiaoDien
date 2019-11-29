@@ -390,18 +390,22 @@ namespace LTGD_Project
         private void chargeBtn_Click(object sender, EventArgs e)
         {
             Table table = listViewBill.Tag as Table;
-            int discount = (int)discountCount.Value;
-            int idBill = BillDAO.Instance.SelectIdBill(table.IdTable);
-            float priceDiscount = (totalPrice - totalPrice * discount / 100) * 1000;
-            CultureInfo culture = new CultureInfo("vi-VN");
-            if (idBill != -1)
+            if (table != null)
             {
-                if (MessageBox.Show(string.Format("Bạn đã chắc chắn thanh toán {0} chưa?\n\nGiảm giá: {1}%\n\nTổng tiền: {2}", table.NameTable, discount, priceDiscount.ToString("c", culture)), "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                
+                int discount = (int)discountCount.Value;
+                int idBill = BillDAO.Instance.SelectIdBill(table.IdTable);
+                float priceDiscount = (totalPrice - totalPrice * discount / 100) * 1000;
+                CultureInfo culture = new CultureInfo("vi-VN");
+                if (idBill != -1)
                 {
-                    BillDAO.Instance.ThanhToanBill(idBill, discount, totalPrice);
-                    TableDAO.Instance.UpdateStatusTable(table.IdTable, "Trống");
-                    ShowDetailBill(table.IdTable);
-                    LoadTable();
+                    if (MessageBox.Show(string.Format("Bạn đã chắc chắn thanh toán {0} chưa?\n\nGiảm giá: {1}%\n\nTổng tiền: {2}", table.NameTable, discount, priceDiscount.ToString("c", culture)), "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    {
+                        BillDAO.Instance.ThanhToanBill(idBill, discount, totalPrice);
+                        TableDAO.Instance.UpdateStatusTable(table.IdTable, "Trống");
+                        ShowDetailBill(table.IdTable);
+                        LoadTable();
+                    }
                 }
             }
         }
