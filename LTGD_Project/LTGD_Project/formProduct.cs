@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using LTGD_Project.DTO;
 using LTGD_Project.DAO;
 using LTGD_Project.BUS;
+using System.Net;
 
 namespace LTGD_Project
 {
@@ -82,6 +83,11 @@ namespace LTGD_Project
                 if (productToppings[i].IdProduct == id)
                 {
                     dataGridViewTopping.DataSource = productToppings[i].Topping;
+                    dataGridViewTopping.Columns[0].Visible = false;
+                    dataGridViewTopping.Columns[1].HeaderText = "Tên Topping";
+                    dataGridViewTopping.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                    dataGridViewTopping.Columns[2].HeaderText = "Giá";
+                    dataGridViewTopping.Columns[3].Visible = false;
                 }
             }
             return;
@@ -117,6 +123,13 @@ namespace LTGD_Project
         private void dataGridViewProduct_SelectionChanged(object sender, EventArgs e)
         {
             int id = (int)dataGridViewProduct.CurrentRow.Cells[0].Value;
+            string img = dataGridViewProduct.CurrentRow.Cells[8].Value.ToString();
+            var request = WebRequest.Create(img);
+            using (var response = request.GetResponse())
+            using (var stream = response.GetResponseStream())
+            {
+                pictureBoxProduct.Image = Bitmap.FromStream(stream);
+            }
             LoadListTopping(id);
         }
 

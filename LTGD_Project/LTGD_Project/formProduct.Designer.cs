@@ -62,6 +62,7 @@
             this.dataGridViewProduct = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.pictureBoxTopping = new System.Windows.Forms.PictureBox();
             this.productTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAllTopping)).BeginInit();
@@ -69,6 +70,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTopping)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTopping)).BeginInit();
             this.SuspendLayout();
             // 
             // productTab
@@ -84,6 +86,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.pictureBoxTopping);
             this.tabPage1.Controls.Add(this.addToppingBtn);
             this.tabPage1.Controls.Add(this.searchToppingBtn);
             this.tabPage1.Controls.Add(this.searchToppingTxt);
@@ -223,6 +226,7 @@
             this.pictureBoxProduct.Location = new System.Drawing.Point(553, 28);
             this.pictureBoxProduct.Name = "pictureBoxProduct";
             this.pictureBoxProduct.Size = new System.Drawing.Size(209, 128);
+            this.pictureBoxProduct.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxProduct.TabIndex = 17;
             this.pictureBoxProduct.TabStop = false;
             // 
@@ -325,10 +329,11 @@
             // 
             // dataGridViewTopping
             // 
+            this.dataGridViewTopping.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewTopping.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTopping.Location = new System.Drawing.Point(6, 270);
             this.dataGridViewTopping.Name = "dataGridViewTopping";
-            this.dataGridViewTopping.Size = new System.Drawing.Size(341, 127);
+            this.dataGridViewTopping.Size = new System.Drawing.Size(207, 127);
             this.dataGridViewTopping.TabIndex = 4;
             // 
             // comboBoxCat
@@ -378,6 +383,15 @@
             this.tabPage2.Text = "Danh mục";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // pictureBoxTopping
+            // 
+            this.pictureBoxTopping.Location = new System.Drawing.Point(219, 270);
+            this.pictureBoxTopping.Name = "pictureBoxTopping";
+            this.pictureBoxTopping.Size = new System.Drawing.Size(128, 128);
+            this.pictureBoxTopping.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxTopping.TabIndex = 32;
+            this.pictureBoxTopping.TabStop = false;
+            // 
             // formProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -396,6 +410,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTopping)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxTopping)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -435,5 +450,6 @@
         private System.Windows.Forms.Button delBtn;
         private System.Windows.Forms.Button addToppingBtn;
         private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.PictureBox pictureBoxTopping;
     }
 }
