@@ -573,7 +573,8 @@ namespace LTGD_Project
                 System.Drawing.Image img = new Bitmap(open.FileName);
                 pictureBoxProduct.Image = img;
             }
-
+            addBtn.Enabled = false;
+            editBtn.Enabled = false;
             MemoryStream ms = new MemoryStream();
             pictureBoxProduct.Image.Save(ms, ImageFormat.Jpeg);
 
@@ -590,6 +591,8 @@ namespace LTGD_Project
 
             DTO.Image result = response.ResultAs<DTO.Image>();
             img = result.Img;
+            addBtn.Enabled = true;
+            editBtn.Enabled = true;
             //byte[] b = Convert.FromBase64String(result.Img);
 
             //MemoryStream memoryStream = new MemoryStream();
