@@ -103,6 +103,12 @@
     <Compile Include="DTO\Product.cs" />
     <Compile Include="DTO\Table.cs" />
     <Compile Include="DTO\Topping.cs" />
+    <Compile Include="Form\foramTableManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\foramTableManage.Designer.cs">
+      <DependentUpon>foramTableManage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\formLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +141,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form\foramTableManage.resx">
+      <DependentUpon>foramTableManage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\formLogin.resx">
       <DependentUpon>formLogin.cs</DependentUpon>
     </EmbeddedResource>

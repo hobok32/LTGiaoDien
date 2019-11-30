@@ -67,5 +67,23 @@ namespace LTGD_Project.DAO
                 con.Close();
             }
         }
+
+        public bool AddTable(string name, string status)
+        {
+            string strCmd = "INSERT INTO tablewinform VALUES (null, @name , @status );";
+            return DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { name, status }) > 0;
+        }
+
+        public bool EditTable(string name, string status, int idTable)
+        {
+            string strCmd = "UPDATE tablewinform SET nameTable = @nameTable , statusTable = @statusTable WHERE idTable = @idTable ";
+            return DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { name, status, idTable }) > 0;
+        }
+
+        public bool DelTable(int idTable)
+        {
+            string strCmd = "DELETE FROM tablewinform WHERE idTable = @idTable ";
+            return DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { idTable }) > 0;
+        }
     }
 }

@@ -397,7 +397,7 @@ namespace LTGD_Project
                 int idBill = BillDAO.Instance.SelectIdBill(table.IdTable);
                 float priceDiscount = (totalPrice - totalPrice * discount / 100) * 1000;
                 CultureInfo culture = new CultureInfo("vi-VN");
-                if (idBill != -1)
+                if (idBill != -1 || table.StatusTable != "Trống")
                 {
                     if (MessageBox.Show(string.Format("Bạn đã chắc chắn thanh toán {0} chưa?\n\nGiảm giá: {1}%\n\nTổng tiền: {2}", table.NameTable, discount, priceDiscount.ToString("c", culture)), "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
@@ -548,6 +548,14 @@ namespace LTGD_Project
         {
             formMoney f = new formMoney();
             f.ShowDialog();
+        }
+
+        private void quảnLýBànToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foramTableManage f = new foramTableManage();
+            f.ShowDialog();
+            if (!f.IsDisposed)
+                LoadTable();
         }
     }
 }
