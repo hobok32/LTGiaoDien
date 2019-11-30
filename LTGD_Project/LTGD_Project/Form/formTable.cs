@@ -12,11 +12,22 @@ using System.Globalization;
 using LTGD_Project.DAO;
 using LTGD_Project.DTO;
 using System.Threading;
+using FireSharp.Config;
+using FireSharp.Interfaces;
+using FireSharp.Response;
 //Testgithub
 namespace LTGD_Project
 {
     public partial class formTable : Form
     {
+        IFirebaseConfig config = new FirebaseConfig
+        {
+            AuthSecret = "dHDi653cpD0hHaOOrAwgtlTahn7FC9ZBhYoDjeWV",
+            BasePath = "https://cafe-4b7dd.firebaseio.com/"
+        };
+
+        IFirebaseClient client;
+
         string usernameLogin;
         float totalPrice = 0;
         Account account;
@@ -35,6 +46,7 @@ namespace LTGD_Project
             LoadCategory();
             LoadComboBoxSwitchTable();
             toppingCount.Enabled = false;
+            
         }
         //Load Account
         Account LoadAccount(string username)
@@ -64,6 +76,39 @@ namespace LTGD_Project
 
                 flowLayoutPanelTable.Controls.Add(btn);
             }
+        }
+
+        async void LoadTableFirebase()
+        {
+            List<Table> tables = TableDAO.Instance.LoadTableList();
+            List<TableFirebase> tab = new List<TableFirebase>();
+            for(int i = 0; i < tables.Count(); i++)
+            {
+                FirebaseResponse response = await client.GetTaskAsync("Table/" + tables[i].IdTable);
+                TableFirebase table = response.ResultAs<TableFirebase>();
+                tab.Add(table);
+            }
+
+            flowLayoutPanelTable.Controls.Clear();
+            foreach (TableFirebase item in tab)
+            {
+                Button btn = new Button() { Width = TableDAO.TableWidth, Height = TableDAO.TableWidth };
+                btn.Text = item.nameTable + Environment.NewLine + item.statusTable;
+                btn.Click += Btn_Click;
+                btn.Tag = item;
+                switch (item.statusTable)
+                {
+                    case "Trống":
+                        btn.BackColor = Color.Gainsboro;
+                        break;
+                    default:
+                        btn.BackColor = Color.SlateBlue;
+                        break;
+                }
+
+                flowLayoutPanelTable.Controls.Add(btn);
+            }
+
         }
 
         void LoadComboBoxSwitchTable()
@@ -160,8 +205,8 @@ namespace LTGD_Project
         //Event khi ấn vào từng bàn
         private void Btn_Click(object sender, EventArgs e)
         {
-            int idTable = ((sender as Button).Tag as Table).IdTable;
-            tableTxt.Text = ((sender as Button).Tag as Table).NameTable.ToString();
+            int idTable = ((sender as Button).Tag as TableFirebase).idTable;
+            tableTxt.Text = ((sender as Button).Tag as TableFirebase).nameTable.ToString();
             //Lưu bàn vừa chọn vào tag của listView
             listViewBill.Tag = (sender as Button).Tag;
             ShowDetailBill(idTable);
@@ -578,6 +623,17 @@ namespace LTGD_Project
             f.ShowDialog();
             if (!f.IsDisposed)
                 LoadTable();
+        }
+
+        private void formTable_Load(object sender, EventArgs e)
+        {
+            //client = new FireSharp.FirebaseClient(config);
+
+            //if (client != null)
+            //{
+            //    MessageBox.Show("Access to Firebase :3 :3 :3", "Yayyy");
+            //    LoadTableFirebase();
+            //}
         }
     }
 }

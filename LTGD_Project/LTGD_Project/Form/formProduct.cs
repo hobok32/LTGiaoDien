@@ -12,11 +12,25 @@ using LTGD_Project.DTO;
 using LTGD_Project.DAO;
 using LTGD_Project.BUS;
 using System.Net;
+using System.IO;
+using System.Drawing.Imaging;
+using FireSharp.Config;
+using FireSharp.Interfaces;
+using FireSharp.Response;
 
 namespace LTGD_Project
 {
     public partial class formProduct : Form
     {
+
+        IFirebaseConfig config = new FirebaseConfig
+        {
+            AuthSecret = "dHDi653cpD0hHaOOrAwgtlTahn7FC9ZBhYoDjeWV",
+            BasePath = "https://cafe-4b7dd.firebaseio.com/"
+        };
+
+        IFirebaseClient client;
+
         List<ProductTopping> productToppings;
         string img = "https://www.cohindia.com/wp-content/uploads/2018/06/Worship-Mumbai.jpeg";
         int Id = 0;
@@ -186,13 +200,27 @@ namespace LTGD_Project
             namePro = dataGridViewProduct.CurrentRow.Cells[2].Value.ToString();
             idProduct = id;
             string img = dataGridViewProduct.CurrentRow.Cells[8].Value.ToString();
-            var request = WebRequest.Create(img);
-            using (var response = request.GetResponse())
-            using (var stream = response.GetResponseStream())
+            if (img.Substring(0,4)=="http")
             {
-                pictureBoxProduct.Image = Bitmap.FromStream(stream);
+                var request = WebRequest.Create(img);
+                using (var response = request.GetResponse())
+                using (var stream = response.GetResponseStream())
+                {
+                    pictureBoxProduct.Image = Bitmap.FromStream(stream);
+                }
+                LoadListTopping(id);
             }
-            LoadListTopping(id);
+            else 
+            {
+                byte[] b = Convert.FromBase64String(img);
+
+                MemoryStream memoryStream = new MemoryStream();
+                memoryStream.Write(b, 0, Convert.ToInt32(b.Length));
+
+                Bitmap bm = new Bitmap(memoryStream, false);
+                memoryStream.Dispose();
+                pictureBoxProduct.Image = bm;
+            }
         }
 
         private void dataGridViewAllTopping_SelectionChanged(object sender, EventArgs e)
@@ -531,6 +559,55 @@ namespace LTGD_Project
                 }
                 else
                     MessageBox.Show("Xóa thất bại", "Thông báo");
+            }
+        }
+
+        private async void uploadImg_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog open = new OpenFileDialog();
+            open.Title = "Chọn hình ảnh";
+            open.Filter = "Image Files(*.jpg) | *.jpg";
+
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                System.Drawing.Image img = new Bitmap(open.FileName);
+                pictureBoxProduct.Image = img;
+            }
+
+            MemoryStream ms = new MemoryStream();
+            pictureBoxProduct.Image.Save(ms, ImageFormat.Jpeg);
+
+            byte[] byteConvert = ms.GetBuffer();
+
+            string output = Convert.ToBase64String(byteConvert);
+
+            var data = new DTO.Image
+            {
+                Img = output
+            };
+
+            SetResponse response = await client.SetTaskAsync("Image/", data);
+
+            DTO.Image result = response.ResultAs<DTO.Image>();
+            img = result.Img;
+            //byte[] b = Convert.FromBase64String(result.Img);
+
+            //MemoryStream memoryStream = new MemoryStream();
+            //memoryStream.Write(b, 0, Convert.ToInt32(b.Length));
+
+            //Bitmap bm = new Bitmap(memoryStream, false);
+            //memoryStream.Dispose();
+            //Picturebox.Image=bm;
+
+        }
+
+        private void formProduct_Load(object sender, EventArgs e)
+        {
+            client = new FireSharp.FirebaseClient(config);
+
+            if (client != null)
+            {
+                MessageBox.Show("Access to Firebase :3 :3 :3", "Yayyy"); 
             }
         }
     }

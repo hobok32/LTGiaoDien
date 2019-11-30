@@ -34,4 +34,11 @@ namespace LTGD_Project.DTO
         public List<ProductTopping> data { set; get; }
         public Category Category { set; get; }
     }
+
+    internal class TableFirebase
+    {
+        public int idTable { set; get; }
+        public string nameTable { set; get; }
+        public string statusTable { set; get; }
+    }
 }

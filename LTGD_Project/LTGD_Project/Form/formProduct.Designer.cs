@@ -158,6 +158,7 @@
             this.uploadImg.TabIndex = 43;
             this.uploadImg.Text = "PICK";
             this.uploadImg.UseVisualStyleBackColor = true;
+            this.uploadImg.Click += new System.EventHandler(this.uploadImg_Click);
             // 
             // label12
             // 
@@ -564,6 +565,7 @@
             this.Name = "formProduct";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý sản phẩm";
+            this.Load += new System.EventHandler(this.formProduct_Load);
             this.productTab.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
