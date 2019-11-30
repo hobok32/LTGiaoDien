@@ -79,9 +79,9 @@ namespace LTGD_Project
 
         void LoadCategoryUpdate()
         {
-            //List<Category> cats = CategoryDAO.Instance.SelectAllCat();
-            //comboBoxCatUpdate.DataSource = cats;
-            //comboBoxCatUpdate.DisplayMember = "nameCat";
+            List<Category> cats = CategoryDAO.Instance.SelectAllCat();
+            comboBoxCatUpdate.DataSource = cats;
+            comboBoxCatUpdate.DisplayMember = "nameCat";
         }
 
         //Event khi comboBoxCategory được chọn
