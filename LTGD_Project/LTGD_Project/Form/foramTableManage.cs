@@ -101,6 +101,8 @@ namespace LTGD_Project
                         int check = 0;
                         for (int i = 0; i < tables.Count(); i++)
                         {
+                            if (tables[i].NameTable == name)
+                                continue;
                             if (nameTable.Text == tables[i].NameTable)
                             {
                                 check = 1;
