@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.productTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.uploadImg = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.comboBoxCatUpdate = new System.Windows.Forms.ComboBox();
             this.delToppingBtn = new System.Windows.Forms.Button();
@@ -65,16 +66,15 @@
             this.searchTxt = new System.Windows.Forms.TextBox();
             this.dataGridViewProduct = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridViewCat = new System.Windows.Forms.DataGridView();
-            this.pictureBoxCat = new System.Windows.Forms.PictureBox();
+            this.pickImgCat = new System.Windows.Forms.Button();
+            this.editCatBtn = new System.Windows.Forms.Button();
+            this.delCatBtn = new System.Windows.Forms.Button();
+            this.addCatBtn = new System.Windows.Forms.Button();
             this.nameCatTxt = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.addCatBtn = new System.Windows.Forms.Button();
-            this.delCatBtn = new System.Windows.Forms.Button();
-            this.editCatBtn = new System.Windows.Forms.Button();
-            this.uploadImg = new System.Windows.Forms.Button();
-            this.pickImgCat = new System.Windows.Forms.Button();
+            this.pictureBoxCat = new System.Windows.Forms.PictureBox();
+            this.dataGridViewCat = new System.Windows.Forms.DataGridView();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.productTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.smallSizeTxt)).BeginInit();
@@ -87,9 +87,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTopping)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).BeginInit();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCat)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCat)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCat)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // productTab
@@ -148,6 +148,16 @@
             this.tabPage1.Text = "Sản phẩm";
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            this.tabPage1.Enter += new System.EventHandler(this.tabPage1_Enter);
+            // 
+            // uploadImg
+            // 
+            this.uploadImg.Location = new System.Drawing.Point(501, 162);
+            this.uploadImg.Name = "uploadImg";
+            this.uploadImg.Size = new System.Drawing.Size(46, 20);
+            this.uploadImg.TabIndex = 43;
+            this.uploadImg.Text = "PICK";
+            this.uploadImg.UseVisualStyleBackColor = true;
             // 
             // label12
             // 
@@ -467,27 +477,44 @@
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Enter += new System.EventHandler(this.tabPage2_Enter);
             // 
-            // dataGridViewCat
+            // pickImgCat
             // 
-            this.dataGridViewCat.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewCat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCat.Location = new System.Drawing.Point(6, 6);
-            this.dataGridViewCat.Name = "dataGridViewCat";
-            this.dataGridViewCat.ReadOnly = true;
-            this.dataGridViewCat.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCat.Size = new System.Drawing.Size(208, 107);
-            this.dataGridViewCat.TabIndex = 26;
-            this.dataGridViewCat.SelectionChanged += new System.EventHandler(this.dataGridViewCat_SelectionChanged);
+            this.pickImgCat.Location = new System.Drawing.Point(223, 61);
+            this.pickImgCat.Name = "pickImgCat";
+            this.pickImgCat.Size = new System.Drawing.Size(237, 52);
+            this.pickImgCat.TabIndex = 39;
+            this.pickImgCat.Text = "PICK";
+            this.pickImgCat.UseVisualStyleBackColor = true;
             // 
-            // pictureBoxCat
+            // editCatBtn
             // 
-            this.pictureBoxCat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxCat.Location = new System.Drawing.Point(6, 119);
-            this.pictureBoxCat.Name = "pictureBoxCat";
-            this.pictureBoxCat.Size = new System.Drawing.Size(454, 301);
-            this.pictureBoxCat.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxCat.TabIndex = 27;
-            this.pictureBoxCat.TabStop = false;
+            this.editCatBtn.Location = new System.Drawing.Point(385, 32);
+            this.editCatBtn.Name = "editCatBtn";
+            this.editCatBtn.Size = new System.Drawing.Size(75, 23);
+            this.editCatBtn.TabIndex = 38;
+            this.editCatBtn.Text = "SỬA";
+            this.editCatBtn.UseVisualStyleBackColor = true;
+            this.editCatBtn.Click += new System.EventHandler(this.editCatBtn_Click);
+            // 
+            // delCatBtn
+            // 
+            this.delCatBtn.Location = new System.Drawing.Point(304, 32);
+            this.delCatBtn.Name = "delCatBtn";
+            this.delCatBtn.Size = new System.Drawing.Size(75, 23);
+            this.delCatBtn.TabIndex = 37;
+            this.delCatBtn.Text = "XÓA";
+            this.delCatBtn.UseVisualStyleBackColor = true;
+            this.delCatBtn.Click += new System.EventHandler(this.delCatBtn_Click);
+            // 
+            // addCatBtn
+            // 
+            this.addCatBtn.Location = new System.Drawing.Point(223, 32);
+            this.addCatBtn.Name = "addCatBtn";
+            this.addCatBtn.Size = new System.Drawing.Size(75, 23);
+            this.addCatBtn.TabIndex = 36;
+            this.addCatBtn.Text = "THÊM";
+            this.addCatBtn.UseVisualStyleBackColor = true;
+            this.addCatBtn.Click += new System.EventHandler(this.addCatBtn_Click);
             // 
             // nameCatTxt
             // 
@@ -505,50 +532,27 @@
             this.label13.TabIndex = 35;
             this.label13.Text = "Tên";
             // 
-            // addCatBtn
+            // pictureBoxCat
             // 
-            this.addCatBtn.Location = new System.Drawing.Point(223, 32);
-            this.addCatBtn.Name = "addCatBtn";
-            this.addCatBtn.Size = new System.Drawing.Size(75, 23);
-            this.addCatBtn.TabIndex = 36;
-            this.addCatBtn.Text = "THÊM";
-            this.addCatBtn.UseVisualStyleBackColor = true;
+            this.pictureBoxCat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxCat.Location = new System.Drawing.Point(6, 119);
+            this.pictureBoxCat.Name = "pictureBoxCat";
+            this.pictureBoxCat.Size = new System.Drawing.Size(454, 301);
+            this.pictureBoxCat.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxCat.TabIndex = 27;
+            this.pictureBoxCat.TabStop = false;
             // 
-            // delCatBtn
+            // dataGridViewCat
             // 
-            this.delCatBtn.Location = new System.Drawing.Point(304, 32);
-            this.delCatBtn.Name = "delCatBtn";
-            this.delCatBtn.Size = new System.Drawing.Size(75, 23);
-            this.delCatBtn.TabIndex = 37;
-            this.delCatBtn.Text = "XÓA";
-            this.delCatBtn.UseVisualStyleBackColor = true;
-            // 
-            // editCatBtn
-            // 
-            this.editCatBtn.Location = new System.Drawing.Point(385, 32);
-            this.editCatBtn.Name = "editCatBtn";
-            this.editCatBtn.Size = new System.Drawing.Size(75, 23);
-            this.editCatBtn.TabIndex = 38;
-            this.editCatBtn.Text = "SỬA";
-            this.editCatBtn.UseVisualStyleBackColor = true;
-            // 
-            // uploadImg
-            // 
-            this.uploadImg.Location = new System.Drawing.Point(501, 162);
-            this.uploadImg.Name = "uploadImg";
-            this.uploadImg.Size = new System.Drawing.Size(46, 20);
-            this.uploadImg.TabIndex = 43;
-            this.uploadImg.Text = "PICK";
-            this.uploadImg.UseVisualStyleBackColor = true;
-            // 
-            // pickImgCat
-            // 
-            this.pickImgCat.Location = new System.Drawing.Point(223, 61);
-            this.pickImgCat.Name = "pickImgCat";
-            this.pickImgCat.Size = new System.Drawing.Size(237, 52);
-            this.pickImgCat.TabIndex = 39;
-            this.pickImgCat.Text = "PICK";
-            this.pickImgCat.UseVisualStyleBackColor = true;
+            this.dataGridViewCat.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewCat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCat.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewCat.Name = "dataGridViewCat";
+            this.dataGridViewCat.ReadOnly = true;
+            this.dataGridViewCat.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewCat.Size = new System.Drawing.Size(208, 107);
+            this.dataGridViewCat.TabIndex = 26;
+            this.dataGridViewCat.SelectionChanged += new System.EventHandler(this.dataGridViewCat_SelectionChanged);
             // 
             // formProduct
             // 
@@ -574,9 +578,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProduct)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCat)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCat)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCat)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }

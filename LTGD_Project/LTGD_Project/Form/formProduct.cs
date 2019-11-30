@@ -27,12 +27,14 @@ namespace LTGD_Project
         int idProduct = 0;
         string name = "";
         string namePro = "";
+        string nameCat = "";
+        string nameCatEdit = "";
+        int idCatEdit = 0;
+        string imgCat = "https://www.cohindia.com/wp-content/uploads/2018/06/Worship-Mumbai.jpeg";
+        List<Category> catsCheck;
         public formProduct()
         {
             InitializeComponent();
-            LoadCategory();
-            LoadAllTopping();
-            LoadCategoryUpdate();
         }
 
         //Hiển thị tất cả topping
@@ -58,6 +60,7 @@ namespace LTGD_Project
             if (check == 0)
             {
                 List<Category> cats = CategoryDAO.Instance.SelectAllCat();
+                catsCheck = cats;
                 comboBoxCat.DataSource = cats;
                 comboBoxCat.DisplayMember = "nameCat";
                 check = 1;
@@ -194,14 +197,21 @@ namespace LTGD_Project
 
         private void dataGridViewAllTopping_SelectionChanged(object sender, EventArgs e)
         {
-            idTopping = (int)dataGridViewAllTopping.CurrentRow.Cells[0].Value;
-            name = dataGridViewAllTopping.CurrentRow.Cells[2].Value.ToString();
-            string img = dataGridViewAllTopping.CurrentRow.Cells[8].Value.ToString();
-            var request = WebRequest.Create(img);
-            using (var response = request.GetResponse())
-            using (var stream = response.GetResponseStream())
+            try
             {
-                pictureBoxTopping.Image = Bitmap.FromStream(stream);
+                idTopping = (int)dataGridViewAllTopping.CurrentRow.Cells[0].Value;
+                name = dataGridViewAllTopping.CurrentRow.Cells[2].Value.ToString();
+                string img = dataGridViewAllTopping.CurrentRow.Cells[8].Value.ToString();
+                var request = WebRequest.Create(img);
+                using (var response = request.GetResponse())
+                using (var stream = response.GetResponseStream())
+                {
+                    pictureBoxTopping.Image = Bitmap.FromStream(stream);
+                }
+            }
+            catch
+            {
+
             }
         }
 
@@ -415,7 +425,6 @@ namespace LTGD_Project
 
         private void productTab_Enter(object sender, EventArgs e)
         {
-
         }
 
         private void tabPage2_Enter(object sender, EventArgs e)
@@ -426,11 +435,102 @@ namespace LTGD_Project
         private void dataGridViewCat_SelectionChanged(object sender, EventArgs e)
         {
             string img = dataGridViewCat.CurrentRow.Cells[2].Value.ToString();
+            idCatEdit = (int)dataGridViewCat.CurrentRow.Cells[0].Value;
+            nameCatEdit = dataGridViewCat.CurrentRow.Cells[1].Value.ToString();
             var request = WebRequest.Create(img);
             using (var response = request.GetResponse())
             using (var stream = response.GetResponseStream())
             {
                 pictureBoxCat.Image = Bitmap.FromStream(stream);
+            }
+        }
+
+        private void addCatBtn_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Bạn đã chắc chắn muốn thêm "+nameCatTxt.Text+" chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                int checkk = 0;
+                for (int i = 0; i < catsCheck.Count(); i++)
+                {
+                    if (nameCatTxt.Text == catsCheck[i].NameCat)
+                    {
+                        checkk = 1;
+                        break;
+                    }
+                }
+                if (checkk == 0)
+                {
+                    if (CategoryDAO.Instance.AddCat(nameCatTxt.Text, imgCat))
+                    {
+                        LoadCategoryGrid();
+                        check = 0;
+                        MessageBox.Show("Thêm thành công", "Thông báo");
+                    }
+                    else
+                        MessageBox.Show("Thêm thất bại", "Thông báo");
+                }
+                else
+                    MessageBox.Show("Tên Trùng", "Thông báo");
+            }
+        }
+
+        private void tabPage1_Enter(object sender, EventArgs e)
+        {
+            if (check == 0)
+            {
+                LoadCategory();
+                LoadAllTopping();
+                LoadCategoryUpdate();
+            }
+        }
+
+        private void editCatBtn_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Bạn đã chắc chắn muốn sửa " + nameCatEdit + " chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                int checkk = 0;
+                for (int i = 0; i < catsCheck.Count(); i++)
+                {
+                    if (nameCatTxt.Text == catsCheck[i].NameCat)
+                    {
+                        checkk = 1;
+                        break;
+                    }
+                }
+                if (checkk == 0)
+                {
+                    if (CategoryDAO.Instance.EditCat(nameCatTxt.Text, imgCat, idCatEdit))
+                    {
+                        if (idCatEdit > 0)
+                        {
+                            LoadCategoryGrid();
+                            check = 0;
+                            MessageBox.Show("Sửa thành công", "Thông báo");
+                        }
+                    }
+                    else
+                        MessageBox.Show("Sửa thất bại", "Thông báo");
+                }
+                else
+                    MessageBox.Show("Tên Trùng", "Thông báo");
+            }
+        }
+
+        private void delCatBtn_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Bạn đã chắc chắn muốn xóa " + nameCatEdit + " chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                if (CategoryDAO.Instance.DelCat(idCatEdit))
+                {
+                    if (idCatEdit > 0)
+                    {
+                        LoadCategoryGrid();
+                        check = 0;
+                        MessageBox.Show("Xóa thành công", "Thông báo");
+                    }
+                }
+                else
+                    MessageBox.Show("Xóa thất bại", "Thông báo");
             }
         }
     }

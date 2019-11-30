@@ -35,5 +35,30 @@ namespace LTGD_Project.DAO
             }
             return cats;
         }
+
+        public bool AddCat(string name, string img)
+        {
+            string strCmd = "INSERT INTO category VALUES (null, @nameCat , @imgCat );";
+            return DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { name, img }) > 0;
+        }
+
+        public bool EditCat(string name, string img, int idCat)
+        {
+            string strCmd = "UPDATE category SET nameCat= @nameCat , imgCat= @imgCat WHERE idCat= @idCat ";
+            return DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { name, img, idCat }) > 0;
+        }
+
+        public bool DelCat(int idCat)
+        {
+            string strCmd = "DELETE FROM category WHERE idCat = @idCat ";
+            try
+            {
+                return DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { idCat }) > 0;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
