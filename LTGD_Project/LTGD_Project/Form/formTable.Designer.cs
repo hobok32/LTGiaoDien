@@ -67,6 +67,7 @@
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanelTable = new System.Windows.Forms.FlowLayoutPanel();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -148,7 +149,8 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader5});
+            this.columnHeader5,
+            this.columnHeader6});
             this.listViewBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.listViewBill.FullRowSelect = true;
             this.listViewBill.GridLines = true;
@@ -162,26 +164,31 @@
             // 
             // columnHeader1
             // 
+            this.columnHeader1.DisplayIndex = 0;
             this.columnHeader1.Text = "Tên món";
             this.columnHeader1.Width = 125;
             // 
             // columnHeader2
             // 
+            this.columnHeader2.DisplayIndex = 1;
             this.columnHeader2.Text = "Giá";
             this.columnHeader2.Width = 58;
             // 
             // columnHeader3
             // 
+            this.columnHeader3.DisplayIndex = 2;
             this.columnHeader3.Text = "Số lượng";
             this.columnHeader3.Width = 59;
             // 
             // columnHeader4
             // 
+            this.columnHeader4.DisplayIndex = 3;
             this.columnHeader4.Text = "Topping";
             this.columnHeader4.Width = 92;
             // 
             // columnHeader5
             // 
+            this.columnHeader5.DisplayIndex = 4;
             this.columnHeader5.Text = "Tổng tiền";
             this.columnHeader5.Width = 99;
             // 
@@ -426,6 +433,11 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "county-cork-ireland-wallpapers.1440x900.jpg");
             // 
+            // columnHeader6
+            // 
+            this.columnHeader6.DisplayIndex = 5;
+            this.columnHeader6.Text = "ID";
+            // 
             // formTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -494,5 +506,6 @@
         private System.Windows.Forms.NumericUpDown toppingCount;
         private System.Windows.Forms.ToolStripMenuItem quảnLýBànToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem doanhThuToolStripMenuItem;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
     }
 }

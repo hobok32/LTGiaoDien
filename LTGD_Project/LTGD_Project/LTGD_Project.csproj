@@ -91,6 +91,7 @@
     <Compile Include="DAO\GlobalDAO.cs" />
     <Compile Include="DAO\MenuDAO.cs" />
     <Compile Include="DAO\ProductDAO.cs" />
+    <Compile Include="DAO\ProductRateDAO.cs" />
     <Compile Include="DAO\TableDAO.cs" />
     <Compile Include="DAO\ToppingDAO.cs" />
     <Compile Include="DTO\Account.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="DTO\Global.cs" />
     <Compile Include="DTO\Menu.cs" />
     <Compile Include="DTO\Product.cs" />
+    <Compile Include="DTO\ProductRate.cs" />
     <Compile Include="DTO\Table.cs" />
     <Compile Include="DTO\Topping.cs" />
     <Compile Include="Form\foramTableManage.cs">

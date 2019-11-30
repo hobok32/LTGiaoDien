@@ -96,6 +96,7 @@ namespace LTGD_Project
                         else
                             listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000) x" + item.QuantityTopping);
                         listViewItem.SubItems.Add(((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity).ToString() + ".000");
+                        listViewItem.SubItems.Add(item.IdProduct.ToString());
                         totalPrice += (int)((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity);
                         listViewBill.Items.Add(listViewItem);
                         tempIdBillDetail = (int)item.IdDetailBill;
@@ -115,6 +116,7 @@ namespace LTGD_Project
                             else
                                 listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000) x" + item.QuantityTopping);
                             listViewItem.SubItems.Add(((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity).ToString() + ".000");
+                            listViewItem.SubItems.Add(item.IdProduct.ToString());
                             totalPrice += (int)((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity);
                             listViewBill.Items.Add(listViewItem);
                             tempIdBillDetail = (int)item.IdDetailBill;
@@ -139,6 +141,7 @@ namespace LTGD_Project
                                 else
                                     listViewItem.SubItems.Add(item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000) x" + item.QuantityTopping);
                                 listViewItem.SubItems.Add(((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity).ToString() + ".000");
+                                listViewItem.SubItems.Add(item.IdProduct.ToString());
                                 totalPrice += (int)((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity);
                                 listViewBill.Items.Add(listViewItem);
                                 tempIdBillDetail = (int)item.IdDetailBill;
@@ -151,6 +154,7 @@ namespace LTGD_Project
             }
             CultureInfo culture = new CultureInfo("vi-VN");
             totalPriceTxt.Text = (totalPrice * 1000).ToString("c", culture);
+            listViewBill.Columns[5].Width = 0;
         }
 
         //Event khi ấn vào từng bàn
@@ -401,8 +405,19 @@ namespace LTGD_Project
                 {
                     if (MessageBox.Show(string.Format("Bạn đã chắc chắn thanh toán {0} chưa?\n\nGiảm giá: {1}%\n\nTổng tiền: {2}", table.NameTable, discount, priceDiscount.ToString("c", culture)), "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
+                        List<ProductRate> productRates = new List<ProductRate>();
+                        for (int m = 0; m < listViewBill.Items.Count; m++)
+                        {
+                            ProductRate productRate = new ProductRate();
+                            productRate.IdProduct = int.Parse(listViewBill.Items[m].SubItems[5].Text);
+                            productRate.Rate = int.Parse(listViewBill.Items[m].SubItems[2].Text);
+                            productRates.Add(productRate);
+                        }
+                        if (productRates.Count > 0)
+                            ProductRateDAO.Instance.UpdateRateProduct(productRates);
                         BillDAO.Instance.ThanhToanBill(idBill, discount, totalPrice);
                         TableDAO.Instance.UpdateStatusTable(table.IdTable, "Trống");
+                        MessageBox.Show(":3 :3 :3", "Thông báo");
                         ShowDetailBill(table.IdTable);
                         LoadTable();
                     }
