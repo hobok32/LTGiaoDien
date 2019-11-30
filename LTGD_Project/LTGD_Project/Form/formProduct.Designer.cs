@@ -486,6 +486,7 @@
             this.pickImgCat.TabIndex = 39;
             this.pickImgCat.Text = "PICK";
             this.pickImgCat.UseVisualStyleBackColor = true;
+            this.pickImgCat.Click += new System.EventHandler(this.pickImgCat_Click);
             // 
             // editCatBtn
             // 

@@ -194,35 +194,6 @@ namespace LTGD_Project
 
         }
 
-        private void dataGridViewProduct_SelectionChanged(object sender, EventArgs e)
-        {
-            int id = (int)dataGridViewProduct.CurrentRow.Cells[0].Value;
-            namePro = dataGridViewProduct.CurrentRow.Cells[2].Value.ToString();
-            idProduct = id;
-            string img = dataGridViewProduct.CurrentRow.Cells[8].Value.ToString();
-            if (img.Substring(0,4)=="http")
-            {
-                var request = WebRequest.Create(img);
-                using (var response = request.GetResponse())
-                using (var stream = response.GetResponseStream())
-                {
-                    pictureBoxProduct.Image = Bitmap.FromStream(stream);
-                }
-                LoadListTopping(id);
-            }
-            else 
-            {
-                byte[] b = Convert.FromBase64String(img);
-
-                MemoryStream memoryStream = new MemoryStream();
-                memoryStream.Write(b, 0, Convert.ToInt32(b.Length));
-
-                Bitmap bm = new Bitmap(memoryStream, false);
-                memoryStream.Dispose();
-                pictureBoxProduct.Image = bm;
-            }
-        }
-
         private void dataGridViewAllTopping_SelectionChanged(object sender, EventArgs e)
         {
             try
@@ -230,11 +201,25 @@ namespace LTGD_Project
                 idTopping = (int)dataGridViewAllTopping.CurrentRow.Cells[0].Value;
                 name = dataGridViewAllTopping.CurrentRow.Cells[2].Value.ToString();
                 string img = dataGridViewAllTopping.CurrentRow.Cells[8].Value.ToString();
-                var request = WebRequest.Create(img);
-                using (var response = request.GetResponse())
-                using (var stream = response.GetResponseStream())
+                if (img.Substring(0, 4) == "http")
                 {
-                    pictureBoxTopping.Image = Bitmap.FromStream(stream);
+                    var request = WebRequest.Create(img);
+                    using (var response = request.GetResponse())
+                    using (var stream = response.GetResponseStream())
+                    {
+                        pictureBoxTopping.Image = Bitmap.FromStream(stream);
+                    }
+                }
+                else
+                {
+                    byte[] b = Convert.FromBase64String(img);
+
+                    MemoryStream memoryStream = new MemoryStream();
+                    memoryStream.Write(b, 0, Convert.ToInt32(b.Length));
+
+                    Bitmap bm = new Bitmap(memoryStream, false);
+                    memoryStream.Dispose();
+                    pictureBoxTopping.Image = bm;
                 }
             }
             catch
@@ -465,12 +450,60 @@ namespace LTGD_Project
             string img = dataGridViewCat.CurrentRow.Cells[2].Value.ToString();
             idCatEdit = (int)dataGridViewCat.CurrentRow.Cells[0].Value;
             nameCatEdit = dataGridViewCat.CurrentRow.Cells[1].Value.ToString();
-            var request = WebRequest.Create(img);
-            using (var response = request.GetResponse())
-            using (var stream = response.GetResponseStream())
+            if (img.Substring(0, 4) == "http")
             {
-                pictureBoxCat.Image = Bitmap.FromStream(stream);
+                var request = WebRequest.Create(img);
+                using (var response = request.GetResponse())
+                using (var stream = response.GetResponseStream())
+                {
+                    pictureBoxCat.Image = Bitmap.FromStream(stream);
+                }
             }
+            else
+            {
+                byte[] b = Convert.FromBase64String(img);
+
+                MemoryStream memoryStream = new MemoryStream();
+                memoryStream.Write(b, 0, Convert.ToInt32(b.Length));
+
+                Bitmap bm = new Bitmap(memoryStream, false);
+                memoryStream.Dispose();
+                pictureBoxCat.Image = bm;
+            }
+        }
+
+        private void dataGridViewProduct_SelectionChanged(object sender, EventArgs e)
+        {
+            int id = (int)dataGridViewProduct.CurrentRow.Cells[0].Value;
+            namePro = dataGridViewProduct.CurrentRow.Cells[2].Value.ToString();
+            idProduct = id;
+            string img = dataGridViewProduct.CurrentRow.Cells[8].Value.ToString();
+            try
+            {
+                if (img.Substring(0, 4) == "http")
+                {
+                    var request = WebRequest.Create(img);
+                    using (var response = request.GetResponse())
+                    using (var stream = response.GetResponseStream())
+                    {
+                        pictureBoxProduct.Image = Bitmap.FromStream(stream);
+                    }
+                    LoadListTopping(id);
+                }
+                else
+                {
+                    byte[] b = Convert.FromBase64String(img);
+
+                    MemoryStream memoryStream = new MemoryStream();
+                    memoryStream.Write(b, 0, Convert.ToInt32(b.Length));
+
+                    Bitmap bm = new Bitmap(memoryStream, false);
+                    memoryStream.Dispose();
+                    pictureBoxProduct.Image = bm;
+                    LoadListTopping(id);
+                }
+            }
+            catch { }
         }
 
         private void addCatBtn_Click(object sender, EventArgs e)
@@ -519,6 +552,8 @@ namespace LTGD_Project
                 int checkk = 0;
                 for (int i = 0; i < catsCheck.Count(); i++)
                 {
+                    if (catsCheck[i].NameCat == nameCatEdit)
+                        continue;
                     if (nameCatTxt.Text == catsCheck[i].NameCat)
                     {
                         checkk = 1;
@@ -608,10 +643,43 @@ namespace LTGD_Project
         {
             client = new FireSharp.FirebaseClient(config);
 
-            if (client != null)
+            //if (client != null)
+            //{
+            //    MessageBox.Show("Access to Firebase :3 :3 :3", "Yayyy"); 
+            //}
+        }
+
+        private async void pickImgCat_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog open = new OpenFileDialog();
+            open.Title = "Chọn hình ảnh";
+            open.Filter = "Image Files(*.jpg) | *.jpg";
+
+            if (open.ShowDialog() == DialogResult.OK)
             {
-                MessageBox.Show("Access to Firebase :3 :3 :3", "Yayyy"); 
+                System.Drawing.Image img = new Bitmap(open.FileName);
+                pictureBoxCat.Image = img;
             }
+            addCatBtn.Enabled = false;
+            editCatBtn.Enabled = false;
+            MemoryStream ms = new MemoryStream();
+            pictureBoxCat.Image.Save(ms, ImageFormat.Jpeg);
+
+            byte[] byteConvert = ms.GetBuffer();
+
+            string output = Convert.ToBase64String(byteConvert);
+
+            var data = new DTO.Image
+            {
+                Img = output
+            };
+
+            SetResponse response = await client.SetTaskAsync("Image/", data);
+
+            DTO.Image result = response.ResultAs<DTO.Image>();
+            imgCat = result.Img;
+            addCatBtn.Enabled = true;
+            editCatBtn.Enabled = true;
         }
     }
 }

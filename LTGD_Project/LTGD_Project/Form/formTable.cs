@@ -205,8 +205,8 @@ namespace LTGD_Project
         //Event khi ấn vào từng bàn
         private void Btn_Click(object sender, EventArgs e)
         {
-            int idTable = ((sender as Button).Tag as TableFirebase).idTable;
-            tableTxt.Text = ((sender as Button).Tag as TableFirebase).nameTable.ToString();
+            int idTable = ((sender as Button).Tag as Table).IdTable;
+            tableTxt.Text = ((sender as Button).Tag as Table).NameTable.ToString();
             //Lưu bàn vừa chọn vào tag của listView
             listViewBill.Tag = (sender as Button).Tag;
             ShowDetailBill(idTable);
@@ -300,6 +300,8 @@ namespace LTGD_Project
         {
             formProduct f = new formProduct();
             f.ShowDialog();
+            if (!f.IsDisposed)
+                LoadCategory();
         }
 
         //Hiển thị category
