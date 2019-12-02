@@ -43,6 +43,12 @@ namespace LTGD_Project.DAO
             return tables;
         }
 
+        public int SelectIdTableLast()
+        {
+            string strCmd2 = "SELECT idTable FROM tablewinform ORDER BY idTable DESC LIMIT 1;";
+            return (int)DataProvider.Instance.ExecuteScalar(strCmd2);
+        }
+
         public void UpdateStatusTable(int idxTable, string status)
         {
             string strCmd = "update tablewinform set statusTable = @statusTable where idTable = @idTable ";

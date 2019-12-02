@@ -25,5 +25,12 @@ namespace LTGD_Project.DAO
             DataTable result = DataProvider.Instance.ExecuteQuery(query);
             return result.Rows.Count>0;
         }
+        public bool Regist(string username, string password)
+        {
+            string img = "https://www.cohindia.com/wp-content/uploads/2018/06/Worship-Mumbai.jpeg";
+            string query = "insert into account values ( @username , @password , 'Hihi', '012345', 'Admin', @img );";
+            return DataProvider.Instance.ExecuteNonQuery(query, new object[] { username, password, img }) > 0;
+            
+        }
     }
 }

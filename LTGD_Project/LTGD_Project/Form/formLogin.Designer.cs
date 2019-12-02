@@ -29,21 +29,23 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.usernameTxt = new System.Windows.Forms.TextBox();
+            this.exitBtn = new System.Windows.Forms.Button();
+            this.loginBtn = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.passTxt = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.loginBtn = new System.Windows.Forms.Button();
-            this.exitBtn = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.usernameTxt = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.registBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.registBtn);
             this.panel1.Controls.Add(this.exitBtn);
             this.panel1.Controls.Add(this.loginBtn);
             this.panel1.Controls.Add(this.panel3);
@@ -53,31 +55,27 @@
             this.panel1.Size = new System.Drawing.Size(405, 219);
             this.panel1.TabIndex = 0;
             // 
-            // panel2
+            // exitBtn
             // 
-            this.panel2.Controls.Add(this.usernameTxt);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(399, 40);
-            this.panel2.TabIndex = 0;
+            this.exitBtn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.exitBtn.Location = new System.Drawing.Point(3, 141);
+            this.exitBtn.Name = "exitBtn";
+            this.exitBtn.Size = new System.Drawing.Size(227, 40);
+            this.exitBtn.TabIndex = 4;
+            this.exitBtn.Text = "Exit";
+            this.exitBtn.UseVisualStyleBackColor = true;
+            this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
             // 
-            // label1
+            // loginBtn
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label1.Location = new System.Drawing.Point(3, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 19);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Username";
-            // 
-            // usernameTxt
-            // 
-            this.usernameTxt.Location = new System.Drawing.Point(86, 12);
-            this.usernameTxt.Name = "usernameTxt";
-            this.usernameTxt.Size = new System.Drawing.Size(141, 20);
-            this.usernameTxt.TabIndex = 1;
+            this.loginBtn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.loginBtn.Location = new System.Drawing.Point(3, 95);
+            this.loginBtn.Name = "loginBtn";
+            this.loginBtn.Size = new System.Drawing.Size(112, 40);
+            this.loginBtn.TabIndex = 3;
+            this.loginBtn.Text = "Login";
+            this.loginBtn.UseVisualStyleBackColor = true;
+            this.loginBtn.Click += new System.EventHandler(this.loginBtn_Click);
             // 
             // panel3
             // 
@@ -106,34 +104,49 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Password";
             // 
-            // loginBtn
+            // panel2
             // 
-            this.loginBtn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.loginBtn.Location = new System.Drawing.Point(3, 95);
-            this.loginBtn.Name = "loginBtn";
-            this.loginBtn.Size = new System.Drawing.Size(112, 40);
-            this.loginBtn.TabIndex = 3;
-            this.loginBtn.Text = "Login";
-            this.loginBtn.UseVisualStyleBackColor = true;
-            this.loginBtn.Click += new System.EventHandler(this.loginBtn_Click);
+            this.panel2.Controls.Add(this.usernameTxt);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(399, 40);
+            this.panel2.TabIndex = 0;
             // 
-            // exitBtn
+            // usernameTxt
             // 
-            this.exitBtn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.exitBtn.Location = new System.Drawing.Point(121, 95);
-            this.exitBtn.Name = "exitBtn";
-            this.exitBtn.Size = new System.Drawing.Size(109, 40);
-            this.exitBtn.TabIndex = 4;
-            this.exitBtn.Text = "Exit";
-            this.exitBtn.UseVisualStyleBackColor = true;
-            this.exitBtn.Click += new System.EventHandler(this.exitBtn_Click);
+            this.usernameTxt.Location = new System.Drawing.Point(86, 12);
+            this.usernameTxt.Name = "usernameTxt";
+            this.usernameTxt.Size = new System.Drawing.Size(141, 20);
+            this.usernameTxt.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label1.Location = new System.Drawing.Point(3, 11);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 19);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Username";
+            // 
+            // registBtn
+            // 
+            this.registBtn.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.registBtn.Location = new System.Drawing.Point(121, 95);
+            this.registBtn.Name = "registBtn";
+            this.registBtn.Size = new System.Drawing.Size(109, 40);
+            this.registBtn.TabIndex = 5;
+            this.registBtn.Text = "REGIST";
+            this.registBtn.UseVisualStyleBackColor = true;
+            this.registBtn.Click += new System.EventHandler(this.registBtn_Click);
             // 
             // formLogin
             // 
             this.AcceptButton = this.loginBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(264, 162);
+            this.ClientSize = new System.Drawing.Size(253, 196);
             this.Controls.Add(this.panel1);
             this.Name = "formLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -141,10 +154,10 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formLogin_FormClosing);
             this.Load += new System.EventHandler(this.formLogin_Load);
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -160,6 +173,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button exitBtn;
         private System.Windows.Forms.Button loginBtn;
+        private System.Windows.Forms.Button registBtn;
     }
 }
 

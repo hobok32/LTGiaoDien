@@ -34,9 +34,9 @@ namespace LTGD_Project.DAO
             return null;
         }
 
-        public bool ChangePass(string pass, string username, string name, string phone)
+        public bool ChangePass(string pass, string username, string name, string phone, string img)
         {
-            string strCmd = "update account set passwordAccount = '" + pass + "' , nameUser = '" + name + "' , phoneNum = '" + phone + "' where idAccount = '" + username + "'";
+            string strCmd = "update account set imgAccount = '" + img + "'  , passwordAccount = '" + pass + "' , nameUser = '" + name + "' , phoneNum = '" + phone + "' where idAccount = '" + username + "'";
             return DataProvider.Instance.ExecuteNonQuery(strCmd) > 0;
         }
     }

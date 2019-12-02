@@ -48,6 +48,7 @@
             this.pictureBoxAccount = new System.Windows.Forms.PictureBox();
             this.exitBtn = new System.Windows.Forms.Button();
             this.changeBtn = new System.Windows.Forms.Button();
+            this.pickBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -218,9 +219,9 @@
             this.exitBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.exitBtn.ForeColor = System.Drawing.SystemColors.ControlText;
             this.exitBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.exitBtn.Location = new System.Drawing.Point(373, 197);
+            this.exitBtn.Location = new System.Drawing.Point(403, 197);
             this.exitBtn.Name = "exitBtn";
-            this.exitBtn.Size = new System.Drawing.Size(116, 34);
+            this.exitBtn.Size = new System.Drawing.Size(86, 34);
             this.exitBtn.TabIndex = 1;
             this.exitBtn.Text = "EXIT";
             this.exitBtn.UseVisualStyleBackColor = true;
@@ -231,13 +232,26 @@
             this.changeBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.changeBtn.ForeColor = System.Drawing.SystemColors.ControlText;
             this.changeBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.changeBtn.Location = new System.Drawing.Point(262, 197);
+            this.changeBtn.Location = new System.Drawing.Point(328, 197);
             this.changeBtn.Name = "changeBtn";
-            this.changeBtn.Size = new System.Drawing.Size(105, 34);
+            this.changeBtn.Size = new System.Drawing.Size(69, 34);
             this.changeBtn.TabIndex = 5;
             this.changeBtn.Text = "CHANGE";
             this.changeBtn.UseVisualStyleBackColor = true;
             this.changeBtn.Click += new System.EventHandler(this.changeBtn_Click);
+            // 
+            // pickBtn
+            // 
+            this.pickBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.pickBtn.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.pickBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.pickBtn.Location = new System.Drawing.Point(262, 197);
+            this.pickBtn.Name = "pickBtn";
+            this.pickBtn.Size = new System.Drawing.Size(60, 34);
+            this.pickBtn.TabIndex = 6;
+            this.pickBtn.Text = "PICK";
+            this.pickBtn.UseVisualStyleBackColor = true;
+            this.pickBtn.Click += new System.EventHandler(this.pickBtn_Click);
             // 
             // formProfile
             // 
@@ -245,6 +259,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(501, 237);
+            this.Controls.Add(this.pickBtn);
             this.Controls.Add(this.changeBtn);
             this.Controls.Add(this.pictureBoxAccount);
             this.Controls.Add(this.exitBtn);
@@ -253,6 +268,7 @@
             this.Name = "formProfile";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Chi tiết tài khoản";
+            this.Load += new System.EventHandler(this.formProfile_Load);
             this.panel1.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
@@ -290,5 +306,6 @@
         private System.Windows.Forms.TextBox pass;
         private System.Windows.Forms.Label newPassTxt;
         private System.Windows.Forms.Button changeBtn;
+        private System.Windows.Forms.Button pickBtn;
     }
 }

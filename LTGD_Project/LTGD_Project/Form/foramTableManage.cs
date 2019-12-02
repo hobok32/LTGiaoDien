@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using FireSharp.Config;
+using FireSharp.Interfaces;
+using FireSharp.Response;
 using LTGD_Project.DAO;
 using LTGD_Project.DTO;
 
@@ -15,6 +17,12 @@ namespace LTGD_Project
 {
     public partial class foramTableManage : Form
     {
+        IFirebaseConfig config = new FirebaseConfig
+        {
+            AuthSecret = "dHDi653cpD0hHaOOrAwgtlTahn7FC9ZBhYoDjeWV",
+            BasePath = "https://cafe-4b7dd.firebaseio.com/"
+        };
+        IFirebaseClient client;
         string name = "";
         int idTable = 0;
         string status = "Trống";
@@ -39,7 +47,11 @@ namespace LTGD_Project
 
         private void foramTableManage_Load(object sender, EventArgs e)
         {
-
+            client = new FireSharp.FirebaseClient(config);
+            if (client != null)
+            {
+                MessageBox.Show("Access to Firebase :3 :3 :3", "Yayyy");
+            }
         }
 
         private void addBtn_Click(object sender, EventArgs e)
@@ -66,6 +78,8 @@ namespace LTGD_Project
                     {
                         if (TableDAO.Instance.AddTable(nameTable.Text, comboBoxStatus.Text))
                         {
+                            AddTableFirebase(TableDAO.Instance.SelectIdTableLast());
+                            tables = TableDAO.Instance.LoadTableList();
                             LoadTable();
                             MessageBox.Show("Thêm thành công", "Thông báo");
                         }
@@ -81,11 +95,38 @@ namespace LTGD_Project
                 MessageBox.Show("Xin mời nhập tên", "Thông báo");
         }
 
+        async void AddTableFirebase(int idTable)
+        {
+            var data = new Table
+            {
+                IdTable = idTable,
+                NameTable = nameTable.Text,
+                StatusTable = comboBoxStatus.Text
+            };
+            SetResponse response = await client.SetTaskAsync("Tables/L1/" + "B" + idTable, data);
+        }
+
         private void dataGridViewTable_SelectionChanged(object sender, EventArgs e)
         {
             name = dataGridViewTable.CurrentRow.Cells[1].Value.ToString();
             status = dataGridViewTable.CurrentRow.Cells[2].Value.ToString();
             idTable = (int)dataGridViewTable.CurrentRow.Cells[0].Value;
+        }
+
+        async void EditTableFirebase()
+        {
+            var data = new Table
+            {
+                IdTable = idTable,
+                NameTable = nameTable.Text,
+                StatusTable = comboBoxStatus.Text
+            };
+            FirebaseResponse response = await client.UpdateTaskAsync("Tables/L1/B" + idTable, data);
+        }
+
+        async void DelTableFirebase()
+        {
+            FirebaseResponse response = await client.DeleteTaskAsync("Tables/L1/B" + idTable);
         }
 
         private void editBtn_Click(object sender, EventArgs e)
@@ -113,6 +154,8 @@ namespace LTGD_Project
                         {
                             if (TableDAO.Instance.EditTable(nameTable.Text, comboBoxStatus.Text, idTable))
                             {
+                                EditTableFirebase();
+                                tables = TableDAO.Instance.LoadTableList();
                                 LoadTable();
                                 MessageBox.Show("Sửa thành công", "Thông báo");
                             }
@@ -142,6 +185,8 @@ namespace LTGD_Project
                 {
                     if (TableDAO.Instance.DelTable(idTable))
                     {
+                        DelTableFirebase();
+                        tables = TableDAO.Instance.LoadTableList();
                         LoadTable();
                         MessageBox.Show("Xóa thành công", "Thông báo");
                     }

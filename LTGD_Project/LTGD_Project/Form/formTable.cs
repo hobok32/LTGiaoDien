@@ -215,6 +215,17 @@ namespace LTGD_Project
             ShowDetailBill(idTable);
         }
 
+        async void EditStatusTableFirebase(int idTable, string nameTable, string status)
+        {
+            var data = new Table
+            {
+                IdTable = idTable,
+                NameTable = nameTable,
+                StatusTable = status
+            };
+            FirebaseResponse response = await client.UpdateTaskAsync("Tables/L1/B" + idTable, data);
+        }
+
         //Event khi ấn nút THÊM
         private void addBtn_Click(object sender, EventArgs e)
         {
@@ -240,6 +251,7 @@ namespace LTGD_Project
                     {
                         BillDAO.Instance.AddBill(table.IdTable, usernameLogin);
                         TableDAO.Instance.UpdateStatusTable(table.IdTable, "Có người");
+                        EditStatusTableFirebase(table.IdTable, table.NameTable, "Có người");
                         DetailBillDAO.Instance.AddDetailBill(BillDAO.Instance.SelectIdBillLast(), idProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping);
 
                     }
@@ -467,6 +479,7 @@ namespace LTGD_Project
                             ProductRateDAO.Instance.UpdateRateProduct(productRates);
                         BillDAO.Instance.ThanhToanBill(idBill, discount, totalPrice);
                         TableDAO.Instance.UpdateStatusTable(table.IdTable, "Trống");
+                        EditStatusTableFirebase(table.IdTable, table.NameTable, "Trống");
                         MessageBox.Show(":3 :3 :3", "Thông báo");
                         ShowDetailBill(table.IdTable);
                         LoadTable();
@@ -498,10 +511,12 @@ namespace LTGD_Project
                         {
                             BillDAO.Instance.AddBill(idTableSwitch, usernameLogin);
                             TableDAO.Instance.UpdateStatusTable(idTableSwitch, "Có người");
+                            EditStatusTableFirebase(idTableSwitch, (comboBoxSwitchTable.SelectedItem as Table).NameTable, "Có người");
                             List<int> idDetailBills = DetailBillDAO.Instance.SelectIdDetailBill(idBillCurrent);
                             TableDAO.Instance.SwitchTable(BillDAO.Instance.SelectIdBillLast(), idDetailBills);
                             BillDAO.Instance.XoaBill(idBillCurrent);
                             TableDAO.Instance.UpdateStatusTable(idTableCurrent, "Trống");
+                            EditStatusTableFirebase(idTableCurrent, (listViewBill.Tag as Table).NameTable, "Trống");
                             ShowDetailBill(idTableCurrent);
                             LoadTable();
                         }
@@ -604,6 +619,7 @@ namespace LTGD_Project
 
                             BillDAO.Instance.XoaBill(idBillCurrent);
                             TableDAO.Instance.UpdateStatusTable(idTableCurrent, "Trống");
+                            EditStatusTableFirebase(idTableCurrent, (listViewBill.Tag as Table).NameTable, "Trống");
                             ShowDetailBill(idTableCurrent);
                             LoadTable();
                         }
@@ -626,19 +642,18 @@ namespace LTGD_Project
         {
             foramTableManage f = new foramTableManage();
             f.ShowDialog();
-            if (!f.IsDisposed)
-                LoadTable();
+            //if (!f.IsDisposed)
+            //    LoadTable();
         }
         //FIREBASE
         private void formTable_Load(object sender, EventArgs e)
         {
-            //client = new FireSharp.FirebaseClient(config);
+            client = new FireSharp.FirebaseClient(config);
 
-            //if (client != null)
-            //{
-            //    MessageBox.Show("Access to Firebase :3 :3 :3", "Yayyy");
-            //    LoadTableFirebase();
-            //}
+            if (client != null)
+            {
+                MessageBox.Show("Access to Firebase :3 :3 :3", "Yayyy");
+            }
             ListenFirebase(dataGridView1);
         }
         void ShowNoti()
@@ -661,7 +676,8 @@ namespace LTGD_Project
                 else
                 {
                     List<Table> tables = await SelectAllTable();
-                    gridView.BeginInvoke(new MethodInvoker(delegate { gridView.DataSource = tables; LoadTable(); ShowNoti(); }));
+                    gridView.BeginInvoke(new MethodInvoker(delegate { gridView.DataSource = tables; LoadTable(); }));
+                    //gridView.BeginInvoke(new MethodInvoker(delegate { gridView.DataSource = tables; LoadTable(); ShowNoti(); }));
                 }
             });
         }
