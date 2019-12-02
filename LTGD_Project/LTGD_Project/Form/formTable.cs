@@ -629,7 +629,7 @@ namespace LTGD_Project
             if (!f.IsDisposed)
                 LoadTable();
         }
-
+        //FIREBASE
         private void formTable_Load(object sender, EventArgs e)
         {
             //client = new FireSharp.FirebaseClient(config);
