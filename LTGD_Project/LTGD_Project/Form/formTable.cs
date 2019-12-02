@@ -15,7 +15,10 @@ using System.Threading;
 using FireSharp.Config;
 using FireSharp.Interfaces;
 using FireSharp.Response;
-//Testgithub
+using LTGD_Project.BUS;
+using Firebase.Database;
+using Firebase.Database.Query;
+
 namespace LTGD_Project
 {
     public partial class formTable : Form
@@ -54,7 +57,7 @@ namespace LTGD_Project
             return AccountDAO.Instance.SelectAccount(username);
         }
         //Hiển thị danh sách bàn
-        void LoadTable()
+        public void LoadTable()
         {
             flowLayoutPanelTable.Controls.Clear();
             List<Table> tables = TableDAO.Instance.LoadTableList();
@@ -636,6 +639,42 @@ namespace LTGD_Project
             //    MessageBox.Show("Access to Firebase :3 :3 :3", "Yayyy");
             //    LoadTableFirebase();
             //}
+            ListenFirebase(dataGridView1);
         }
+        void ShowNoti()
+        {
+            MessageBox.Show("Refresh Tables Success!", "Thông báo");
+        }
+        private const string FIREBASE_APP = "https://cafe-4b7dd.firebaseio.com/";
+        private FirebaseClient firebase = new FirebaseClient(FIREBASE_APP);
+        int check = 0;
+        public void ListenFirebase(DataGridView gridView)
+        {
+            firebase.Child("Tables").Child("L1").AsObservable<Table>().Subscribe(async item =>
+            {
+                if (check == 0)
+                {
+                    List<Table> tables = await SelectAllTable();
+                    gridView.BeginInvoke(new MethodInvoker(delegate { gridView.DataSource = tables; }));
+                    check = 1;
+                }
+                else
+                {
+                    List<Table> tables = await SelectAllTable();
+                    gridView.BeginInvoke(new MethodInvoker(delegate { gridView.DataSource = tables; LoadTable(); ShowNoti(); }));
+                }
+            });
+        }
+
+        public async Task<List<Table>> SelectAllTable()
+        {
+            List<Table> tables = new List<Table>();
+            //Trả tất cả các node có trong Table trên firebase
+            var fbTable = await firebase.Child("Tables").Child("L1").OnceAsync<Table>();
+            foreach (var item in fbTable)
+                tables.Add(item.Object);
+            return tables;
+        }
+
     }
 }

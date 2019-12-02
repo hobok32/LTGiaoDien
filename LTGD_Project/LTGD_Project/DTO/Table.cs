@@ -18,5 +18,6 @@ namespace LTGD_Project.DTO
             this.NameTable = (string)row["nameTable"].ToString();
             this.StatusTable = (string)row["statusTable"].ToString();
         }
+        public Table() { }
     }
 }
