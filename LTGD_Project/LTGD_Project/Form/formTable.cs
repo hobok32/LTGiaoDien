@@ -467,6 +467,8 @@ namespace LTGD_Project
                 {
                     if (MessageBox.Show(string.Format("Bạn đã chắc chắn thanh toán {0} chưa?\n\nGiảm giá: {1}%\n\nTổng tiền: {2}", table.NameTable, discount, priceDiscount.ToString("c", culture)), "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
+                        formBill formBill = new formBill(table.IdTable);
+                        formBill.Show();
                         List<ProductRate> productRates = new List<ProductRate>();
                         for (int m = 0; m < listViewBill.Items.Count; m++)
                         {
@@ -480,9 +482,10 @@ namespace LTGD_Project
                         BillDAO.Instance.ThanhToanBill(idBill, discount, totalPrice);
                         TableDAO.Instance.UpdateStatusTable(table.IdTable, "Trống");
                         EditStatusTableFirebase(table.IdTable, table.NameTable, "Trống");
-                        MessageBox.Show(":3 :3 :3", "Thông báo");
                         ShowDetailBill(table.IdTable);
                         LoadTable();
+
+                        
                     }
                 }
             }

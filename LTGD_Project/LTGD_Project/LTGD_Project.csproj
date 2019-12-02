@@ -130,6 +130,12 @@
     <Compile Include="DTO\Table.cs" />
     <Compile Include="DTO\TableFirebase.cs" />
     <Compile Include="DTO\Topping.cs" />
+    <Compile Include="Form\formBill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\formBill.Designer.cs">
+      <DependentUpon>formBill.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\foramTableManage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +174,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form\formBill.resx">
+      <DependentUpon>formBill.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\foramTableManage.resx">
       <DependentUpon>foramTableManage.cs</DependentUpon>
     </EmbeddedResource>
@@ -220,6 +229,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="System\Windows\Media\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
