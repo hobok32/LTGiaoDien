@@ -41,7 +41,7 @@ namespace LTGD_Project
         int idProduct = 0;
         string name = "";
         string namePro = "";
-        string nameCat = "";
+        //string nameCat = "";
         string nameCatEdit = "";
         int idCatEdit = 0;
         string imgCat = "https://www.cohindia.com/wp-content/uploads/2018/06/Worship-Mumbai.jpeg";

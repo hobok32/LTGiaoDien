@@ -60,13 +60,25 @@ namespace LTGD_Project
 
         private void registBtn_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Bạn đã chắc chắn đăng ký " + usernameTxt.Text + " chưa?", "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+            if (usernameTxt.Text.Trim() != "" && passTxt.Text.Trim() != "")
             {
-                if (CoffeeDAO.Instance.Regist(usernameTxt.Text.Trim(), passTxt.Text.Trim()))
-                    MessageBox.Show("Đăng ký thành công", "Thông báo");
-                else
+                try
+                {
+                    if (MessageBox.Show("Bạn đã chắc chắn đăng ký " + usernameTxt.Text + " chưa?", "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                    {
+                        if (CoffeeDAO.Instance.Regist(usernameTxt.Text.Trim(), passTxt.Text.Trim()))
+                            MessageBox.Show("Đăng ký thành công", "Thông báo");
+                        else
+                            MessageBox.Show("Thất bại", "Thông báo");
+                    }
+                }
+                catch
+                {
                     MessageBox.Show("Thất bại", "Thông báo");
+                }
             }
+            else
+                MessageBox.Show("Xin mời nhập đủ thông tin", "Thông báo");
         }
     }
 }
