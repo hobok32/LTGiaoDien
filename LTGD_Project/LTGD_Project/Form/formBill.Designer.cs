@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formBill));
             this.COFFEE = new System.Windows.Forms.Label();
             this.listViewBill = new System.Windows.Forms.ListView();
@@ -42,6 +43,8 @@
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.button1 = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.imageList2 = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // COFFEE
@@ -68,9 +71,11 @@
             this.listViewBill.FullRowSelect = true;
             this.listViewBill.GridLines = true;
             this.listViewBill.HideSelection = false;
-            this.listViewBill.Location = new System.Drawing.Point(12, 36);
+            this.listViewBill.LargeImageList = this.imageList2;
+            this.listViewBill.Location = new System.Drawing.Point(16, 36);
             this.listViewBill.Name = "listViewBill";
-            this.listViewBill.Size = new System.Drawing.Size(438, 281);
+            this.listViewBill.Size = new System.Drawing.Size(629, 281);
+            this.listViewBill.SmallImageList = this.imageList2;
             this.listViewBill.TabIndex = 1;
             this.listViewBill.UseCompatibleStateImageBehavior = false;
             this.listViewBill.View = System.Windows.Forms.View.Details;
@@ -108,7 +113,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label1.Location = new System.Drawing.Point(174, 324);
+            this.label1.Location = new System.Drawing.Point(369, 324);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 19);
             this.label1.TabIndex = 11;
@@ -116,7 +121,7 @@
             // 
             // totalPriceTxt
             // 
-            this.totalPriceTxt.Location = new System.Drawing.Point(260, 323);
+            this.totalPriceTxt.Location = new System.Drawing.Point(455, 323);
             this.totalPriceTxt.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
             this.totalPriceTxt.Name = "totalPriceTxt";
             this.totalPriceTxt.ReadOnly = true;
@@ -143,7 +148,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 324);
+            this.button1.Location = new System.Drawing.Point(614, 349);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(31, 19);
             this.button1.TabIndex = 12;
@@ -151,11 +156,23 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // imageList2
+            // 
+            this.imageList2.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList2.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList2.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // formBill
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(463, 351);
+            this.ClientSize = new System.Drawing.Size(660, 373);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.totalPriceTxt);
@@ -185,5 +202,7 @@
         private System.Drawing.Printing.PrintDocument printDocument1;
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ImageList imageList2;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

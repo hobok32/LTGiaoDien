@@ -16,13 +16,23 @@ namespace LTGD_Project
     public partial class formBill : Form
     {
         int totalPrice = 0;
+
         public formBill()
         {
             InitializeComponent();
+
         }
         public formBill(int idTable) : this()
         {
+            SetHeight(listViewBill, 50);
+            listViewBill.Columns[5].Width = 0;
             ShowDetailBill(idTable);
+        }
+        private void SetHeight(ListView listView, int height)
+        {
+            ImageList imgList = new ImageList();
+            imgList.ImageSize = new Size(1, height);
+            listView.SmallImageList = imgList;
         }
         private void ShowDetailBill(int idTable)
         {
@@ -117,7 +127,7 @@ namespace LTGD_Project
 
         private void formBill_Load(object sender, EventArgs e)
         {
-
+            listViewBill.Columns[5].Width = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -126,7 +136,7 @@ namespace LTGD_Project
             bitmap = new Bitmap(this.Size.Width, this.Size.Height, g);
             Graphics mg = Graphics.FromImage(bitmap);
             mg.CopyFromScreen(this.Location.X+10, this.Location.Y, 0, 0, this.Size);
-            printPreviewDialog1.Document.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("a5", this.Width-10, this.Height);
+            printPreviewDialog1.Document.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("a5", this.Width, this.Height-20);
             printPreviewDialog1.ShowDialog();
         }
 

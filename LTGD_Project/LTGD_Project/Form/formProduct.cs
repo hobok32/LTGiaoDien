@@ -245,7 +245,8 @@ namespace LTGD_Project
                 {
                     if (MessageBox.Show("Bạn đã chắc chắn muốn thêm "+ name +" chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
-                        if (ProductDAO.Instance.AddProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img))
+                        bool result = new ProductBUS().AddProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img);
+                        if (result)
                         {
                             GetCatProToppingByIdCat(idCatUpdate);
                             if (idCat == 7)
@@ -260,7 +261,8 @@ namespace LTGD_Project
                 {
                     if (MessageBox.Show("Bạn đã chắc chắn muốn thêm " + name + " chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
-                        if (ProductDAO.Instance.AddProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img))
+                        bool result = new ProductBUS().AddProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img);
+                        if (result)
                         {
                             GetCatProToppingByIdCat(idCatUpdate);
                             if (idCat == 7)
@@ -358,7 +360,8 @@ namespace LTGD_Project
         {
             if (MessageBox.Show("Bạn đã chắc chắn muốn xóa " + name + " chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                if (ProductDAO.Instance.DelProduct(idProduct))
+                bool result = new ProductBUS().DelProduct(idProduct);
+                if (result)
                 {
                     GetCatProToppingByIdCat(idCat);
                     namePro = "";
@@ -395,7 +398,8 @@ namespace LTGD_Project
                 {
                     if (MessageBox.Show("Bạn đã chắc chắn muốn sửa "+namePro+" chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
-                        if (ProductDAO.Instance.UpdateProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img, idProduct))
+                        bool result = new ProductBUS().EditProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img, idProduct);
+                        if (result)
                         {
                             GetCatProToppingByIdCat(idCatUpdate);
                             if (idCat == 7)
@@ -410,7 +414,8 @@ namespace LTGD_Project
                 {
                     if (MessageBox.Show("Bạn đã chắc chắn muốn sửa "+namePro+" chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
-                        if (ProductDAO.Instance.UpdateProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img, idProduct))
+                        bool result = new ProductBUS().EditProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img, idProduct);
+                        if (result)
                         {
                             GetCatProToppingByIdCat(idCatUpdate);
                             if (idCat == 7)
