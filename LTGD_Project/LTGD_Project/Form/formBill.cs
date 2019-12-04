@@ -22,10 +22,12 @@ namespace LTGD_Project
             InitializeComponent();
 
         }
-        public formBill(int idTable) : this()
+        public formBill(int idTable, string discount, int disc) : this()
         {
             SetHeight(listViewBill, 50);
             listViewBill.Columns[5].Width = 0;
+            discTxt.Text = disc.ToString() + "%";
+            totalPriceTxt.Text = discount;
             ShowDetailBill(idTable);
         }
         private void SetHeight(ListView listView, int height)
@@ -114,7 +116,7 @@ namespace LTGD_Project
                 }
             }
             CultureInfo culture = new CultureInfo("vi-VN");
-            totalPriceTxt.Text = (totalPrice * 1000).ToString("c", culture);
+            textBox1.Text = (totalPrice * 1000).ToString("c", culture);
             listViewBill.Columns[5].Width = 0;
         }
 
@@ -141,6 +143,11 @@ namespace LTGD_Project
         }
 
         private void printPreviewDialog1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }
