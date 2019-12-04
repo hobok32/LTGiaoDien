@@ -59,6 +59,8 @@ namespace LTGD_Project
         //Hiển thị danh sách bàn
         public void LoadTable()
         {
+            listViewBill.Items.Clear();
+            tableTxt.Text = "";
             flowLayoutPanelTable.Controls.Clear();
             List<Table> tables = TableDAO.Instance.LoadTableList();
             foreach (Table item in tables)
