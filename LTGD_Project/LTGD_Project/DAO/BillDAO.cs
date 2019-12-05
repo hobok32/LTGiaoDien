@@ -58,8 +58,8 @@ namespace LTGD_Project.DAO
 
         public void ThanhToanBill(int idBill, int discount, float total)
         {
-            string strCmd = "update bill set statusBill = 1, total = " + total + " , discount = " + discount + " where idBill = " + idBill;
-            DataProvider.Instance.ExecuteNonQuery(strCmd);
+            string strCmd = "update bill set statusBill = 1, total = @total , discount = " + discount + " where idBill = " + idBill;
+            DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { total });
         }
         public void XoaBill(int idBill)
         {
