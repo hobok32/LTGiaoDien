@@ -130,6 +130,7 @@ namespace LTGD_Project
         private void formBill_Load(object sender, EventArgs e)
         {
             listViewBill.Columns[5].Width = 0;
+            listViewBill.Columns[3].Width = 280;
         }
 
         private void button1_Click(object sender, EventArgs e)
