@@ -172,10 +172,10 @@
     <Compile Include="DTO\Table.cs" />
     <Compile Include="DTO\TableFirebase.cs" />
     <Compile Include="DTO\Topping.cs" />
-    <Compile Include="formPrint.cs">
+    <Compile Include="Form\formPrint.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formPrint.Designer.cs">
+    <Compile Include="Form\formPrint.Designer.cs">
       <DependentUpon>formPrint.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\formBill.cs">
@@ -227,7 +227,7 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CrystalReport1.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="formPrint.resx">
+    <EmbeddedResource Include="Form\formPrint.resx">
       <DependentUpon>formPrint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\formBill.resx">

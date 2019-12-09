@@ -293,8 +293,9 @@ namespace LTGD_Project
                             }
                         }
                     }
-                    ShowDetailBill(table.IdTable);
                     LoadTable();
+                    tableTxt.Text = table.NameTable;
+                    ShowDetailBill(table.IdTable);
                 }
             }
         }
