@@ -230,6 +230,14 @@ namespace LTGD_Project
             FirebaseResponse response = await client.UpdateTaskAsync("Tables/L1/B" + idTable, data);
         }
 
+        async void EditNoteTableFirebase(int idTable, string note)
+        {
+            var notes = new Note {
+                Notes = note 
+            };
+            FirebaseResponse response = await client.UpdateTaskAsync("OrderBills/B" + idTable , notes);
+        }
+
         //Event khi ấn nút THÊM
         private void addBtn_Click(object sender, EventArgs e)
         {
@@ -710,7 +718,10 @@ namespace LTGD_Project
                 else
                 {
                     if (BillDAO.Instance.NoteBill(idBill, noteTxt.Text))
+                    {
+                        EditNoteTableFirebase((listViewBill.Tag as Table).IdTable, noteTxt.Text);
                         MessageBox.Show("Ghi chú thành công", "Thông báo");
+                    }
                     else
                         MessageBox.Show("Ghi chú thất bại", "Thông báo");
                 }
