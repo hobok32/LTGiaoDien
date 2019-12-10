@@ -52,7 +52,7 @@ namespace LTGD_Project.DAO
 
         public void AddBill(int idxTable, string idAccount)
         {
-            string strCmd = "INSERT INTO bill VALUES (null, @idAccount , @idxTable , now(), 0, 0, 0);";
+            string strCmd = "INSERT INTO bill VALUES (null, @idAccount , @idxTable , now(), 0, 0, 0, null);";
             DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { idAccount, idxTable });
         }
 

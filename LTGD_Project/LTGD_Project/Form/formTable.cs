@@ -32,16 +32,23 @@ namespace LTGD_Project
         IFirebaseClient client;
 
         string usernameLogin;
+
         float totalPrice = 0;
+
         Account account;
+
         List<int> idTopping = new List<int>();
+
         List<Topping> toppings = new List<Topping>();
+
+        //Nhận username từ loginForm
         public formTable(string username) : this()
         {
             usernameLogin = username;
             Text += " (" + usernameLogin.ToUpper() + " :3)";
             account = LoadAccount(usernameLogin);
         }
+        
         public formTable()
         {
             InitializeComponent();
@@ -51,11 +58,13 @@ namespace LTGD_Project
             toppingCount.Enabled = false;
             
         }
+        
         //Load Account
         Account LoadAccount(string username)
         {
             return AccountDAO.Instance.SelectAccount(username);
         }
+        
         //Hiển thị danh sách bàn
         public void LoadTable()
         {
@@ -117,6 +126,7 @@ namespace LTGD_Project
 
         }
 
+        //Hiển thị danh sách combobox chuyển bàn
         void LoadComboBoxSwitchTable()
         {
             comboBoxSwitchTable.DataSource = TableDAO.Instance.LoadTableList();
@@ -219,6 +229,7 @@ namespace LTGD_Project
             ShowDetailBill(idTable);
         }
 
+        //Event đổi trạng thái bàn trên firebase
         async void EditStatusTableFirebase(int idTable, string nameTable, string status)
         {
             var data = new Table
@@ -230,6 +241,7 @@ namespace LTGD_Project
             FirebaseResponse response = await client.UpdateTaskAsync("Tables/L1/B" + idTable, data);
         }
 
+        //Event đổi Note của bill trên firebase
         async void EditNoteTableFirebase(int idTable, string note)
         {
             var notes = new Note {
@@ -305,6 +317,7 @@ namespace LTGD_Project
                     }
                     LoadTable();
                     tableTxt.Text = table.NameTable;
+                    noteTxt.Text = BillDAO.Instance.SelectNoteBill(table.IdTable);
                     ShowDetailBill(table.IdTable);
                 }
             }
@@ -403,6 +416,7 @@ namespace LTGD_Project
             this.LoadListBoxProductPrice(selected);
         }
 
+        //
         private void listBoxTopping_SelectedIndexChanged(object sender, EventArgs e)
         {
             
@@ -466,6 +480,7 @@ namespace LTGD_Project
             }
         }
 
+        //Event khi ấn thanh toán
         private void chargeBtn_Click(object sender, EventArgs e)
         {
             Table table = listViewBill.Tag as Table;
@@ -646,12 +661,14 @@ namespace LTGD_Project
             }
         }
 
+        //Event khi ấn vào nút doanh thu
         private void doanhThuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             formMoney f = new formMoney();
             f.ShowDialog();
         }
 
+        //Event khi ấn vào nút quản lý bàn
         private void quảnLýBànToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foramTableManage f = new foramTableManage();
@@ -659,6 +676,7 @@ namespace LTGD_Project
             //if (!f.IsDisposed)
             //    LoadTable();
         }
+        
         //FIREBASE
         private void formTable_Load(object sender, EventArgs e)
         {
@@ -670,6 +688,8 @@ namespace LTGD_Project
             }
             ListenFirebase(dataGridView1);
         }
+        
+        //Show thông báo
         void ShowNoti()
         {
             MessageBox.Show("Refresh Tables Success!", "Thông báo");
@@ -677,6 +697,8 @@ namespace LTGD_Project
         private const string FIREBASE_APP = "https://cafe-4b7dd.firebaseio.com/";
         private FirebaseClient firebase = new FirebaseClient(FIREBASE_APP);
         int check = 0;
+        
+        //Lắng nghe thay đổi từ firebase
         public void ListenFirebase(DataGridView gridView)
         {
             firebase.Child("Tables").Child("L1").AsObservable<Table>().Subscribe(async item =>
@@ -696,6 +718,7 @@ namespace LTGD_Project
             });
         }
 
+        //Lấy bàn từ firebase
         public async Task<List<Table>> SelectAllTable()
         {
             List<Table> tables = new List<Table>();
@@ -706,6 +729,7 @@ namespace LTGD_Project
             return tables;
         }
 
+        //Event khi ấn nút note
         private void noteBtn_Click(object sender, EventArgs e)
         {
             int idBill = BillDAO.Instance.SelectIdBill((listViewBill.Tag as Table).IdTable);

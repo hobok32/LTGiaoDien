@@ -16,7 +16,7 @@ namespace LTGD_Project
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new formTable());
+            Application.Run(new formLogin());
         }
     }
 }
