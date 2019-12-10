@@ -46,6 +46,7 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel3 = new System.Windows.Forms.Panel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.totalPriceTxt = new System.Windows.Forms.TextBox();
             this.comboBoxSwitchTable = new System.Windows.Forms.ComboBox();
@@ -68,15 +69,16 @@
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanelTable = new System.Windows.Forms.FlowLayoutPanel();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.noteTxt = new System.Windows.Forms.TextBox();
+            this.noteBtn = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.discountCount)).BeginInit();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toppingCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productCount)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -119,7 +121,7 @@
             this.chiTiếtTàiKhoảnToolStripMenuItem,
             this.đăngXuấtToolStripMenuItem});
             this.tàiKhoảnToolStripMenuItem.Name = "tàiKhoảnToolStripMenuItem";
-            this.tàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.tàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.tàiKhoảnToolStripMenuItem.Text = "Tài khoản";
             // 
             // chiTiếtTàiKhoảnToolStripMenuItem
@@ -138,6 +140,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.noteBtn);
+            this.panel2.Controls.Add(this.noteTxt);
             this.panel2.Controls.Add(this.listViewBill);
             this.panel2.Location = new System.Drawing.Point(452, 151);
             this.panel2.Name = "panel2";
@@ -159,7 +163,7 @@
             this.listViewBill.HideSelection = false;
             this.listViewBill.Location = new System.Drawing.Point(0, 3);
             this.listViewBill.Name = "listViewBill";
-            this.listViewBill.Size = new System.Drawing.Size(438, 281);
+            this.listViewBill.Size = new System.Drawing.Size(438, 239);
             this.listViewBill.TabIndex = 0;
             this.listViewBill.UseCompatibleStateImageBehavior = false;
             this.listViewBill.View = System.Windows.Forms.View.Details;
@@ -207,6 +211,16 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(444, 109);
             this.panel3.TabIndex = 3;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 29);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(141, 77);
+            this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.Visible = false;
             // 
             // label1
             // 
@@ -435,15 +449,23 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "county-cork-ireland-wallpapers.1440x900.jpg");
             // 
-            // dataGridView1
+            // noteTxt
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 29);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(141, 77);
-            this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.Visible = false;
+            this.noteTxt.Location = new System.Drawing.Point(0, 248);
+            this.noteTxt.Multiline = true;
+            this.noteTxt.Name = "noteTxt";
+            this.noteTxt.Size = new System.Drawing.Size(368, 36);
+            this.noteTxt.TabIndex = 1;
+            // 
+            // noteBtn
+            // 
+            this.noteBtn.Location = new System.Drawing.Point(374, 248);
+            this.noteBtn.Name = "noteBtn";
+            this.noteBtn.Size = new System.Drawing.Size(64, 36);
+            this.noteBtn.TabIndex = 2;
+            this.noteBtn.Text = "NOTE";
+            this.noteBtn.UseVisualStyleBackColor = true;
+            this.noteBtn.Click += new System.EventHandler(this.noteBtn_Click);
             // 
             // formTable
             // 
@@ -464,14 +486,15 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.discountCount)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.toppingCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productCount)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -517,5 +540,7 @@
         private System.Windows.Forms.ToolStripMenuItem doanhThuToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TextBox noteTxt;
+        private System.Windows.Forms.Button noteBtn;
     }
 }

@@ -59,6 +59,7 @@ namespace LTGD_Project
         //Hiển thị danh sách bàn
         public void LoadTable()
         {
+            noteTxt.Text = "";
             listViewBill.Items.Clear();
             tableTxt.Text = "";
             flowLayoutPanelTable.Controls.Clear();
@@ -214,6 +215,7 @@ namespace LTGD_Project
             tableTxt.Text = ((sender as Button).Tag as Table).NameTable.ToString();
             //Lưu bàn vừa chọn vào tag của listView
             listViewBill.Tag = (sender as Button).Tag;
+            noteTxt.Text = BillDAO.Instance.SelectNoteBill(idTable);
             ShowDetailBill(idTable);
         }
 
@@ -696,5 +698,23 @@ namespace LTGD_Project
             return tables;
         }
 
+        private void noteBtn_Click(object sender, EventArgs e)
+        {
+            int idBill = BillDAO.Instance.SelectIdBill((listViewBill.Tag as Table).IdTable);
+            if (MessageBox.Show("Bạn đã chắc chắn muốn ghi chú " + (listViewBill.Tag as Table).NameTable + " chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                if (noteTxt.Text.Trim() == "")
+                {
+                    MessageBox.Show("Xin mời nhập ghi chú", "Thông báo");
+                }
+                else
+                {
+                    if (BillDAO.Instance.NoteBill(idBill, noteTxt.Text))
+                        MessageBox.Show("Ghi chú thành công", "Thông báo");
+                    else
+                        MessageBox.Show("Ghi chú thất bại", "Thông báo");
+                }
+            }
+        }
     }
 }

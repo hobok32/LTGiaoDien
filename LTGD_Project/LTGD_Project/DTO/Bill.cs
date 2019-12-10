@@ -14,6 +14,7 @@ namespace LTGD_Project.DTO
         public int IdxTable { set; get; }
         public DateTime? DateBill { set; get; }
         public bool StatusBill { set; get; }
+        public string Note { set; get; }
 
         public int Discount { set; get; }
         public Bill(DataRow row)
@@ -27,6 +28,12 @@ namespace LTGD_Project.DTO
            
             this.StatusBill = (bool)row["statusBill"];
             this.Discount = (int)row["discount"];
+
+            var NoteTemp = row["note"];
+            if (NoteTemp.ToString() != "")
+                this.Note = (string)NoteTemp;
+            else
+                this.Note = "Không có ghi chú";
         }
     }
 }

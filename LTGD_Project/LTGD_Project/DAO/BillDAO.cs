@@ -37,6 +37,19 @@ namespace LTGD_Project.DAO
                 return -1;
         }
 
+        public string SelectNoteBill(int id)
+        {
+            DataTable data = DataProvider.Instance.ExecuteQuery("SELECT * FROM Bill WHERE idxTable='" + id + "'AND statusBill=0");
+
+            if (data.Rows.Count > 0)
+            {
+                Bill bill = new Bill(data.Rows[0]);
+                return bill.Note;
+            }
+            else
+                return "Không có ghi chú";
+        }
+
         public void AddBill(int idxTable, string idAccount)
         {
             string strCmd = "INSERT INTO bill VALUES (null, @idAccount , @idxTable , now(), 0, 0, 0);";
@@ -61,6 +74,13 @@ namespace LTGD_Project.DAO
             string strCmd = "update bill set statusBill = 1, total = @total , discount = " + discount + " where idBill = " + idBill;
             DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { total });
         }
+
+        public bool NoteBill(int idBill, string note)
+        {
+            string strCmd = "update bill set note = '" + note + "' where idBill = " + idBill;
+            return DataProvider.Instance.ExecuteNonQuery(strCmd) > 0;
+        }
+
         public void XoaBill(int idBill)
         {
             string strCmd = "DELETE FROM bill WHERE idBill = " + idBill;
