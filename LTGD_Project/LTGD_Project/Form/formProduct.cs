@@ -245,32 +245,48 @@ namespace LTGD_Project
                 {
                     if (MessageBox.Show("Bạn đã chắc chắn muốn thêm "+ name +" chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
-                        bool result = new ProductBUS().AddProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img);
-                        if (result)
+                        try
                         {
-                            GetCatProToppingByIdCat(idCatUpdate);
-                            if (idCat == 7)
-                                LoadAllTopping();
-                            MessageBox.Show("Thêm sản phẩm thành công", "Thông báo");
+                            bool result = new ProductBUS().AddProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img);
+                            if (result)
+                            {
+                                GetCatProToppingByIdCat(idCatUpdate);
+                                if (idCat == 7)
+                                    LoadAllTopping();
+                                MessageBox.Show("Thêm sản phẩm thành công", "Thông báo");
+                            }
+                            else
+                                MessageBox.Show("Thất bại rùi :(", "Thông báo");
                         }
-                        else
+                        catch
+                        {
                             MessageBox.Show("Thất bại rùi :(", "Thông báo");
+                        }
+                        
                     }
                 }
                 else if (price == 0 && (priceSmall != 0 || priceMedium != 0 || priceLarge != 0))
                 {
                     if (MessageBox.Show("Bạn đã chắc chắn muốn thêm " + name + " chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
-                        bool result = new ProductBUS().AddProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img);
-                        if (result)
+                        try
                         {
-                            GetCatProToppingByIdCat(idCatUpdate);
-                            if (idCat == 7)
-                                LoadAllTopping();
-                            MessageBox.Show("Thêm sản phẩm thành công", "Thông báo");
+                            bool result = new ProductBUS().AddProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img);
+                            if (result)
+                            {
+                                GetCatProToppingByIdCat(idCatUpdate);
+                                if (idCat == 7)
+                                    LoadAllTopping();
+                                MessageBox.Show("Thêm sản phẩm thành công", "Thông báo");
+                            }
+                            else
+                                MessageBox.Show("Thất bại rùi :(", "Thông báo");
                         }
-                        else
+                        catch
+                        {
                             MessageBox.Show("Thất bại rùi :(", "Thông báo");
+                        }
+                        
                     }
                 }
                 else
@@ -398,32 +414,47 @@ namespace LTGD_Project
                 {
                     if (MessageBox.Show("Bạn đã chắc chắn muốn sửa "+namePro+" chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
-                        bool result = new ProductBUS().EditProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img, idProduct);
-                        if (result)
+                        try
                         {
-                            GetCatProToppingByIdCat(idCatUpdate);
-                            if (idCat == 7)
-                                LoadAllTopping();
-                            MessageBox.Show("Sửa sản phẩm thành công", "Thông báo");
+                            bool result = new ProductBUS().EditProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img, idProduct);
+                            if (result)
+                            {
+                                GetCatProToppingByIdCat(idCatUpdate);
+                                if (idCat == 7)
+                                    LoadAllTopping();
+                                MessageBox.Show("Sửa sản phẩm thành công", "Thông báo");
+                            }
+                            else
+                                MessageBox.Show("Thất bại rùi :(", "Thông báo");
                         }
-                        else
+                        catch
+                        {
                             MessageBox.Show("Thất bại rùi :(", "Thông báo");
+                        }
                     }
                 }
                 else if (price == 0 && (priceSmall != 0 || priceMedium != 0 || priceLarge != 0))
                 {
                     if (MessageBox.Show("Bạn đã chắc chắn muốn sửa "+namePro+" chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
-                        bool result = new ProductBUS().EditProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img, idProduct);
-                        if (result)
+                        try
                         {
-                            GetCatProToppingByIdCat(idCatUpdate);
-                            if (idCat == 7)
-                                LoadAllTopping();
-                            MessageBox.Show("Sửa sản phẩm thành công", "Thông báo");
+                            bool result = new ProductBUS().EditProduct(idCatUpdate, name, (int?)priceSmall, (int?)priceMedium, (int?)priceLarge, (int?)price, description, img, idProduct);
+                            if (result)
+                            {
+                                GetCatProToppingByIdCat(idCatUpdate);
+                                if (idCat == 7)
+                                    LoadAllTopping();
+                                MessageBox.Show("Sửa sản phẩm thành công", "Thông báo");
+                            }
+                            else
+                                MessageBox.Show("Thất bại rùi :(", "Thông báo");
                         }
-                        else
+                        catch
+                        {
                             MessageBox.Show("Thất bại rùi :(", "Thông báo");
+                        }
+                        
                     }
                 }
                 else
