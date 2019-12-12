@@ -675,8 +675,8 @@ namespace LTGD_Project
         {
             foramTableManage f = new foramTableManage();
             f.ShowDialog();
-            //if (!f.IsDisposed)
-            //    LoadTable();
+            if (!f.IsDisposed)
+                LoadTable();
         }
         
         //FIREBASE

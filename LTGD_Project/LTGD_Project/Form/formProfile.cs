@@ -62,14 +62,26 @@ namespace LTGD_Project
             }
             else
             {
-                byte[] b = Convert.FromBase64String(img);
+                try
+                {
+                    byte[] b = Convert.FromBase64String(account.ImgAccount.ToString());
 
-                MemoryStream memoryStream = new MemoryStream();
-                memoryStream.Write(b, 0, Convert.ToInt32(b.Length));
+                    MemoryStream memoryStream = new MemoryStream();
+                    memoryStream.Write(b, 0, Convert.ToInt32(b.Length));
 
-                Bitmap bm = new Bitmap(memoryStream, false);
-                memoryStream.Dispose();
-                pictureBoxAccount.Image = bm;
+                    Bitmap bm = new Bitmap(memoryStream, false);
+                    memoryStream.Dispose();
+                    pictureBoxAccount.Image = bm;
+                    usernameTxt.Text = account.IdAccount.ToString();
+                    nameTxt.Text = account.NameUser.ToString();
+                    phoneTxt.Text = account.PhoneNum.ToString();
+                }
+                catch
+                {
+                    usernameTxt.Text = account.IdAccount.ToString();
+                    nameTxt.Text = account.NameUser.ToString();
+                    phoneTxt.Text = account.PhoneNum.ToString();
+                }
             }
         }
         
@@ -84,11 +96,11 @@ namespace LTGD_Project
                 }
                 else
                 {
-                    if (MessageBox.Show("Bạn đã chắc chắn muốn đổi mật khẩu chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    if (MessageBox.Show("Bạn đã chắc chắn muốn thay đổi thông tin chưa?", "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
                         if (AccountDAO.Instance.ChangePass(pass.Text, account.IdAccount.ToString(), nameTxt.Text, phoneTxt.Text, img))
                         {
-                            MessageBox.Show("Đổi mật khẩu thành công", "Thông báo");
+                            MessageBox.Show("Đổi thông tin thành công", "Thông báo");
                             pass.Text = "";
                             confirmPass.Text = "";
                         }
