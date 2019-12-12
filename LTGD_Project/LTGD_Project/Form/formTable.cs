@@ -710,7 +710,7 @@ namespace LTGD_Project
                 {
                     if (tables[i].IdTable == item.Object.IdTable && tables[i].StatusTable != item.Object.StatusTable)
                     {
-                        BeginInvoke(new MethodInvoker(delegate { LoadTable(); ShowNoti(); }));
+                        BeginInvoke(new MethodInvoker(delegate { LoadTable(); }));
                         tables = await SelectAllTable();
                     }
 
