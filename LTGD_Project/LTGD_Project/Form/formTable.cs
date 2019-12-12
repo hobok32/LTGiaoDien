@@ -41,6 +41,8 @@ namespace LTGD_Project
 
         List<Topping> toppings = new List<Topping>();
 
+        List<Table> tables;
+
         //Nhận username từ loginForm
         public formTable(string username) : this()
         {
@@ -678,7 +680,7 @@ namespace LTGD_Project
         }
         
         //FIREBASE
-        private void formTable_Load(object sender, EventArgs e)
+        private async void formTable_Load(object sender, EventArgs e)
         {
             client = new FireSharp.FirebaseClient(config);
 
@@ -686,7 +688,8 @@ namespace LTGD_Project
             {
                 MessageBox.Show("Access to Firebase :3 :3 :3", "Yayyy");
             }
-            ListenFirebase(dataGridView1);
+            tables = await SelectAllTable();
+            ListenFirebase();
         }
         
         //Show thông báo
@@ -697,24 +700,23 @@ namespace LTGD_Project
         private const string FIREBASE_APP = "https://cafe-4b7dd.firebaseio.com/";
         private FirebaseClient firebase = new FirebaseClient(FIREBASE_APP);
         int check = 0;
-        
+
         //Lắng nghe thay đổi từ firebase
-        public void ListenFirebase(DataGridView gridView)
+        public void ListenFirebase()
         {
             firebase.Child("Tables").Child("L1").AsObservable<Table>().Subscribe(async item =>
             {
-                if (check == 0)
+                for (int i = 0; i < tables.Count(); i++)
                 {
-                    List<Table> tables = await SelectAllTable();
-                    gridView.BeginInvoke(new MethodInvoker(delegate { gridView.DataSource = tables; }));
-                    check = 1;
+                    if (tables[i].IdTable == item.Object.IdTable && tables[i].StatusTable != item.Object.StatusTable)
+                    {
+                        BeginInvoke(new MethodInvoker(delegate { LoadTable(); ShowNoti(); }));
+                        tables = await SelectAllTable();
+                    }
+
                 }
-                else
-                {
-                    List<Table> tables = await SelectAllTable();
-                    gridView.BeginInvoke(new MethodInvoker(delegate { gridView.DataSource = tables; LoadTable(); }));
-                    //gridView.BeginInvoke(new MethodInvoker(delegate { gridView.DataSource = tables; LoadTable(); ShowNoti(); }));
-                }
+                //gridView.BeginInvoke(new MethodInvoker(delegate { gridView.DataSource = tables; LoadTable(); }));
+                //gridView.BeginInvoke(new MethodInvoker(delegate { gridView.DataSource = tables; LoadTable(); ShowNoti(); }));
             });
         }
 
