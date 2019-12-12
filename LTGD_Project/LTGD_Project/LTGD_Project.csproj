@@ -220,7 +220,7 @@
     <Compile Include="Form\formTable.Designer.cs">
       <DependentUpon>formTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form\Note.cs" />
+    <Compile Include="DTO\Note.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
