@@ -116,5 +116,10 @@ namespace LTGD_Project
                 }
             }
         }
+
+        private void formMoney_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

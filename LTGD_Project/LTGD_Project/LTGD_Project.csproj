@@ -165,6 +165,7 @@
     <Compile Include="DTO\DetailTopping.cs" />
     <Compile Include="DTO\Global.cs" />
     <Compile Include="DTO\Image.cs" />
+    <Compile Include="DTO\Kitchen.cs" />
     <Compile Include="DTO\Menu.cs" />
     <Compile Include="DTO\Product.cs" />
     <Compile Include="DTO\ProductRate.cs" />

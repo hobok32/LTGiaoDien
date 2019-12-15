@@ -679,10 +679,10 @@ namespace LTGD_Project
         {
             client = new FireSharp.FirebaseClient(config);
 
-            if (client != null)
-            {
-                MessageBox.Show("Access to Firebase :3 :3 :3", "Yayyy");
-            }
+            //if (client != null)
+            //{
+            //    MessageBox.Show("Access to Firebase :3 :3 :3", "Yayyy");
+            //}
         }
 
         private async void pickImgCat_Click(object sender, EventArgs e)

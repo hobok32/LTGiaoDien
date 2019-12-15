@@ -38,6 +38,8 @@
             this.chiTiếtTàiKhoảnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.đăngXuấtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.noteBtn = new System.Windows.Forms.Button();
+            this.noteTxt = new System.Windows.Forms.TextBox();
             this.listViewBill = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -69,8 +71,13 @@
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanelTable = new System.Windows.Forms.FlowLayoutPanel();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.noteTxt = new System.Windows.Forms.TextBox();
-            this.noteBtn = new System.Windows.Forms.Button();
+            this.listViewKitchen = new System.Windows.Forms.ListView();
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -147,6 +154,24 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(444, 287);
             this.panel2.TabIndex = 2;
+            // 
+            // noteBtn
+            // 
+            this.noteBtn.Location = new System.Drawing.Point(374, 248);
+            this.noteBtn.Name = "noteBtn";
+            this.noteBtn.Size = new System.Drawing.Size(64, 36);
+            this.noteBtn.TabIndex = 2;
+            this.noteBtn.Text = "NOTE";
+            this.noteBtn.UseVisualStyleBackColor = true;
+            this.noteBtn.Click += new System.EventHandler(this.noteBtn_Click);
+            // 
+            // noteTxt
+            // 
+            this.noteTxt.Location = new System.Drawing.Point(0, 248);
+            this.noteTxt.Multiline = true;
+            this.noteTxt.Name = "noteTxt";
+            this.noteTxt.Size = new System.Drawing.Size(368, 36);
+            this.noteTxt.TabIndex = 1;
             // 
             // listViewBill
             // 
@@ -440,7 +465,7 @@
             // 
             this.flowLayoutPanelTable.Location = new System.Drawing.Point(12, 27);
             this.flowLayoutPanelTable.Name = "flowLayoutPanelTable";
-            this.flowLayoutPanelTable.Size = new System.Drawing.Size(434, 526);
+            this.flowLayoutPanelTable.Size = new System.Drawing.Size(434, 348);
             this.flowLayoutPanelTable.TabIndex = 5;
             // 
             // imageList1
@@ -449,29 +474,66 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "county-cork-ireland-wallpapers.1440x900.jpg");
             // 
-            // noteTxt
+            // listViewKitchen
             // 
-            this.noteTxt.Location = new System.Drawing.Point(0, 248);
-            this.noteTxt.Multiline = true;
-            this.noteTxt.Name = "noteTxt";
-            this.noteTxt.Size = new System.Drawing.Size(368, 36);
-            this.noteTxt.TabIndex = 1;
+            this.listViewKitchen.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader7,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10,
+            this.columnHeader11});
+            this.listViewKitchen.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.listViewKitchen.FullRowSelect = true;
+            this.listViewKitchen.GridLines = true;
+            this.listViewKitchen.HideSelection = false;
+            this.listViewKitchen.Location = new System.Drawing.Point(8, 399);
+            this.listViewKitchen.Name = "listViewKitchen";
+            this.listViewKitchen.Size = new System.Drawing.Size(438, 149);
+            this.listViewKitchen.TabIndex = 3;
+            this.listViewKitchen.UseCompatibleStateImageBehavior = false;
+            this.listViewKitchen.View = System.Windows.Forms.View.Details;
             // 
-            // noteBtn
+            // columnHeader7
             // 
-            this.noteBtn.Location = new System.Drawing.Point(374, 248);
-            this.noteBtn.Name = "noteBtn";
-            this.noteBtn.Size = new System.Drawing.Size(64, 36);
-            this.noteBtn.TabIndex = 2;
-            this.noteBtn.Text = "NOTE";
-            this.noteBtn.UseVisualStyleBackColor = true;
-            this.noteBtn.Click += new System.EventHandler(this.noteBtn_Click);
+            this.columnHeader7.Text = "Tên món";
+            this.columnHeader7.Width = 125;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Size";
+            this.columnHeader8.Width = 32;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Số lượng";
+            this.columnHeader9.Width = 54;
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Topping";
+            this.columnHeader10.Width = 187;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Bàn";
+            this.columnHeader11.Width = 99;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 380);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(63, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Hoàn thành";
             // 
             // formTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(908, 561);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.listViewKitchen);
             this.Controls.Add(this.flowLayoutPanelTable);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
@@ -542,5 +604,12 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TextBox noteTxt;
         private System.Windows.Forms.Button noteBtn;
+        private System.Windows.Forms.ListView listViewKitchen;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.Label label2;
     }
 }

@@ -89,7 +89,7 @@ namespace LTGD_Project.DAO
 
         public DataTable SelectBillByDate(string date, string to)
         {
-            return DataProvider.Instance.ExecuteQuery("select b.idbill as 'ID', a.nameTable as 'Tên bàn', b.idAccount as 'Tài khoản', b.discount as 'Giảm giá %', b.total as 'Tổng tiền x1000 đ', b.dateBill as 'Ngày' from tablewinform a, (select * from bill where statusBill = 1 and dateBill >= '" + date + "' and dateBill <= '" + to + "') b where a.idTable = b.idxTable; ");
+            return DataProvider.Instance.ExecuteQuery("select b.idbill as 'ID', a.nameTable as 'Tên bàn', b.idAccount as 'Tài khoản', b.discount as 'Giảm giá %', b.total as 'Tổng tiền x1000 đ', b.dateBill as 'Ngày' from tablewinform a, (select * from bill where statusBill = 1 and dateBill >= '" + date + "' and dateBill <= '" + to + "') b where a.idTable = b.idxTable and b.total > 0; ");
         }
     }
 }

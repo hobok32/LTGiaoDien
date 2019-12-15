@@ -43,6 +43,8 @@ namespace LTGD_Project
 
         List<Table> tables;
 
+        List<Kitchen> kitchens;
+
         //Nhận username từ loginForm
         public formTable(string username) : this()
         {
@@ -684,12 +686,16 @@ namespace LTGD_Project
         {
             client = new FireSharp.FirebaseClient(config);
 
-            if (client != null)
-            {
-                MessageBox.Show("Access to Firebase :3 :3 :3", "Yayyy");
-            }
+            //if (client != null)
+            //{
+            //    MessageBox.Show("Access to Firebase :3 :3 :3", "Yayyy");
+            //}
+            listViewKitchen.Columns[1].TextAlign = HorizontalAlignment.Center;
+            listViewKitchen.Columns[2].TextAlign = HorizontalAlignment.Center;
             tables = await SelectAllTable();
+            kitchens = await SelectAllKitchen();
             ListenFirebase();
+            ListenKitchen();
         }
         
         //Show thông báo
@@ -720,6 +726,54 @@ namespace LTGD_Project
             });
         }
 
+        //Lắng nghe thay đổi từ nhà bếp
+        public void ListenKitchen()
+        {
+            firebase.Child("OrderBills").AsObservable<Kitchen>().Subscribe(item =>
+            {
+                for (int i = 0; i < kitchens.Count(); i++)
+                {
+                    //Kiểm tra có món hay không
+                    if (kitchens[i].IdTable == item.Object.IdTable && item.Object.Bills != null && item.Object.Bills.Count>0 )
+                    {
+                        for (int j = 0; j < item.Object.Bills.Count(); j++)
+                        {
+                            if (kitchens[i].Bills[j].Status == "false" && item.Object.Bills[j].Status == "true")
+                            {
+                                kitchens[i].Bills[j].Status = item.Object.Bills[j].Status;
+                                BeginInvoke(new MethodInvoker(delegate { ShowNotiKitchen(item.Object.NameTable, item.Object.Bills[j]); }));
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        public void ShowNotiKitchen(string nameTable, KitchenBill kitchenBill)
+        {
+            string topping = "";
+            if (kitchenBill.Topping != null && kitchenBill.Topping.Count() > 0)
+            {
+                for (int i = 0; i < kitchenBill.Topping.Count(); i++)
+                {
+                    if (i == 0)
+                        topping = kitchenBill.Topping[i].ToppingName;
+                    else
+                        topping += (", " + kitchenBill.Topping[i].ToppingName);
+                }
+            }
+            else
+                topping = "Không có topping";
+
+            ListViewItem listViewItem = new ListViewItem(kitchenBill.NameProduct.ToString());
+            listViewItem.SubItems.Add(kitchenBill.Size.ToString());
+            listViewItem.SubItems.Add(kitchenBill.SoLuong.ToString());
+            listViewItem.SubItems.Add(topping.ToString());
+            listViewItem.SubItems.Add(nameTable.ToString());
+            listViewKitchen.Items.Insert(0, listViewItem);
+        }
+
         //Lấy bàn từ firebase
         public async Task<List<Table>> SelectAllTable()
         {
@@ -729,6 +783,17 @@ namespace LTGD_Project
             foreach (var item in fbTable)
                 tables.Add(item.Object);
             return tables;
+        }
+
+        //Lấy bếp từ firebase
+        public async Task<List<Kitchen>> SelectAllKitchen()
+        {
+            List<Kitchen> kitchens = new List<Kitchen>();
+            //Trả tất cả các node có trong OrderBills trên firebase
+            var fbKitchen = await firebase.Child("OrderBills").OnceAsync<Kitchen>();
+            foreach (var item in fbKitchen)
+                kitchens.Add(item.Object);
+            return kitchens;
         }
 
         //Event khi ấn nút note

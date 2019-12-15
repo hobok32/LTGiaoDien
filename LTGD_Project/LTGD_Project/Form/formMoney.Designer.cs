@@ -136,6 +136,7 @@
             this.Name = "formMoney";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Doanh thu";
+            this.Load += new System.EventHandler(this.formMoney_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewBill)).EndInit();
             this.panel2.ResumeLayout(false);
