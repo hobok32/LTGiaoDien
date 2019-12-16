@@ -24,7 +24,7 @@ namespace LTGD_Project
         }
         public formBill(int idTable, string discount, int disc) : this()
         {
-            SetHeight(listViewBill, 50);
+            SetHeight(listViewBill, 30);
             listViewBill.Columns[5].Width = 0;
             discTxt.Text = disc.ToString() + "%";
             totalPriceTxt.Text = discount;
@@ -139,7 +139,7 @@ namespace LTGD_Project
             bitmap = new Bitmap(this.Size.Width, this.Size.Height, g);
             Graphics mg = Graphics.FromImage(bitmap);
             mg.CopyFromScreen(this.Location.X+10, this.Location.Y, 0, 0, this.Size);
-            printPreviewDialog1.Document.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("a5", this.Width, this.Height-20);
+            printPreviewDialog1.Document.DefaultPageSettings.PaperSize = new System.Drawing.Printing.PaperSize("a5", this.Width+10, this.Height-15);
             printPreviewDialog1.ShowDialog();
         }
 

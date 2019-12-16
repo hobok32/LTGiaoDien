@@ -78,7 +78,7 @@
             this.listViewBill.LargeImageList = this.imageList2;
             this.listViewBill.Location = new System.Drawing.Point(16, 36);
             this.listViewBill.Name = "listViewBill";
-            this.listViewBill.Size = new System.Drawing.Size(629, 281);
+            this.listViewBill.Size = new System.Drawing.Size(629, 412);
             this.listViewBill.SmallImageList = this.imageList2;
             this.listViewBill.TabIndex = 1;
             this.listViewBill.UseCompatibleStateImageBehavior = false;
@@ -123,7 +123,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label1.Location = new System.Drawing.Point(369, 324);
+            this.label1.Location = new System.Drawing.Point(370, 455);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 19);
             this.label1.TabIndex = 11;
@@ -131,7 +131,7 @@
             // 
             // totalPriceTxt
             // 
-            this.totalPriceTxt.Location = new System.Drawing.Point(455, 323);
+            this.totalPriceTxt.Location = new System.Drawing.Point(456, 454);
             this.totalPriceTxt.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
             this.totalPriceTxt.Name = "totalPriceTxt";
             this.totalPriceTxt.ReadOnly = true;
@@ -158,7 +158,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(614, 349);
+            this.button1.Location = new System.Drawing.Point(615, 480);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(31, 19);
             this.button1.TabIndex = 12;
@@ -176,7 +176,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label2.Location = new System.Drawing.Point(228, 324);
+            this.label2.Location = new System.Drawing.Point(229, 455);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 19);
             this.label2.TabIndex = 14;
@@ -185,7 +185,7 @@
             // 
             // discTxt
             // 
-            this.discTxt.Location = new System.Drawing.Point(303, 323);
+            this.discTxt.Location = new System.Drawing.Point(304, 454);
             this.discTxt.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
             this.discTxt.Name = "discTxt";
             this.discTxt.ReadOnly = true;
@@ -197,7 +197,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label3.Location = new System.Drawing.Point(14, 324);
+            this.label3.Location = new System.Drawing.Point(15, 455);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 19);
             this.label3.TabIndex = 16;
@@ -205,7 +205,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(100, 323);
+            this.textBox1.Location = new System.Drawing.Point(101, 454);
             this.textBox1.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
@@ -218,7 +218,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(660, 373);
+            this.ClientSize = new System.Drawing.Size(654, 505);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);

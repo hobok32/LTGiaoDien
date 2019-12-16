@@ -128,7 +128,7 @@
             this.chiTiếtTàiKhoảnToolStripMenuItem,
             this.đăngXuấtToolStripMenuItem});
             this.tàiKhoảnToolStripMenuItem.Name = "tàiKhoảnToolStripMenuItem";
-            this.tàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.tàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.tàiKhoảnToolStripMenuItem.Text = "Tài khoản";
             // 
             // chiTiếtTàiKhoảnToolStripMenuItem
@@ -511,12 +511,12 @@
             // columnHeader10
             // 
             this.columnHeader10.Text = "Topping";
-            this.columnHeader10.Width = 187;
+            this.columnHeader10.Width = 173;
             // 
             // columnHeader11
             // 
             this.columnHeader11.Text = "Bàn";
-            this.columnHeader11.Width = 99;
+            this.columnHeader11.Width = 48;
             // 
             // label2
             // 

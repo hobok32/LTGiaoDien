@@ -254,8 +254,42 @@ namespace LTGD_Project
             FirebaseResponse response = await client.UpdateTaskAsync("OrderBills/B" + idTable , notes);
         }
 
+        //Event đổi OrderBills trên firebase (dành cho bếp)
+        async void EditOrderBillsTableFirebase(string nameProduct, string size, int quantity, int price, List<Topping> toppings, int quantityTopping, int idTable)
+        {
+            var kitchenBill = new KitchenBill
+            {
+                NameProduct = nameProduct,
+                Size = size,
+                SoLuong = quantity,
+                Status = "false"
+            };
+            int index = 0;
+            for(int i = 0; i < kitchens.Count(); i++)
+            {
+                if (kitchens[i].IdTable == idTable && kitchens[i].Bills != null)
+                {
+                    index = kitchens[i].Bills.Count();
+                    break;
+                }
+                else if (kitchens[i].IdTable == idTable && kitchens[i].Bills == null)
+                    index = 0;
+            }
+            FirebaseResponse response = await client.SetTaskAsync("OrderBills/B" + idTable + "/Bills/" + index, kitchenBill);
+            
+            for(int i = 0; i < toppings.Count(); i++)
+            {
+                var topping = new KitchenTopping
+                {
+                    SoLuong = quantityTopping.ToString(),
+                    ToppingName = toppings[i].NameProduct
+                };
+                await client.SetTaskAsync("OrderBills/B" + idTable + "/Bills/" + index + "/Topping/" + i, topping);
+            }
+        }
+
         //Event khi ấn nút THÊM
-        private void addBtn_Click(object sender, EventArgs e)
+        private async void addBtn_Click(object sender, EventArgs e)
         {
             if (tableTxt.Text.Trim() == "")
             {
@@ -272,8 +306,20 @@ namespace LTGD_Project
                     Table table = listViewBill.Tag as Table; 
                     int idBill = BillDAO.Instance.SelectIdBill(table.IdTable);
                     int idProduct = (comboBoxProduct.SelectedItem as Product).IdProduct;
+                    string nameProduct = (comboBoxProduct.SelectedItem as Product).NameProduct;
+                    string sizeProduct;
                     int quantity = (int)productCount.Value;
                     int quantityTopping = (int)toppingCount.Value;
+                    if (int.Parse(priceProductTxt.Text) == (comboBoxProduct.SelectedItem as Product).PriceSmallProduct)
+                        sizeProduct = "S";
+                    else if (int.Parse(priceProductTxt.Text) == (comboBoxProduct.SelectedItem as Product).PriceMediumProduct)
+                        sizeProduct = "M";
+                    else if (int.Parse(priceProductTxt.Text) == (comboBoxProduct.SelectedItem as Product).PriceLargeProduct)
+                        sizeProduct = "L";
+                    else if (int.Parse(priceProductTxt.Text) == (comboBoxProduct.SelectedItem as Product).PriceProduct)
+                        sizeProduct = "F";
+                    else
+                        sizeProduct = "X";
                     //Bill chưa tồn tại
                     if (idBill == -1)
                     {
@@ -281,7 +327,7 @@ namespace LTGD_Project
                         TableDAO.Instance.UpdateStatusTable(table.IdTable, "Có người");
                         EditStatusTableFirebase(table.IdTable, table.NameTable, "Có người");
                         DetailBillDAO.Instance.AddDetailBill(BillDAO.Instance.SelectIdBillLast(), idProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping);
-
+                        EditOrderBillsTableFirebase(nameProduct, sizeProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping, table.IdTable);
                     }
                     //Bill đã tồn tại
                     else
@@ -290,6 +336,7 @@ namespace LTGD_Project
                         if (DetailBillDAO.Instance.CheckIsProductExist(idProduct, idBill) == false)
                         {
                             DetailBillDAO.Instance.AddDetailBill(idBill, idProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping);
+                            EditOrderBillsTableFirebase(nameProduct, sizeProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping, table.IdTable);
                         }
                         //Sản phẩm đã tồn tại
                         else
@@ -303,12 +350,14 @@ namespace LTGD_Project
                                     //Update lại số lượng của sản phẩm đó
                                     int idDetailBill = DetailBillDAO.Instance.CheckIsToppingEqual(toppings, idProduct, int.Parse(priceProductTxt.Text), idBill);
                                     DetailBillDAO.Instance.UpdateQuantityDetailBill(quantity, idDetailBill, quantityTopping);
+                                    EditOrderBillsTableFirebase(nameProduct, sizeProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping, table.IdTable);
                                 }
                                 //Khác Topping
                                 else
                                 {
                                     //Thêm sản phẩm mới
                                     DetailBillDAO.Instance.AddDetailBill(idBill, idProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping);
+                                    EditOrderBillsTableFirebase(nameProduct, sizeProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping, table.IdTable);
                                 }
                             }
                             //Sản phẩm mới khác size 
@@ -316,9 +365,11 @@ namespace LTGD_Project
                             {
                                 //Thêm sản phẩm mới
                                 DetailBillDAO.Instance.AddDetailBill(idBill, idProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping);
+                                EditOrderBillsTableFirebase(nameProduct, sizeProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping, table.IdTable);
                             }
                         }
                     }
+                    kitchens = await SelectAllKitchen();
                     LoadTable();
                     tableTxt.Text = table.NameTable;
                     noteTxt.Text = BillDAO.Instance.SelectNoteBill(table.IdTable);
@@ -734,9 +785,9 @@ namespace LTGD_Project
                 for (int i = 0; i < kitchens.Count(); i++)
                 {
                     //Kiểm tra có món hay không
-                    if (kitchens[i].IdTable == item.Object.IdTable && item.Object.Bills != null && item.Object.Bills.Count>0 )
+                    if (kitchens[i].IdTable == item.Object.IdTable && item.Object.Bills != null && item.Object.Bills.Count > 0 && kitchens[i].Bills != null)
                     {
-                        for (int j = 0; j < item.Object.Bills.Count(); j++)
+                        for (int j = 0; j < kitchens[i].Bills.Count(); j++)
                         {
                             if (kitchens[i].Bills[j].Status == "false" && item.Object.Bills[j].Status == "true")
                             {
@@ -820,3 +871,4 @@ namespace LTGD_Project
         }
     }
 }
+
