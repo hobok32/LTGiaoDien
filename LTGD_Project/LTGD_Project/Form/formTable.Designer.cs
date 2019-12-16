@@ -486,9 +486,9 @@
             this.listViewKitchen.FullRowSelect = true;
             this.listViewKitchen.GridLines = true;
             this.listViewKitchen.HideSelection = false;
-            this.listViewKitchen.Location = new System.Drawing.Point(8, 399);
+            this.listViewKitchen.Location = new System.Drawing.Point(12, 399);
             this.listViewKitchen.Name = "listViewKitchen";
-            this.listViewKitchen.Size = new System.Drawing.Size(438, 149);
+            this.listViewKitchen.Size = new System.Drawing.Size(434, 149);
             this.listViewKitchen.TabIndex = 3;
             this.listViewKitchen.UseCompatibleStateImageBehavior = false;
             this.listViewKitchen.View = System.Windows.Forms.View.Details;
