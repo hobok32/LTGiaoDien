@@ -15,6 +15,7 @@ namespace LTGD_Project.DTO
         public string Notes { set; get; }
         public List<KitchenBill> Bills { set; get; }
     }
+
     public class KitchenBill
     {
         public string NameProduct { set; get; }

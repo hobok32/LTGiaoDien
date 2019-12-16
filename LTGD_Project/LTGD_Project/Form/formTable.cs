@@ -351,6 +351,7 @@ namespace LTGD_Project
                                     int idDetailBill = DetailBillDAO.Instance.CheckIsToppingEqual(toppings, idProduct, int.Parse(priceProductTxt.Text), idBill);
                                     DetailBillDAO.Instance.UpdateQuantityDetailBill(quantity, idDetailBill, quantityTopping);
                                     EditOrderBillsTableFirebase(nameProduct, sizeProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping, table.IdTable);
+                                    //Update Firebase
                                 }
                                 //Khác Topping
                                 else

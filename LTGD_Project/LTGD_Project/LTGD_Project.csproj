@@ -153,6 +153,7 @@
     <Compile Include="DAO\DetailBillDAO.cs" />
     <Compile Include="DAO\DetailToppingDAO.cs" />
     <Compile Include="DAO\GlobalDAO.cs" />
+    <Compile Include="DAO\KitchenDAO.cs" />
     <Compile Include="DAO\MenuDAO.cs" />
     <Compile Include="DAO\ProductDAO.cs" />
     <Compile Include="DAO\ProductRateDAO.cs" />
