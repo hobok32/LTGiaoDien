@@ -747,6 +747,7 @@ namespace LTGD_Project
             kitchens = await SelectAllKitchen();
             ListenFirebase();
             ListenKitchen();
+            ListenFirebaseCheck();
         }
         
         //Show thông báo
@@ -774,6 +775,19 @@ namespace LTGD_Project
                 }
                 //gridView.BeginInvoke(new MethodInvoker(delegate { gridView.DataSource = tables; LoadTable(); }));
                 //gridView.BeginInvoke(new MethodInvoker(delegate { gridView.DataSource = tables; LoadTable(); ShowNoti(); }));
+            });
+        }
+
+
+        //Lắng nghe thay đổi từ firebase
+        public void ListenFirebaseCheck()
+        {
+            firebase.Child("Check").AsObservable<Check>().Subscribe(async item =>
+            {
+                if (item.Object.check.ToString() == "true")
+                {
+                    kitchens = await SelectAllKitchen();
+                }
             });
         }
 

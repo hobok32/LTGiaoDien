@@ -161,6 +161,7 @@
     <Compile Include="DTO\Account.cs" />
     <Compile Include="DTO\Bill.cs" />
     <Compile Include="DTO\Category.cs" />
+    <Compile Include="DTO\Check.cs" />
     <Compile Include="DTO\DetailBill.cs" />
     <Compile Include="DTO\DetailTopping.cs" />
     <Compile Include="DTO\Global.cs" />
