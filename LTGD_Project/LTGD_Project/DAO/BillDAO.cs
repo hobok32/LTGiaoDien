@@ -75,6 +75,13 @@ namespace LTGD_Project.DAO
             DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { total });
         }
 
+        //Test
+        public void ThanhToanBillAll()
+        {
+            string strCmd = "update bill B set B.statusBill = 1, B.total = 100 where B.idBill in (select * from (select idBill from bill where StatusBill = 0) a)";
+            DataProvider.Instance.ExecuteNonQuery(strCmd);
+        }
+
         public bool NoteBill(int idBill, string note)
         {
             string strCmd = "update bill set note = '" + note + "' where idBill = " + idBill;

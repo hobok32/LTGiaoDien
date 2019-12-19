@@ -245,6 +245,21 @@ namespace LTGD_Project
             FirebaseResponse response = await client.UpdateTaskAsync("Tables/L1/B" + idTable, data);
         }
 
+        //Test
+        async void EditStatusTableFirebaseAll()
+        {
+            for(int i = 0; i < tables.Count(); i++)
+            {
+                var data = new Table
+                {
+                    IdTable = tables[i].IdTable,
+                    NameTable = tables[i].NameTable,
+                    StatusTable = "Trống"
+                };
+                FirebaseResponse response = await client.UpdateTaskAsync("Tables/L1/B" + tables[i].IdTable, data);
+            }
+        }
+
         //Event đổi Note của bill trên firebase
         async void EditNoteTableFirebase(int idTable, string note)
         {
@@ -795,7 +810,7 @@ namespace LTGD_Project
         //Lắng nghe thay đổi từ nhà bếp
         public void ListenKitchen()
         {
-            firebase.Child("OrderBills").AsObservable<Kitchen>().Subscribe(item =>
+            firebase.Child("OrderBills").AsObservable<Kitchen>().Subscribe(async item =>
             {
                 for (int i = 0; i < kitchens.Count(); i++)
                 {
@@ -806,14 +821,28 @@ namespace LTGD_Project
                         {
                             if (kitchens[i].Bills[j].Status == "false" && item.Object.Bills[j].Status == "true")
                             {
-                                kitchens[i].Bills[j].Status = item.Object.Bills[j].Status;
-                                BeginInvoke(new MethodInvoker(delegate { ShowNotiKitchen(item.Object.NameTable, item.Object.Bills[j]); }));
-                                break;
+                                 BeginInvoke(new MethodInvoker(delegate {
+                                     try
+                                     {
+                                         ShowNotiKitchen(item.Object.NameTable, item.Object.Bills[j]);
+                                     }
+                                     catch (Exception ex)
+                                     {
+                                         ShowError(ex);
+                                     }
+                                 }));
                             }
                         }
+                        kitchens = await SelectAllKitchen();
+                        break;
                     }
                 }
             });
+        }
+
+        public void ShowError(Exception ex)
+        {
+            MessageBox.Show(ex.ToString(), "Thông báo lỗi");
         }
 
         public void ShowNotiKitchen(string nameTable, KitchenBill kitchenBill)
@@ -883,6 +912,15 @@ namespace LTGD_Project
                         MessageBox.Show("Ghi chú thất bại", "Thông báo");
                 }
             }
+        }
+
+        //Test
+        private void chargeAllBtn_Click(object sender, EventArgs e)
+        {
+            BillDAO.Instance.ThanhToanBillAll();
+            TableDAO.Instance.UpdateStatusTableAll();
+            EditStatusTableFirebaseAll();
+            LoadTable();
         }
     }
 }

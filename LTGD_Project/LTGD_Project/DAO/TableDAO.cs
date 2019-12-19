@@ -55,6 +55,13 @@ namespace LTGD_Project.DAO
             DataProvider.Instance.ExecuteNonQuery(strCmd, new object[] { status, idxTable });
         }
 
+        //Test
+        public void UpdateStatusTableAll()
+        {
+            string strCmd = "update tablewinform B set B.statusTable = 'Trống' where B.idTable in (select * from (select idTable from tablewinform where statusTable = 'Có người') a)";
+            DataProvider.Instance.ExecuteNonQuery(strCmd);
+        }
+
         public void SwitchTable(int idBillSwitch, List<int> idDetailBillCurrent)
         {
             string strCmd = "update detailbill set idBill = @idBillSwitch where idDetailBill in ({0}) ";

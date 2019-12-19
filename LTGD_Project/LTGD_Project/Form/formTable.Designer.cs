@@ -78,6 +78,7 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label2 = new System.Windows.Forms.Label();
+            this.chargeAllBtn = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -128,7 +129,7 @@
             this.chiTiếtTàiKhoảnToolStripMenuItem,
             this.đăngXuấtToolStripMenuItem});
             this.tàiKhoảnToolStripMenuItem.Name = "tàiKhoảnToolStripMenuItem";
-            this.tàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.tàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.tàiKhoảnToolStripMenuItem.Text = "Tài khoản";
             // 
             // chiTiếtTàiKhoảnToolStripMenuItem
@@ -224,6 +225,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.chargeAllBtn);
             this.panel3.Controls.Add(this.dataGridView1);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.totalPriceTxt);
@@ -527,6 +529,17 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Hoàn thành";
             // 
+            // chargeAllBtn
+            // 
+            this.chargeAllBtn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.chargeAllBtn.Location = new System.Drawing.Point(3, 3);
+            this.chargeAllBtn.Name = "chargeAllBtn";
+            this.chargeAllBtn.Size = new System.Drawing.Size(141, 103);
+            this.chargeAllBtn.TabIndex = 10;
+            this.chargeAllBtn.Text = "THANH TOÁN TẤT CẢ";
+            this.chargeAllBtn.UseVisualStyleBackColor = true;
+            this.chargeAllBtn.Click += new System.EventHandler(this.chargeAllBtn_Click);
+            // 
             // formTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -611,5 +624,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.ColumnHeader columnHeader11;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button chargeAllBtn;
     }
 }
