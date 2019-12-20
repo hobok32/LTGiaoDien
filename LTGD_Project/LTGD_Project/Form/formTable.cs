@@ -568,23 +568,24 @@ namespace LTGD_Project
                     {
                         //formBill formBill = new formBill(table.IdTable, priceDiscount.ToString("c", culture), (int)discountCount.Value);
                         //formBill.Show();
-                        //List<ProductRate> productRates = new List<ProductRate>();
-                        //for (int m = 0; m < listViewBill.Items.Count; m++)
-                        //{
-                        //    ProductRate productRate = new ProductRate();
-                        //    productRate.IdProduct = int.Parse(listViewBill.Items[m].SubItems[5].Text);
-                        //    productRate.Rate = int.Parse(listViewBill.Items[m].SubItems[2].Text);
-                        //    productRates.Add(productRate);
-                        //}
-                        //if (productRates.Count > 0)
-                        //    ProductRateDAO.Instance.UpdateRateProduct(productRates);
-                        //BillDAO.Instance.ThanhToanBill(idBill, discount, priceDiscount/1000);
-                        //TableDAO.Instance.UpdateStatusTable(table.IdTable, "Trống");
-                        //EditStatusTableFirebase(table.IdTable, table.NameTable, "Trống");
-                        //ShowDetailBill(table.IdTable);
-                        //LoadTable();
                         List<PrintBill> printBills = GetPrintBills(MenuDAO.Instance.SelectMenu(table.IdTable));
-
+                        formPrintBill f = new formPrintBill(printBills, idBill, table.NameTable, DateTime.Today, usernameLogin, (totalPrice * 1000).ToString("c", culture), priceDiscount.ToString("c", culture), discount);
+                        List<ProductRate> productRates = new List<ProductRate>();
+                        for (int m = 0; m < listViewBill.Items.Count; m++)
+                        {
+                            ProductRate productRate = new ProductRate();
+                            productRate.IdProduct = int.Parse(listViewBill.Items[m].SubItems[5].Text);
+                            productRate.Rate = int.Parse(listViewBill.Items[m].SubItems[2].Text);
+                            productRates.Add(productRate);
+                        }
+                        if (productRates.Count > 0)
+                            ProductRateDAO.Instance.UpdateRateProduct(productRates);
+                        BillDAO.Instance.ThanhToanBill(idBill, discount, priceDiscount / 1000);
+                        TableDAO.Instance.UpdateStatusTable(table.IdTable, "Trống");
+                        EditStatusTableFirebase(table.IdTable, table.NameTable, "Trống");
+                        ShowDetailBill(table.IdTable);
+                        LoadTable();
+                        f.ShowDialog();
                     }
                 }
             }
@@ -640,7 +641,7 @@ namespace LTGD_Project
                         {
                             if (item.Price == temp)
                             {
-                                printBills[i - 1].Topping += ", \n" + (item.NameTopping.ToString()) + " (+" + (item.PriceTopping.ToString()) + ".000) x" + (item.QuantityTopping).ToString();
+                                printBills[i - 1].Topping += ", " + (item.NameTopping.ToString()) + " (+" + (item.PriceTopping.ToString()) + ".000) x" + (item.QuantityTopping).ToString();
                                 printBills[i - 1].Total = ((int.Parse(printBills[i - 1].Total.Remove(printBills[i - 1].Total.Length - 4)) / item.Quantity + item.PriceTopping * item.QuantityTopping) * item.Quantity).ToString() + ".000";
                             }
                             else
@@ -914,10 +915,14 @@ namespace LTGD_Project
                 {
                     for (int j = 0; j < kitchens[i].Bills.Count(); j++)
                     {
-                        if (kitchens[i].Bills[j].Status == "false" && item.Bills[j].Status == "true")
+                        try
                         {
-                            ShowNotiKitchen(item.NameTable, item.Bills[j]);
+                            if (kitchens[i].Bills[j].Status == "false" && item.Bills[j].Status == "true")
+                            {
+                                ShowNotiKitchen(item.NameTable, item.Bills[j]);
+                            }
                         }
+                        catch { }
                     }
                     kitchens = await SelectAllKitchen();
                 }

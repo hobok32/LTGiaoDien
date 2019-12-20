@@ -13,5 +13,6 @@ namespace LTGD_Project.DTO
         public int Quantity { set; get; }
         public string Topping { set; get; }
         public string Total { set; get; }
+        public PrintBill() { }
     }
 }
