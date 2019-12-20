@@ -48,6 +48,7 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel3 = new System.Windows.Forms.Panel();
+            this.chargeAllBtn = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.totalPriceTxt = new System.Windows.Forms.TextBox();
@@ -78,7 +79,6 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label2 = new System.Windows.Forms.Label();
-            this.chargeAllBtn = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -238,6 +238,17 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(444, 109);
             this.panel3.TabIndex = 3;
+            // 
+            // chargeAllBtn
+            // 
+            this.chargeAllBtn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.chargeAllBtn.Location = new System.Drawing.Point(3, 3);
+            this.chargeAllBtn.Name = "chargeAllBtn";
+            this.chargeAllBtn.Size = new System.Drawing.Size(141, 103);
+            this.chargeAllBtn.TabIndex = 10;
+            this.chargeAllBtn.Text = "THANH TOÁN TẤT CẢ";
+            this.chargeAllBtn.UseVisualStyleBackColor = true;
+            this.chargeAllBtn.Click += new System.EventHandler(this.chargeAllBtn_Click);
             // 
             // dataGridView1
             // 
@@ -513,7 +524,7 @@
             // columnHeader10
             // 
             this.columnHeader10.Text = "Topping";
-            this.columnHeader10.Width = 173;
+            this.columnHeader10.Width = 164;
             // 
             // columnHeader11
             // 
@@ -528,17 +539,6 @@
             this.label2.Size = new System.Drawing.Size(63, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Hoàn thành";
-            // 
-            // chargeAllBtn
-            // 
-            this.chargeAllBtn.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.chargeAllBtn.Location = new System.Drawing.Point(3, 3);
-            this.chargeAllBtn.Name = "chargeAllBtn";
-            this.chargeAllBtn.Size = new System.Drawing.Size(141, 103);
-            this.chargeAllBtn.TabIndex = 10;
-            this.chargeAllBtn.Text = "THANH TOÁN TẤT CẢ";
-            this.chargeAllBtn.UseVisualStyleBackColor = true;
-            this.chargeAllBtn.Click += new System.EventHandler(this.chargeAllBtn_Click);
             // 
             // formTable
             // 

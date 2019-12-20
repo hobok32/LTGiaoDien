@@ -169,6 +169,7 @@
     <Compile Include="DTO\Image.cs" />
     <Compile Include="DTO\Kitchen.cs" />
     <Compile Include="DTO\Menu.cs" />
+    <Compile Include="DTO\PrintBill.cs" />
     <Compile Include="DTO\Product.cs" />
     <Compile Include="DTO\ProductRate.cs" />
     <Compile Include="DTO\ReportBill.cs" />

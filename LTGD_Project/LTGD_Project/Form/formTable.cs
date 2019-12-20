@@ -566,26 +566,105 @@ namespace LTGD_Project
                 {
                     if (MessageBox.Show(string.Format("Bạn đã chắc chắn thanh toán {0} chưa?\n\nGiảm giá: {1}%\n\nTổng tiền: {2}", table.NameTable, discount, priceDiscount.ToString("c", culture)), "Thông báo", MessageBoxButtons.OKCancel) == DialogResult.OK)
                     {
-                        formBill formBill = new formBill(table.IdTable, priceDiscount.ToString("c", culture), (int)discountCount.Value);
-                        formBill.Show();
-                        List<ProductRate> productRates = new List<ProductRate>();
-                        for (int m = 0; m < listViewBill.Items.Count; m++)
-                        {
-                            ProductRate productRate = new ProductRate();
-                            productRate.IdProduct = int.Parse(listViewBill.Items[m].SubItems[5].Text);
-                            productRate.Rate = int.Parse(listViewBill.Items[m].SubItems[2].Text);
-                            productRates.Add(productRate);
-                        }
-                        if (productRates.Count > 0)
-                            ProductRateDAO.Instance.UpdateRateProduct(productRates);
-                        BillDAO.Instance.ThanhToanBill(idBill, discount, priceDiscount/1000);
-                        TableDAO.Instance.UpdateStatusTable(table.IdTable, "Trống");
-                        EditStatusTableFirebase(table.IdTable, table.NameTable, "Trống");
-                        ShowDetailBill(table.IdTable);
-                        LoadTable();
+                        //formBill formBill = new formBill(table.IdTable, priceDiscount.ToString("c", culture), (int)discountCount.Value);
+                        //formBill.Show();
+                        //List<ProductRate> productRates = new List<ProductRate>();
+                        //for (int m = 0; m < listViewBill.Items.Count; m++)
+                        //{
+                        //    ProductRate productRate = new ProductRate();
+                        //    productRate.IdProduct = int.Parse(listViewBill.Items[m].SubItems[5].Text);
+                        //    productRate.Rate = int.Parse(listViewBill.Items[m].SubItems[2].Text);
+                        //    productRates.Add(productRate);
+                        //}
+                        //if (productRates.Count > 0)
+                        //    ProductRateDAO.Instance.UpdateRateProduct(productRates);
+                        //BillDAO.Instance.ThanhToanBill(idBill, discount, priceDiscount/1000);
+                        //TableDAO.Instance.UpdateStatusTable(table.IdTable, "Trống");
+                        //EditStatusTableFirebase(table.IdTable, table.NameTable, "Trống");
+                        //ShowDetailBill(table.IdTable);
+                        //LoadTable();
+                        List<PrintBill> printBills = GetPrintBills(MenuDAO.Instance.SelectMenu(table.IdTable));
+
                     }
                 }
             }
+        }
+
+        public List<PrintBill> GetPrintBills(List<DTO.Menu> menu)
+        {
+            List<PrintBill> printBills = new List<PrintBill>();
+            int active = 0;
+            int temp = 0;
+            int tempIdBillDetail = 0;
+            int i = 0;
+            foreach (DTO.Menu item in menu)
+            {
+                if (item.Quantity > 0)
+                {
+                    if (active == 0)
+                    {
+                        PrintBill printBill = new PrintBill();
+                        printBill.NameProduct = item.NameProduct;
+                        printBill.Price = item.Price.ToString() + ".000";
+                        printBill.Quantity = item.Quantity;
+                        if (item.NameTopping.ToString() == "Không có Topping")
+                            printBill.Topping = item.NameTopping;
+                        else
+                            printBill.Topping = item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000) x" + item.QuantityTopping;
+                        printBill.Total = ((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity).ToString() + ".000";
+                        printBills.Add(printBill);
+                        tempIdBillDetail = (int)item.IdDetailBill;
+                        temp = (int)item.Price;
+                        i++;
+                        active = 1;
+                    }
+                    else
+                    {
+                        if (tempIdBillDetail != item.IdDetailBill)
+                        {
+                            PrintBill printBill = new PrintBill();
+                            printBill.NameProduct = item.NameProduct;
+                            printBill.Price = item.Price.ToString() + ".000";
+                            printBill.Quantity = item.Quantity;
+                            if (item.NameTopping.ToString() == "Không có Topping")
+                                printBill.Topping = item.NameTopping;
+                            else
+                                printBill.Topping = item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000) x" + item.QuantityTopping;
+                            printBill.Total = ((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity).ToString() + ".000";
+                            printBills.Add(printBill);
+                            tempIdBillDetail = (int)item.IdDetailBill;
+                            temp = (int)item.Price;
+                            i++;
+                        }
+                        else
+                        {
+                            if (item.Price == temp)
+                            {
+                                printBills[i - 1].Topping += ", \n" + (item.NameTopping.ToString()) + " (+" + (item.PriceTopping.ToString()) + ".000) x" + (item.QuantityTopping).ToString();
+                                printBills[i - 1].Total = ((int.Parse(printBills[i - 1].Total.Remove(printBills[i - 1].Total.Length - 4)) / item.Quantity + item.PriceTopping * item.QuantityTopping) * item.Quantity).ToString() + ".000";
+                            }
+                            else
+                            {
+                                PrintBill printBill = new PrintBill();
+                                printBill.NameProduct = item.NameProduct;
+                                printBill.Price = item.Price.ToString() + ".000";
+                                printBill.Quantity = item.Quantity;
+                                if (item.NameTopping.ToString() == "Không có Topping")
+                                    printBill.Topping = item.NameTopping;
+                                else
+                                    printBill.Topping = item.NameTopping.ToString() + " (+" + item.PriceTopping.ToString() + ".000) x" + item.QuantityTopping;
+                                printBill.Total = ((item.Price + item.PriceTopping * item.QuantityTopping) * item.Quantity).ToString() + ".000";
+                                printBills.Add(printBill);
+                                tempIdBillDetail = (int)item.IdDetailBill;
+                                temp = (int)item.Price;
+                                i++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return printBills;
         }
 
         //Event ấn vào nút chuyển bàn
@@ -810,34 +889,39 @@ namespace LTGD_Project
         //Lắng nghe thay đổi từ nhà bếp
         public void ListenKitchen()
         {
-            firebase.Child("OrderBills").AsObservable<Kitchen>().Subscribe(async item =>
+            firebase.Child("OrderBills").AsObservable<Kitchen>().Subscribe(item =>
             {
-                for (int i = 0; i < kitchens.Count(); i++)
+                BeginInvoke(new MethodInvoker(delegate
                 {
-                    //Kiểm tra có món hay không
-                    if (kitchens[i].IdTable == item.Object.IdTable && item.Object.Bills != null && item.Object.Bills.Count > 0 && kitchens[i].Bills != null)
+                    try
                     {
-                        for (int j = 0; j < kitchens[i].Bills.Count(); j++)
-                        {
-                            if (kitchens[i].Bills[j].Status == "false" && item.Object.Bills[j].Status == "true")
-                            {
-                                 BeginInvoke(new MethodInvoker(delegate {
-                                     try
-                                     {
-                                         ShowNotiKitchen(item.Object.NameTable, item.Object.Bills[j]);
-                                     }
-                                     catch (Exception ex)
-                                     {
-                                         ShowError(ex);
-                                     }
-                                 }));
-                            }
-                        }
-                        kitchens = await SelectAllKitchen();
-                        break;
+                        InvokeKitchen(item.Object);
                     }
+                    catch (Exception ex)
+                    {
+                        ShowError(ex);
+                    }
+                }));
+            }); 
+        }
+
+        public async void InvokeKitchen(Kitchen item)
+        {
+            for (int i = 0; i < kitchens.Count(); i++)
+            {
+                //Kiểm tra có món hay không
+                if (kitchens[i].IdTable == item.IdTable && item.Bills != null && item.Bills.Count > 0 && kitchens[i].Bills != null)
+                {
+                    for (int j = 0; j < kitchens[i].Bills.Count(); j++)
+                    {
+                        if (kitchens[i].Bills[j].Status == "false" && item.Bills[j].Status == "true")
+                        {
+                            ShowNotiKitchen(item.NameTable, item.Bills[j]);
+                        }
+                    }
+                    kitchens = await SelectAllKitchen();
                 }
-            });
+            }
         }
 
         public void ShowError(Exception ex)
