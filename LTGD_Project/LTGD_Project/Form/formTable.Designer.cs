@@ -79,6 +79,7 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label2 = new System.Windows.Forms.Label();
+            this.kitchenTxt = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -129,7 +130,7 @@
             this.chiTiếtTàiKhoảnToolStripMenuItem,
             this.đăngXuấtToolStripMenuItem});
             this.tàiKhoảnToolStripMenuItem.Name = "tàiKhoảnToolStripMenuItem";
-            this.tàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.tàiKhoảnToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
             this.tàiKhoảnToolStripMenuItem.Text = "Tài khoản";
             // 
             // chiTiếtTàiKhoảnToolStripMenuItem
@@ -529,7 +530,7 @@
             // columnHeader11
             // 
             this.columnHeader11.Text = "Bàn";
-            this.columnHeader11.Width = 48;
+            this.columnHeader11.Width = 54;
             // 
             // label2
             // 
@@ -540,11 +541,21 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Hoàn thành";
             // 
+            // kitchenTxt
+            // 
+            this.kitchenTxt.Location = new System.Drawing.Point(388, 373);
+            this.kitchenTxt.Name = "kitchenTxt";
+            this.kitchenTxt.ReadOnly = true;
+            this.kitchenTxt.Size = new System.Drawing.Size(58, 20);
+            this.kitchenTxt.TabIndex = 6;
+            this.kitchenTxt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // formTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(908, 561);
+            this.Controls.Add(this.kitchenTxt);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.listViewKitchen);
             this.Controls.Add(this.flowLayoutPanelTable);
@@ -625,5 +636,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader11;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button chargeAllBtn;
+        private System.Windows.Forms.TextBox kitchenTxt;
     }
 }

@@ -920,6 +920,7 @@ namespace LTGD_Project
                             if (kitchens[i].Bills[j].Status == "false" && item.Bills[j].Status == "true")
                             {
                                 ShowNotiKitchen(item.NameTable, item.Bills[j]);
+                                kitchenTxt.Text = BillDAO.Instance.SelectIdBill(item.IdTable).ToString();
                             }
                         }
                         catch { }
