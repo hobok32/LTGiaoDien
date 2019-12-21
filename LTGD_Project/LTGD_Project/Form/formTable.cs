@@ -569,7 +569,7 @@ namespace LTGD_Project
                         //formBill formBill = new formBill(table.IdTable, priceDiscount.ToString("c", culture), (int)discountCount.Value);
                         //formBill.Show();
                         List<PrintBill> printBills = GetPrintBills(MenuDAO.Instance.SelectMenu(table.IdTable));
-                        formPrintBill f = new formPrintBill(printBills, idBill, table.NameTable, DateTime.Today, usernameLogin, (totalPrice * 1000).ToString("c", culture), priceDiscount.ToString("c", culture), discount);
+                        formPrintBill f = new formPrintBill(printBills, idBill, table.NameTable, DateTime.Today, AccountDAO.Instance.SelectAccount(usernameLogin).NameUser, (totalPrice * 1000).ToString("c", culture), priceDiscount.ToString("c", culture), discount);
                         List<ProductRate> productRates = new List<ProductRate>();
                         for (int m = 0; m < listViewBill.Items.Count; m++)
                         {

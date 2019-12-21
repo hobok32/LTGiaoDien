@@ -1,0 +1,23 @@
+﻿công nghệ giải pháp kỹ thuật sẽ hỗ trợ cho voc (vocto)
+đánh giá mức độ quang trọng : mô hình
+ kalo : phân loại requriment thành 
+ gqm : tập trung vào những cái nào để tốt hơn đối thủ
+ voct 
+phân loại yêu cầu quang trọng , ko quan trọng
+đánh sô theo thang 10
+
+vs mỗi công nghệ thì tiki có áp dụng ko (cái nào hay có trọng yếu so sánh)(PTD)
+
+so sánh 3 đối thủ (cột phải)
+mức độ khó của công nghệ
+ss đánh giá nhận thức kh (đánh giá vs customẻ requi)
+
+vd: thanh toán thuận tiện
+bảo mật 3 lớp mới đc thanh toán (ko thuận tiện vì ko có đt otp) :strong negative
+nếu xác thực qua mail (vì có intểnt) negative
+vd:
+gia tăng tốc độ, xử lý hình ảnh cao (size , đường truyền, serve)
+h/a chất lượng cao kích thước lớn nên bị chậm (bị confilct)
+
+CƠ SỞ YÊU CẦU VỀ PM
+VỀ KHẢ NĂNG ĐÁP ỨNG NHU CẦU
