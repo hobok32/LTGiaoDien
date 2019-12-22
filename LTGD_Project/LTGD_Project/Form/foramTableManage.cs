@@ -79,6 +79,7 @@ namespace LTGD_Project
                         if (TableDAO.Instance.AddTable(nameTable.Text, comboBoxStatus.Text))
                         {
                             AddTableFirebase(TableDAO.Instance.SelectIdTableLast());
+                            AddTableFirebase2(TableDAO.Instance.SelectIdTableLast());
                             tables = TableDAO.Instance.LoadTableList();
                             LoadTable();
                             MessageBox.Show("Thêm thành công", "Thông báo");
@@ -106,6 +107,17 @@ namespace LTGD_Project
             SetResponse response = await client.SetTaskAsync("Tables/L1/" + "B" + idTable, data);
         }
 
+        async void AddTableFirebase2(int idTable)
+        {
+            var data = new Table
+            {
+                IdTable = idTable,
+                NameTable = nameTable.Text,
+                StatusTable = comboBoxStatus.Text
+            };
+            SetResponse response = await client.SetTaskAsync("OrderBills/" + "B" + idTable, data);
+        }
+
         private void dataGridViewTable_SelectionChanged(object sender, EventArgs e)
         {
             name = dataGridViewTable.CurrentRow.Cells[1].Value.ToString();
@@ -124,9 +136,25 @@ namespace LTGD_Project
             FirebaseResponse response = await client.UpdateTaskAsync("Tables/L1/B" + idTable, data);
         }
 
+        async void EditTableFirebase2()
+        {
+            var data = new Table
+            {
+                IdTable = idTable,
+                NameTable = nameTable.Text,
+                StatusTable = comboBoxStatus.Text
+            };
+            FirebaseResponse response = await client.UpdateTaskAsync("OrderBills/B" + idTable, data);
+        }
+
         async void DelTableFirebase()
         {
             FirebaseResponse response = await client.DeleteTaskAsync("Tables/L1/B" + idTable);
+        }
+
+        async void DelTableFirebase2()
+        {
+            FirebaseResponse response = await client.DeleteTaskAsync("OrderBills/B" + idTable);
         }
 
         private void editBtn_Click(object sender, EventArgs e)
@@ -155,6 +183,7 @@ namespace LTGD_Project
                             if (TableDAO.Instance.EditTable(nameTable.Text, comboBoxStatus.Text, idTable))
                             {
                                 EditTableFirebase();
+                                EditTableFirebase2();
                                 tables = TableDAO.Instance.LoadTableList();
                                 LoadTable();
                                 MessageBox.Show("Sửa thành công", "Thông báo");
@@ -186,6 +215,7 @@ namespace LTGD_Project
                     if (TableDAO.Instance.DelTable(idTable))
                     {
                         DelTableFirebase();
+                        DelTableFirebase2();
                         tables = TableDAO.Instance.LoadTableList();
                         LoadTable();
                         MessageBox.Show("Xóa thành công", "Thông báo");

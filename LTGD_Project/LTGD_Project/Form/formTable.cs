@@ -245,6 +245,17 @@ namespace LTGD_Project
             FirebaseResponse response = await client.UpdateTaskAsync("Tables/L1/B" + idTable, data);
         }
 
+        async void EditStatusTableFirebase2(int idTable, string nameTable, string status)
+        {
+            var data = new Table
+            {
+                IdTable = idTable,
+                NameTable = nameTable,
+                StatusTable = status
+            };
+            FirebaseResponse response = await client.UpdateTaskAsync("OrderBills/B" + idTable, data);
+        }
+
         //Test
         async void EditStatusTableFirebaseAll()
         {
@@ -583,6 +594,7 @@ namespace LTGD_Project
                         BillDAO.Instance.ThanhToanBill(idBill, discount, priceDiscount / 1000);
                         TableDAO.Instance.UpdateStatusTable(table.IdTable, "Trống");
                         EditStatusTableFirebase(table.IdTable, table.NameTable, "Trống");
+                        EditStatusTableFirebase2(table.IdTable, table.NameTable, "Trống");
                         ShowDetailBill(table.IdTable);
                         LoadTable();
                         f.ShowDialog();
@@ -832,7 +844,6 @@ namespace LTGD_Project
         private async void formTable_Load(object sender, EventArgs e)
         {
             client = new FireSharp.FirebaseClient(config);
-
             //if (client != null)
             //{
             //    MessageBox.Show("Access to Firebase :3 :3 :3", "Yayyy");
