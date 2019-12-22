@@ -280,6 +280,16 @@ namespace LTGD_Project
             FirebaseResponse response = await client.UpdateTaskAsync("OrderBills/B" + idTable , notes);
         }
 
+        //Event đổi check trên firebase
+        async void EditCheckFirebase(string status)
+        {
+            var check = new Check
+            {
+                check = status
+            };
+            FirebaseResponse response = await client.UpdateTaskAsync("Check/0", check);
+        }
+
         //Event đổi OrderBills trên firebase (dành cho bếp)
         async void EditOrderBillsTableFirebase(string nameProduct, string size, int quantity, int price, List<Topping> toppings, int quantityTopping, int idTable)
         {
@@ -396,7 +406,9 @@ namespace LTGD_Project
                             }
                         }
                     }
-                    kitchens = await SelectAllKitchen();
+                    EditCheckFirebase("true");
+                    EditCheckFirebase("false");
+                    //kitchens = await SelectAllKitchen();
                     LoadTable();
                     tableTxt.Text = table.NameTable;
                     noteTxt.Text = BillDAO.Instance.SelectNoteBill(table.IdTable);
@@ -884,7 +896,6 @@ namespace LTGD_Project
                 //gridView.BeginInvoke(new MethodInvoker(delegate { gridView.DataSource = tables; LoadTable(); ShowNoti(); }));
             });
         }
-
 
         //Lắng nghe thay đổi từ firebase
         public void ListenFirebaseCheck()
