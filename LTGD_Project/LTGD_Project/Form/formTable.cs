@@ -290,6 +290,16 @@ namespace LTGD_Project
             FirebaseResponse response = await client.UpdateTaskAsync("Check/0", check);
         }
 
+        //Event đổi time trên firebase
+        async void EditTimeFirebase(int idTable)
+        {
+            var time = new Time
+            {
+                OrderTime = DateTimeOffset.Now.ToUnixTimeMilliseconds()
+        };
+            FirebaseResponse response = await client.UpdateTaskAsync("OrderBills/B" + idTable, time);
+        }
+
         //Event đổi OrderBills trên firebase (dành cho bếp)
         async void EditOrderBillsTableFirebase(string nameProduct, string size, int quantity, int price, List<Topping> toppings, int quantityTopping, int idTable)
         {
@@ -364,6 +374,7 @@ namespace LTGD_Project
                         EditStatusTableFirebase(table.IdTable, table.NameTable, "Có người");
                         DetailBillDAO.Instance.AddDetailBill(BillDAO.Instance.SelectIdBillLast(), idProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping);
                         EditOrderBillsTableFirebase(nameProduct, sizeProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping, table.IdTable);
+                        EditTimeFirebase(table.IdTable);
                     }
                     //Bill đã tồn tại
                     else
@@ -373,6 +384,7 @@ namespace LTGD_Project
                         {
                             DetailBillDAO.Instance.AddDetailBill(idBill, idProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping);
                             EditOrderBillsTableFirebase(nameProduct, sizeProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping, table.IdTable);
+                            EditTimeFirebase(table.IdTable);
                         }
                         //Sản phẩm đã tồn tại
                         else
@@ -387,6 +399,7 @@ namespace LTGD_Project
                                     int idDetailBill = DetailBillDAO.Instance.CheckIsToppingEqual(toppings, idProduct, int.Parse(priceProductTxt.Text), idBill);
                                     DetailBillDAO.Instance.UpdateQuantityDetailBill(quantity, idDetailBill, quantityTopping);
                                     EditOrderBillsTableFirebase(nameProduct, sizeProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping, table.IdTable);
+                                    EditTimeFirebase(table.IdTable);
                                     //Update Firebase
                                 }
                                 //Khác Topping
@@ -395,6 +408,7 @@ namespace LTGD_Project
                                     //Thêm sản phẩm mới
                                     DetailBillDAO.Instance.AddDetailBill(idBill, idProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping);
                                     EditOrderBillsTableFirebase(nameProduct, sizeProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping, table.IdTable);
+                                    EditTimeFirebase(table.IdTable);
                                 }
                             }
                             //Sản phẩm mới khác size 
@@ -403,6 +417,7 @@ namespace LTGD_Project
                                 //Thêm sản phẩm mới
                                 DetailBillDAO.Instance.AddDetailBill(idBill, idProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping);
                                 EditOrderBillsTableFirebase(nameProduct, sizeProduct, quantity, int.Parse(priceProductTxt.Text), toppings, quantityTopping, table.IdTable);
+                                EditTimeFirebase(table.IdTable);
                             }
                         }
                     }

@@ -181,6 +181,7 @@
     <Compile Include="DTO\ReportBill.cs" />
     <Compile Include="DTO\Table.cs" />
     <Compile Include="DTO\TableFirebase.cs" />
+    <Compile Include="DTO\Time.cs" />
     <Compile Include="DTO\Topping.cs" />
     <Compile Include="Form\formPrintBill.cs">
       <SubType>Form</SubType>
